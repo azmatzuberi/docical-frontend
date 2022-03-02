@@ -53,15 +53,10 @@
     </div>
     <footer class="card-footer">
       <p class="card-footer-item">
-        <span>
-          View on
-          <a href="https://twitter.com/codinghorror/status/506010907021828096"
-            >Twitter</a
-          >
-        </span>
+        <span> View </span>
       </p>
       <p class="card-footer-item">
-        <span> Share on <a href="#">Facebook</a> </span>
+        <span> Share</span>
       </p>
     </footer>
   </section>
@@ -69,9 +64,9 @@
 
 <script>
 export default {
-  name: 'DocuMent',
-  props: ['document'],
-}
+  name: "DocuMent",
+  props: ["document"],
+};
 </script>
 
 <style lang="scss">

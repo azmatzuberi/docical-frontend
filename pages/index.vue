@@ -6,7 +6,7 @@
         <div class="columns homepage">
           <div class="column is-half-desktop">
             <h1 class="primary-headline">
-              Easily prove authenticity of your documents through a certified
+              Easily prove authenticity of your documents through a verified
               history
             </h1>
             <p>
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
+import NavBar from "@/components/NavBar.vue";
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
     NavBar,
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .main {
@@ -63,7 +63,7 @@ export default {
   .middle-image {
     width: 100%;
     height: 500px;
-    background-image: url('/images/office-documents.jpg');
+    background-image: url("/images/office-documents.jpg");
   }
 }
 </style>

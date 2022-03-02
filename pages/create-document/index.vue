@@ -10,8 +10,8 @@
           <div class="column is-2-desktop">
             <SideBar />
           </div>
-          <div class="column">
-            <Upload />
+          <div class="column is-half">
+            <Steps />
           </div>
         </div>
       </div>
@@ -20,22 +20,22 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import SideBar from '@/components/start-screen/SideBar.vue'
-import Upload from '@/components/create-document/Upload.vue'
+import NavBar from "@/components/NavBar.vue";
+import SideBar from "@/components/start-screen/SideBar.vue";
+import Steps from "@/components/create-document/Steps.vue";
 export default {
-  name: 'CreateDocumentPage',
+  name: "CreateDocumentPage",
   components: {
     NavBar,
     SideBar,
-    Upload,
+    Steps,
   },
   data() {
     return {
       isMobile: null,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
