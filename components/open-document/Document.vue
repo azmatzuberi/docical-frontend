@@ -1,7 +1,12 @@
 <template>
   <section class="card">
     <header class="card-header">
-      <p class="card-header-title">{{ document.name }}</p>
+      <p v-if="document" class="card-header-title">
+        {{ document.name }}
+      </p>
+      <p v-if="version" class="card-header-title">
+        {{ version.name }}
+      </p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
           <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -11,27 +16,40 @@
     <div class="card-content">
       <table class="card-table">
         <tbody>
-          <tr>
+          <tr v-if="document">
             <td class="row-heading">Owner:</td>
-            <td class="document-field">{{ document.owner }}</td>
+            <td class="document-field">
+              {{ document.owner }}
+            </td>
           </tr>
-          <tr>
+          <tr v-if="document">
             <td class="row-heading">Category:</td>
-            <td class="document-field">{{ document.category }}</td>
+            <td class="document-field">
+              {{ document.category }}
+            </td>
           </tr>
-          <tr>
+          <tr v-if="document">
             <td class="row-heading">Size:</td>
             <td class="document-field">{{ document.size }}</td>
           </tr>
+          <tr v-if="version">
+            <td class="row-heading">Size:</td>
+            <td class="document-field">{{ version.size }}</td>
+          </tr>
           <tr>
             <td class="row-heading">Signees:</td>
-            <td class="document-field">
+            <td v-if="document" class="document-field">
               <span v-for="(signer, index) in document.signees" :key="index"
                 >{{ signer }},&nbsp;</span
               >
             </td>
+            <td v-if="version" class="document-field">
+              <span v-for="(signer, index) in version.signees" :key="index"
+                >{{ signer }},&nbsp;</span
+              >
+            </td>
           </tr>
-          <tr>
+          <tr v-if="document">
             <td class="row-heading">Tags:</td>
             <td class="document-field">
               <b-taglist>
@@ -44,16 +62,16 @@
               </b-taglist>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td class="row-heading">Versions:</td>
             <td class="document-field">{{ document.versions }}</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
     <footer class="card-footer">
-      <p class="card-footer-item">
-        <span> View </span>
+      <p v-if="document" class="card-footer-item">
+        <a :href="'/document/' + document._id"><span> View </span></a>
       </p>
       <p class="card-footer-item">
         <span> Share</span>
@@ -65,7 +83,7 @@
 <script>
 export default {
   name: "DocuMent",
-  props: ["document"],
+  props: ["document", "version"],
 };
 </script>
 
@@ -75,6 +93,7 @@ export default {
     height: 2.5rem;
   }
   .card-table {
+    width: 100%;
     tr {
       border-bottom: 0.5px solid grey;
       td {

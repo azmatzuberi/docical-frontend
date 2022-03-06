@@ -63,7 +63,8 @@
         label="Upload"
         icon="cloud-upload-outline"
         :clickable="true"
-        ><Upload />
+      >
+        <Upload />
       </b-step-item>
     </b-steps>
   </section>

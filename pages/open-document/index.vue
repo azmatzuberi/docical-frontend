@@ -10,6 +10,20 @@
           <div class="column is-2-desktop">
             <SideBar />
           </div>
+          <div class="column">
+            <b-field label="Turn on list view">
+              <b-switch
+                :rounded="false"
+                :outlined="true"
+                type="is-primary"
+                :left-label="true"
+                >List View</b-switch
+              >
+            </b-field>
+            <b-field label="Search">
+              <b-input placeholder="Search through docs" rounded></b-input>
+            </b-field>
+          </div>
           <div
             class="column is-one-quarter"
             v-for="(document, index) in documents"
@@ -24,11 +38,11 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import SideBar from '@/components/start-screen/SideBar.vue'
-import Document from '@/components/open-document/Document.vue'
+import NavBar from "@/components/NavBar.vue";
+import SideBar from "@/components/start-screen/SideBar.vue";
+import Document from "@/components/open-document/Document.vue";
 export default {
-  name: 'OpenSignedDocumentsPage',
+  name: "OpenSignedDocumentsPage",
   components: {
     NavBar,
     SideBar,
@@ -47,24 +61,24 @@ export default {
       selected: null,
       documents: [],
       isMobile: null,
-    }
+    };
   },
   mounted() {
-    this.getDocuments()
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
+    this.getDocuments();
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
   },
   methods: {
     async getDocuments() {
       this.documents = await this.$axios.$get(
-        `${process.env.BACKEND_URL}/api/documents`
-      )
+        `${this.$config.app.backend_URL}/api/documents`
+      );
     },
     onResize() {
-      this.isMobile = window.innerWidth < 769
+      this.isMobile = window.innerWidth < 769;
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .open-docs-main {

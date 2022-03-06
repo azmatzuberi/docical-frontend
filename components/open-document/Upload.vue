@@ -1,6 +1,6 @@
 <template>
   <section class="upload-component">
-    <b-field label="Upload your document">
+    <b-field>
       <b-upload v-model="dropFiles" drag-drop expanded @input="uploadFiles">
         <section class="section">
           <div class="content has-text-centered">
@@ -32,7 +32,8 @@
 
 <script>
 export default {
-  name: "UpLoad",
+  name: "VersionUpLoad",
+  props: ["document"],
   data() {
     return {
       dropFiles: [],
@@ -44,7 +45,9 @@ export default {
     },
     uploadFiles() {
       const formData = new FormData();
+      const documentInfo = this.document;
       formData.append("documents", this.dropFiles);
+      formData.append("documentInfo", documentInfo);
 
       this.$axios.$post(
         `${this.$config.app.backend_URL}/api/documents/createDocument`,
