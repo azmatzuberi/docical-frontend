@@ -11,8 +11,9 @@
             </h1>
             <p>
               Eliminate document forgery and verify document authenticity with
-              smart document certification for any type of document or email.
-              Elminate signature forgery with timestamps and document records.
+              smart document stamping to prove time, date and location of the
+              uploaded document. Share document details with your organization
+              or verify with third-party/guest entities.
             </p>
             <b-button class="start-now-button" type="is-primary"
               >Start now</b-button

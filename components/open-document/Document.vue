@@ -5,7 +5,7 @@
         {{ document.name }}
       </p>
       <p v-if="version" class="card-header-title">
-        {{ version.name }}
+        {{ index }}
       </p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
@@ -62,16 +62,19 @@
               </b-taglist>
             </td>
           </tr>
-          <!-- <tr>
+          <tr v-if="document">
             <td class="row-heading">Versions:</td>
             <td class="document-field">{{ document.versions }}</td>
-          </tr> -->
+          </tr>
         </tbody>
       </table>
     </div>
     <footer class="card-footer">
       <p v-if="document" class="card-footer-item">
         <a :href="'/document/' + document._id"><span> View </span></a>
+      </p>
+      <p v-if="version" class="card-footer-item">
+        <a :href="'/version/' + version._id"><span> View </span></a>
       </p>
       <p class="card-footer-item">
         <span> Share</span>
@@ -83,7 +86,7 @@
 <script>
 export default {
   name: "DocuMent",
-  props: ["document", "version"],
+  props: ["document", "version", "index"],
 };
 </script>
 

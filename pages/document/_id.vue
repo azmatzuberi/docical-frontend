@@ -29,8 +29,8 @@
                 >{{ tag }}</b-tag
               >
             </div>
-            <div v-if="versions.data" class="document-versions">
-              Versions: {{ versions.data.length }}
+            <div v-if="versions" class="document-versions">
+              Versions: {{ versions.length }}
             </div>
           </div>
           <div class="upload-column column is-one-third">
@@ -40,10 +40,10 @@
           </div>
           <div
             class="version-column column is-one-quarter"
-            v-for="(version, index) in versions.data"
+            v-for="(version, index) in versions"
             :key="index"
           >
-            <Document :version="version" />
+            <Document :version="version" :index="index + 1" />
           </div>
           <!-- <FilesTable :documents="documents" /> -->
         </div>
@@ -96,8 +96,8 @@ export default {
       );
     },
     async getVersions() {
-      this.versions = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/documents/versions/${this.$nuxt.$route.params.id}`
+      this.versions = await this.$axios.$get(
+        `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`
       );
     },
     onResize() {
@@ -123,6 +123,13 @@ export default {
     }
     .tag {
       margin: 0 5px;
+    }
+  }
+  .document-column {
+    margin: 10px;
+
+    div {
+      margin: 10px 0;
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
-  <section>
+  <section class="details-section">
+    <b-field class="details-header" label="Upload new document"></b-field>
     <b-field label="Document Name">
       <b-input v-model="name"></b-input>
     </b-field>
@@ -40,8 +41,19 @@ export default {
       description: "",
     };
   },
+  methods: {
+    addDoc() {},
+  },
 };
 </script>
 
-<style>
+<style lang="scss"	>
+.details-section {
+  .details-header {
+    label {
+      color: #7a7a7a;
+      margin-top: 13px;
+    }
+  }
+}
 </style>

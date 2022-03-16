@@ -3,16 +3,12 @@
     <NavBar />
     <section class="main">
       <div class="container">
-        <div class="columns start-screen">
+        <div class="columns start-screen is-gapless">
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
-          <div class="column">
-            <ButtonCard
-              title="Create Document"
-              icon="folder-plus-outline"
-              link="/create-document"
-            />
+          <div>
+            <Steps />
           </div>
           <div class="column">
             <ButtonCard
@@ -28,17 +24,19 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import SideBar from '@/components/start-screen/SideBar.vue'
-import ButtonCard from '@/components/start-screen/ButtonCard.vue'
+import NavBar from "@/components/NavBar.vue";
+import SideBar from "@/components/start-screen/SideBar.vue";
+import ButtonCard from "@/components/start-screen/ButtonCard.vue";
+import Steps from "@/components/create-document/Steps.vue";
 export default {
-  name: 'StartPage',
+  name: "StartPage",
   components: {
     NavBar,
     SideBar,
     ButtonCard,
+    Steps,
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .main {
@@ -66,7 +64,7 @@ export default {
   .middle-image {
     width: 100%;
     height: 500px;
-    background-image: url('/images/office-documents.jpg');
+    background-image: url("/images/office-documents.jpg");
   }
 }
 </style>
