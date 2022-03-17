@@ -43,9 +43,11 @@
             v-for="(version, index) in versions"
             :key="index"
           >
-            <Document :version="version" :index="index + 1" />
+            <Document
+              :version="version"
+              :index="(index - versions.length) * -1"
+            />
           </div>
-          <!-- <FilesTable :documents="documents" /> -->
         </div>
       </div>
     </section>
@@ -99,6 +101,8 @@ export default {
       this.versions = await this.$axios.$get(
         `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`
       );
+
+      this.versions.reverse();
     },
     onResize() {
       this.isMobile = window.innerWidth < 769;

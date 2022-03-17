@@ -74,7 +74,7 @@
         <a :href="'/document/' + document._id"><span> View </span></a>
       </p>
       <p v-if="version" class="card-footer-item">
-        <a :href="'/version/' + version._id"><span> View </span></a>
+        <a :href="version.securedFileUrl"><span> View </span></a>
       </p>
       <p class="card-footer-item">
         <span> Share</span>
