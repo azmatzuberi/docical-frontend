@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "VersionUpLoad",
   props: ["document"],
@@ -39,18 +40,26 @@ export default {
       dropFiles: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      doc: "doc/get",
+    }),
+  },
   methods: {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
     uploadFiles() {
       const formData = new FormData();
-      const documentInfo = this.document;
+      const documentInfo = {
+        source_doc: this.document.id,
+        name: this.document.name,
+      };
       formData.append("documents", this.dropFiles);
       formData.append("documentInfo", documentInfo);
 
       this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/documents/createDocument`,
+        `${this.$config.app.backend_URL}/api/doc_versions/createVersion`,
         formData,
         {
           headers: {

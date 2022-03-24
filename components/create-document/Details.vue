@@ -2,14 +2,15 @@
   <section class="details-section">
     <b-field class="details-header" label="Upload new document"></b-field>
     <b-field label="Document Name">
-      <b-input v-model="name"></b-input>
+      <b-input v-model="name" @input="addDocStuff({ name })"></b-input>
     </b-field>
     <b-field label="Category">
-      <b-input v-model="category"></b-input>
+      <b-input v-model="category" @input="addDocStuff({ category })"></b-input>
     </b-field>
     <b-field label="Add Tags">
       <b-taginput
         v-model="tags"
+        @input="addDocStuff({ tags })"
         ellipsis
         icon="label"
         placeholder="Add a tag"
@@ -20,6 +21,7 @@
     <b-field label="Description">
       <b-input
         v-model="description"
+        @input="addDocStuff({ description })"
         type="textarea"
         id="description"
         cols="30"
@@ -42,7 +44,17 @@ export default {
     };
   },
   methods: {
-    addDoc() {},
+    addDocStuff(data) {
+      if (data) {
+        const doc = {
+          name: this.name,
+          description: this.description,
+          category: this.category,
+          tags: this.tags,
+        };
+        this.$store.commit("doc/add", doc);
+      }
+    },
   },
 };
 </script>

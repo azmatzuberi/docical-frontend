@@ -1,7 +1,7 @@
 <template>
   <section class="upload-component">
     <b-field label="Upload your document">
-      <b-upload v-model="dropFiles" drag-drop expanded @input="uploadFiles">
+      <b-upload v-model="dropFiles" drag-drop expanded @input="createDoc">
         <section class="section">
           <div class="content has-text-centered">
             <p>
@@ -31,12 +31,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "UpLoad",
   data() {
     return {
       dropFiles: [],
     };
+  },
+  computed: {
+    ...mapGetters({
+      doc: "doc/get",
+    }),
   },
   methods: {
     deleteDropFile(index) {
@@ -45,6 +51,29 @@ export default {
     uploadFiles() {
       const formData = new FormData();
       formData.append("documents", this.dropFiles);
+
+      this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/documents/createDocument`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    },
+    createDoc() {
+      const formData = new FormData();
+      formData.append("documents", this.dropFiles);
+      formData.append("name", this.doc.name);
+      formData.append("category", this.doc.category);
+      for (let i = 0; i < this.doc.tags.length; i++) {
+        formData.append("tags[]", this.doc.tags[i]);
+      }
+      formData.append("description", this.doc.description);
+      for (let i = 0; i < this.doc.collaborators.length; i++) {
+        formData.append("collaborators[]", this.doc.collaborators[i]);
+      }
 
       this.$axios.$post(
         `${this.$config.app.backend_URL}/api/documents/createDocument`,

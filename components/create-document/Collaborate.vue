@@ -2,7 +2,8 @@
   <section>
     <b-field label="Emails of Collaborators">
       <b-taginput
-        v-model="emails"
+        v-model="collaborators"
+        @input="addDocStuff({ collaborators })"
         ellipsis
         icon="label"
         placeholder="Add email"
@@ -19,8 +20,18 @@ export default {
   name: "Details",
   data() {
     return {
-      emails: [],
+      collaborators: [],
     };
+  },
+  methods: {
+    addDocStuff(data) {
+      if (data) {
+        const doc = {
+          collaborators: this.collaborators,
+        };
+        this.$store.commit("doc/add", doc);
+      }
+    },
   },
 };
 </script>

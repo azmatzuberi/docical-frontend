@@ -13,7 +13,7 @@
         <div class="p-1">
           <b-menu class="is-custom-mobile">
             <b-menu-list label="">
-              <b-menu-item expanded icon="network" label="Pages">
+              <b-menu-item expanded icon="network" label="Menu">
                 <b-menu-item
                   icon="folder-plus-outline"
                   label="Create"
@@ -21,21 +21,10 @@
                   to="/create-document"
                 ></b-menu-item>
                 <b-menu-item
-                  icon="folder-open     -outline"
+                  icon="folder-open-outline"
                   label="Open"
                   tag="router-link"
                   to="/open-document"
-                ></b-menu-item>
-                <b-menu-item icon="draw" label="Signed"></b-menu-item>
-              </b-menu-item>
-              <b-menu-item icon="account" label="My Account">
-                <b-menu-item
-                  icon="account-box"
-                  label="Account data"
-                ></b-menu-item>
-                <b-menu-item
-                  icon="home-account"
-                  label="Addresses"
                 ></b-menu-item>
               </b-menu-item>
             </b-menu-list>
