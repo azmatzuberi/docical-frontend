@@ -60,6 +60,7 @@ import NavBar from "@/components/NavBar.vue";
 import SideBar from "@/components/start-screen/SideBar.vue";
 import Document from "@/components/open-document/Document.vue";
 export default {
+  middleware: "auth",
   name: "OpenSignedDocumentsPage",
   components: {
     NavBar,

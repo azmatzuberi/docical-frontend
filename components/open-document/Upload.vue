@@ -51,22 +51,27 @@ export default {
     },
     uploadFiles() {
       const formData = new FormData();
-      const documentInfo = {
-        source_doc: this.document.id,
-        name: this.document.name,
-      };
       formData.append("documents", this.dropFiles);
-      formData.append("documentInfo", documentInfo);
+      formData.append("name", this.document.data.name);
+      formData.append("source_doc", this.document.data._id);
+      formData.append("user_id", this.$auth.user._id);
 
-      this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/createVersion`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/createVersion`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 200) {
+            this.$emit("reload", true);
+          }
+        });
     },
   },
 };

@@ -22,7 +22,7 @@
     ></b-input>
     <hr />
     <div class="button-container">
-      <b-button type="is-primary">Sign Up</b-button>
+      <b-button type="is-primary" @click="signUp">Sign Up</b-button>
     </div>
   </section>
 </template>
@@ -37,6 +37,25 @@ export default {
       email: "",
       password: "",
     };
+  },
+  methods: {
+    signUp() {
+      const vm = this;
+      this.userInfo = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        company_name: this.company_name,
+        password: this.password,
+      };
+      this.$auth
+        .loginWith("local", {
+          data: this.userInfo,
+        })
+        .then(() => {
+          this.$nuxt.$router.push("/start-screen");
+        });
+    },
   },
 };
 </script>

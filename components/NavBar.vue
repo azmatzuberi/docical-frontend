@@ -18,9 +18,20 @@
       <template #end>
         <b-navbar-item tag="div">
           <div class="buttons">
-            <a href="/login" class="button is-light"> Log in </a>
-            <a href="/start-screen" class="button is-primary">
+            <a v-if="$auth.loggedIn" @click="logout" class="button is-light">
+              Log out
+            </a>
+            <a v-if="!$auth.loggedIn" href="/login" class="button is-light">
+              Log in
+            </a>
+            <a v-if="!$auth.loggedIn" href="/signup" class="button is-primary">
               <strong>Start now</strong>
+            </a>
+            <a
+              v-if="$auth.loggedIn && homepage"
+              href="/start-screen"
+              class="button is-primary"
+              ><strong>Start now</strong>
             </a>
           </div>
         </b-navbar-item>
@@ -32,6 +43,13 @@
 <script>
 export default {
   name: "NavBar",
+  props: ["homepage"],
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+      this.$nuxt.router.push("/");
+    },
+  },
 };
 </script>
 

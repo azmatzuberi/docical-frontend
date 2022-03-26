@@ -29,6 +29,7 @@ import SideBar from "@/components/start-screen/SideBar.vue";
 import ButtonCard from "@/components/start-screen/ButtonCard.vue";
 import Steps from "@/components/create-document/Steps.vue";
 export default {
+  middleware: "auth",
   name: "StartPage",
   components: {
     NavBar,

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <NavBar />
+    <NavBar :homepage="true" />
     <section class="main">
       <div class="container">
         <div class="columns homepage">

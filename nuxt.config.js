@@ -72,22 +72,23 @@ export default {
 					property: 'access_token',
 					maxAge: 1800,
 					global: true,
-					// type: 'Bearer'
+					type: '',
+					max: 60 * 2
 				},
 				refreshToken: {
 					property: 'refresh_token',
 					data: 'refresh_token',
-					maxAge: 60 * 60 * 24 * 30
+					maxAge: 60 * 60 * 24 * 7
 				},
 				user: {
 					property: 'user',
 				 // autoFetch: true
 				},
 				endpoints: {
-					login: { url: '/api/users', method: 'post' },
-					refresh: { url: '/api/users/refresh', method: 'post' },
-					user: { url: '/api/users/user', method: 'get' },
-					logout: { url: '/api/users/logout', method: 'post' }
+					login: { url: `${process.env.BACKEND_URL}/api/users`, method: 'post' },
+					refresh: { url: `${process.env.BACKEND_URL}/api/users/refresh`, method: 'post' },
+					user: { url: `${process.env.BACKEND_URL}/api/users/user`, method: 'get' },
+					logout: { url: `${process.env.BACKEND_URL}/api/users/logout`, method: 'delete' }
 				},
 				// autoLogout: false
 			}

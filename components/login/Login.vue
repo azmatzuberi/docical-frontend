@@ -9,7 +9,7 @@
     ></b-input>
     <hr />
     <div class="button-container">
-      <b-button type="is-primary">Login</b-button>
+      <b-button type="is-primary" @click="login">Login</b-button>
     </div>
   </section>
 </template>
@@ -18,12 +18,25 @@
 export default {
   data() {
     return {
-      first_name: "",
-      last_name: "",
-      company_name: "",
       email: "",
       password: "",
     };
+  },
+  methods: {
+    login() {
+      const userInfo = {
+        email: this.email,
+        password: this.password,
+      };
+      this.$auth
+        .loginWith("local", {
+          data: userInfo,
+        })
+        .then((result) => {
+          this.$auth.setUser(result.data.user);
+          this.$nuxt.$router.push("/start-screen");
+        });
+    },
   },
 };
 </script>

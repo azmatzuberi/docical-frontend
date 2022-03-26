@@ -35,7 +35,7 @@
           </div>
           <div class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
-              <Upload :document="document" />
+              <Upload :document="document" @reload="getVersions" />
             </b-field>
           </div>
           <div
@@ -61,6 +61,7 @@ import Document from "@/components/open-document/Document.vue";
 import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
 export default {
+  middleware: "auth",
   name: "DocumentProfile",
   components: {
     NavBar,
