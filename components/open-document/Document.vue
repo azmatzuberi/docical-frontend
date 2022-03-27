@@ -4,14 +4,12 @@
       <p v-if="document" class="card-header-title">
         {{ document.name }}
       </p>
-      <p v-if="version" class="card-header-title">
-        {{ index }}
-      </p>
-      <button class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </button>
+      <div v-if="version" class="card-header-title">
+        <div>{{ index }}:</div>
+        <div id="date">
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+      </div>
     </header>
     <div class="card-content">
       <table class="card-table">
@@ -74,7 +72,9 @@
         <a :href="'/document/' + document._id"><span> Versions </span></a>
       </p>
       <p v-if="document" class="card-footer-item">
-        <a :href="document.originalFileUrl"><span> Original </span></a>
+        <a target="blank" :href="encodeURI(document.originalFileUrl)"
+          ><span> Original </span></a
+        >
       </p>
       <p v-if="version" class="card-footer-item">
         <a target="blank" :href="version.securedFileUrl"><span> View </span></a>
@@ -97,6 +97,10 @@ export default {
 .card {
   .card-header {
     height: 2.5rem;
+
+    .card-header-title {
+      justify-content: space-between;
+    }
   }
   .card-table {
     width: 100%;
