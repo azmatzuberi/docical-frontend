@@ -71,7 +71,10 @@
     </div>
     <footer class="card-footer">
       <p v-if="document" class="card-footer-item">
-        <a :href="'/document/' + document._id"><span> View </span></a>
+        <a :href="'/document/' + document._id"><span> Versions </span></a>
+      </p>
+      <p v-if="document" class="card-footer-item">
+        <a :href="document.originalFileUrl"><span> Original </span></a>
       </p>
       <p v-if="version" class="card-footer-item">
         <a target="blank" :href="version.securedFileUrl"><span> View </span></a>

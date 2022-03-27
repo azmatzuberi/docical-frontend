@@ -7,7 +7,7 @@
           <div class="column is-2-desktop">
             <SideBar />
           </div>
-          <div class="column filters-and-switches">
+          <div class="column is-3-desktop filters-and-switches">
             <b-field label="Turn on list view">
               <b-switch
                 :rounded="false"
@@ -29,6 +29,7 @@
             <Document :document="document" />
           </div>
           <b-pagination
+            v-if="documents.length > 10"
             :total="documents.length"
             v-model="current"
             :range-before="rangeBefore"

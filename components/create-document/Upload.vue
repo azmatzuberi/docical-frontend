@@ -67,6 +67,7 @@ export default {
       formData.append("documents", this.dropFiles);
       formData.append("name", this.doc.name);
       formData.append("category", this.doc.category);
+      formData.append("user_id", this.$auth.user._id);
       for (let i = 0; i < this.doc.tags.length; i++) {
         formData.append("tags[]", this.doc.tags[i]);
       }
