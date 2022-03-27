@@ -32,6 +32,12 @@
             <div v-if="versions" class="document-versions">
               Versions: {{ versions.length }}
             </div>
+            <div class="document-original">
+              Original:
+              <a target="blank" :href="encodeURI(document.data.originalFileUrl)"
+                >File</a
+              >
+            </div>
           </div>
           <div class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
@@ -99,8 +105,11 @@ export default {
       );
     },
     async getVersions() {
-      this.versions = await this.$axios.$get(
-        `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`
+      this.versions = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`,
+        {
+          user_id: this.$auth.user._id,
+        }
       );
 
       this.versions.reverse();

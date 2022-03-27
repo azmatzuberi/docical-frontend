@@ -49,6 +49,19 @@ export default {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
+    success() {
+      this.$buefy.toast.open({
+        message: "Document uploaded!",
+        type: "is-success",
+      });
+    },
+    danger() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: "Could not upload document",
+        type: "is-danger",
+      });
+    },
     uploadFiles() {
       const formData = new FormData();
       formData.append("documents", this.dropFiles);
@@ -71,6 +84,10 @@ export default {
           if (response.status === 200) {
             this.$emit("reload", true);
           }
+          this.success();
+        })
+        .catch(() => {
+          this.danger();
         });
     },
   },

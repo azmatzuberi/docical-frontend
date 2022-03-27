@@ -48,6 +48,19 @@ export default {
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     },
+    success() {
+      this.$buefy.toast.open({
+        message: "Document uploaded!",
+        type: "is-success",
+      });
+    },
+    danger() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: "Could not upload document",
+        type: "is-danger",
+      });
+    },
     uploadFiles() {
       const formData = new FormData();
       formData.append("documents", this.dropFiles);
@@ -76,15 +89,22 @@ export default {
         formData.append("collaborators[]", this.doc.collaborators[i]);
       }
 
-      this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/documents/createDocument`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/documents/createDocument`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(() => {
+          this.success();
+        })
+        .catch(() => {
+          this.danger();
+        });
     },
   },
 };

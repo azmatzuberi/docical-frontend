@@ -20,6 +20,7 @@
             <b-field label="Search">
               <b-input placeholder="Search through docs" rounded></b-input>
             </b-field>
+            <div>Total documents: {{ this.documents.length }}</div>
           </div>
           <div
             class="column is-one-quarter"
@@ -116,7 +117,7 @@ export default {
   methods: {
     async getDocuments() {
       this.documents = await this.$axios.$get(
-        `${this.$config.app.backend_URL}/api/documents`
+        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
       );
       this.documents.reverse();
     },

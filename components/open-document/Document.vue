@@ -17,7 +17,13 @@
           <tr v-if="document">
             <td class="row-heading">Owner:</td>
             <td class="document-field">
-              {{ document.owner }}
+              <span v-if="$auth.user._id === document.user_id">You</span>
+            </td>
+          </tr>
+          <tr v-else>
+            <td class="row-heading">Owner:</td>
+            <td class="document-field">
+              <span v-if="$auth.user._id === version.user_id">You</span>
             </td>
           </tr>
           <tr v-if="document">
@@ -60,6 +66,19 @@
               </b-taglist>
             </td>
           </tr>
+          <tr v-else>
+            <td class="row-heading">Tags:</td>
+            <td class="document-field">
+              <b-taglist>
+                <b-tag
+                  v-for="(tag, index) in version.tags"
+                  :key="index"
+                  type="is-info"
+                  >{{ tag }}</b-tag
+                >
+              </b-taglist>
+            </td>
+          </tr>
           <tr v-if="document">
             <td class="row-heading">Versions:</td>
             <td class="document-field">{{ document.versions }}</td>
@@ -72,8 +91,8 @@
         <a :href="'/document/' + document._id"><span> Versions </span></a>
       </p>
       <p v-if="document" class="card-footer-item">
-        <a target="blank" :href="encodeURI(document.originalFileUrl)"
-          ><span> Original </span></a
+        <a target="blank" :href="document.securedFileUrl"
+          ><span> View </span></a
         >
       </p>
       <p v-if="version" class="card-footer-item">
@@ -122,6 +141,7 @@ export default {
 
     .tags {
       flex-direction: row-reverse;
+      margin-bottom: 1px;
       .tag {
         margin: 3px;
       }
