@@ -106,7 +106,7 @@ export default {
     },
     async getVersions() {
       this.versions = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`,
+        `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.$nuxt.$route.params.id}`,
         {
           user_id: this.$auth.user._id,
         }

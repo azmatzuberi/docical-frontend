@@ -91,7 +91,7 @@
         <a :href="'/document/' + document._id"><span> Versions </span></a>
       </p>
       <p v-if="document" class="card-footer-item">
-        <a target="blank" :href="document.securedFileUrl"
+        <a href="#" @click="downloadDocument(document._id)"
           ><span> View </span></a
         >
       </p>
@@ -109,6 +109,16 @@
 export default {
   name: "DocuMent",
   props: ["document", "version", "index"],
+  methods: {
+    downloadDocument(id) {
+      this.$axios.post(
+        `${this.$config.app.backend_URL}/api/documents/remoteFile/${id}`,
+        {
+          user_id: this.$auth.user._id,
+        }
+      );
+    },
+  },
 };
 </script>
 

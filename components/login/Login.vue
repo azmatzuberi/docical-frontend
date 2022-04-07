@@ -11,6 +11,11 @@
     <div class="button-container">
       <b-button type="is-primary" @click="login">Login</b-button>
     </div>
+    <div class="button-container">
+      <a href="/signup"
+        ><b-button type="is-primary" @click="login">Sign Up</b-button></a
+      >
+    </div>
   </section>
 </template>
 

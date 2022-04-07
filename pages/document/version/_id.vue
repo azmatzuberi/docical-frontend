@@ -76,7 +76,7 @@ export default {
   methods: {
     async getDocument() {
       this.document = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/${this.$nuxt.$route.params.id}`
+        `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`
       );
     },
     onResize() {

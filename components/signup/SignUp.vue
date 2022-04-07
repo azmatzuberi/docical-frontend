@@ -24,6 +24,9 @@
     <div class="button-container">
       <b-button type="is-primary" @click="signUp">Sign Up</b-button>
     </div>
+    <div class="button-container">
+      <a href="/login"><b-button type="is-primary">Login</b-button></a>
+    </div>
   </section>
 </template>
 
