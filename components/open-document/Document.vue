@@ -96,7 +96,9 @@
         >
       </p>
       <p v-if="version" class="card-footer-item">
-        <a target="blank" :href="version.securedFileUrl"><span> View </span></a>
+        <a href="#" @click="downloadVersion(version._id)"
+          ><span> View </span></a
+        >
       </p>
       <p class="card-footer-item">
         <span> Share</span>
@@ -109,14 +111,49 @@
 export default {
   name: "DocuMent",
   props: ["document", "version", "index"],
+  data() {
+    return {
+      src: "",
+    };
+  },
   methods: {
     downloadDocument(id) {
-      this.$axios.post(
-        `${this.$config.app.backend_URL}/api/documents/remoteFile/${id}`,
-        {
-          user_id: this.$auth.user._id,
-        }
-      );
+      const request_config = {
+        responseType: "arraybuffer",
+        responseEncoding: "binary",
+      };
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/documents/remoteFile/${id}`,
+          {
+            user_id: this.$auth.user._id,
+          },
+          request_config
+        )
+        .then((response) => {
+          const file = new Blob([response], { type: "application/pdf" });
+          this.src = URL.createObjectURL(file);
+          window.open(this.src);
+        });
+    },
+    downloadVersion(id) {
+      const request_config = {
+        responseType: "arraybuffer",
+        responseEncoding: "binary",
+      };
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
+          {
+            user_id: this.$auth.user._id,
+          },
+          request_config
+        )
+        .then((response) => {
+          const file = new Blob([response], { type: "application/pdf" });
+          this.src = URL.createObjectURL(file);
+          window.open(this.src);
+        });
     },
   },
 };
