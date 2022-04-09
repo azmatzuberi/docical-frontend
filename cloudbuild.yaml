@@ -1,12 +1,12 @@
 steps:
  # build the container
- - name: 'gcr.io/docical/docker'
+ - name: 'gcr.io/docical/frontend=docker'
    args: ['build', '--network=cloudbuild','-t', 'gcr.io/docicalFrontend/docicalFrontend', '.']
  # push the container image to Container Registry
- - name: 'gcr.io/cloud-builders/docker'
+ - name: 'gcr.io/docical/frontend-docker'
    args: ['push', 'gcr.io/docicalFrontend/docicalFrontend']
  # Deploy container image to Cloud Run
- - name: 'gcr.io/cloud-builders/gcloud'
+ - name: 'gcr.io/docical/frontend-docker'
    args: ['run', 'deploy', 'docicalFrontend', '--image', 'gcr.io/docicalFrontend/docicalFrontend', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
 images:
 - 'gcr.io/docicalFrontend/docicalFrontend'
