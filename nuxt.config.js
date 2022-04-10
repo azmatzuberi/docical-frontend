@@ -3,7 +3,7 @@ const env = require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 export default {
 	publicRuntimeConfig: {
 		app: {
-			backend_URL: process.env.BACKEND_URL
+			backend_URL: process.env.NODE_ENV === 'development' ? process.env.BACKEND_URL : 'https://staging-backend.docical.com'
 		}
 	},
 	app: {
