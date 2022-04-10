@@ -5,7 +5,7 @@ console.log("ENV", process.env.NODE_ENV)
 export default {
 	publicRuntimeConfig: {
 		app: {
-			backend_URL: process.env.NODE_ENV
+			backend_URL: process.env.BACKEND_URL
 		}
 	},
 	app: {
