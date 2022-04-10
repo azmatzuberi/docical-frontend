@@ -1,5 +1,7 @@
 const env = require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
+console.log("ENV", process.env.NODE_ENV)
+
 export default {
 	publicRuntimeConfig: {
 		app: {
