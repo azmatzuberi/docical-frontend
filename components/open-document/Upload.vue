@@ -68,10 +68,15 @@ export default {
       formData.append("name", this.document.data.name);
       formData.append("source_doc", this.document.data._id);
       formData.append("user_id", this.$auth.user._id);
+      formData.append("docType", "Version");
+      formData.append("description", this.doc.description);
+      for (let i = 0; i < this.doc.collaborators.length; i++) {
+        formData.append("collaborators[]", this.doc.collaborators[i]);
+      }
 
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/createVersion`,
+          `${this.$config.app.backend_URL}/api/documents/createDocument`,
           formData,
           {
             headers: {
@@ -89,6 +94,7 @@ export default {
         .catch(() => {
           this.danger();
         });
+      this.dropFiles = null;
     },
   },
 };

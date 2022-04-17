@@ -81,6 +81,7 @@ export default {
       formData.append("name", this.doc.name);
       formData.append("category", this.doc.category);
       formData.append("user_id", this.$auth.user._id);
+      formData.append("docType", "Document");
       for (let i = 0; i < this.doc.tags.length; i++) {
         formData.append("tags[]", this.doc.tags[i]);
       }
@@ -105,6 +106,7 @@ export default {
         .catch(() => {
           this.danger();
         });
+      this.dropFiles = null;
     },
   },
 };
