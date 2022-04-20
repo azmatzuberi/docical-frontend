@@ -4,7 +4,7 @@
     <section class="open-docs-main">
       <div class="container">
         <div class="columns is-multiline">
-          <div class="column is-2-desktop">
+          <div class="column is-3-desktop">
             <SideBar />
           </div>
           <div class="column is-9-desktop is-8-tablet filters-and-switches">
@@ -34,30 +34,31 @@
             <Document :document="document" />
           </div>
         </div>
-        <section class="columns">
-          <b-pagination
-            class="column"
-            v-if="documents.length > 10"
-            :total="documents.length"
-            v-model="current"
-            :range-before="rangeBefore"
-            :range-after="rangeAfter"
-            :order="order"
-            :size="size"
-            :simple="isSimple"
-            :rounded="isRounded"
-            :per-page="perPage"
-            :icon-prev="prevIcon"
-            :icon-next="nextIcon"
-            aria-next-label="Next page"
-            aria-previous-label="Previous page"
-            aria-page-label="Page"
-            aria-current-label="Current page"
-            :page-input="hasInput"
-            :page-input-position="inputPosition"
-            :debounce-page-input="inputDebounce"
-          >
-          </b-pagination>
+        <section class="pagination-list columns">
+          <div class="column">
+            <b-pagination
+              v-if="documents.length > 10"
+              :total="documents.length"
+              v-model="current"
+              :range-before="rangeBefore"
+              :range-after="rangeAfter"
+              :order="order"
+              :size="size"
+              :simple="isSimple"
+              :rounded="isRounded"
+              :per-page="perPage"
+              :icon-prev="prevIcon"
+              :icon-next="nextIcon"
+              aria-next-label="Next page"
+              aria-previous-label="Previous page"
+              aria-page-label="Page"
+              aria-current-label="Current page"
+              :page-input="hasInput"
+              :page-input-position="inputPosition"
+              :debounce-page-input="inputDebounce"
+            >
+            </b-pagination>
+          </div>
         </section>
       </div>
     </section>

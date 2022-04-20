@@ -3,7 +3,7 @@
     <NavBar />
     <section class="main">
       <div class="container">
-        <div class="columns start-screen is-gapless">
+        <div class="columns columns start-screen is-multiline">
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
@@ -44,6 +44,14 @@ export default {
   .columns.homepage {
     margin-top: 4rem;
   }
+
+  .columns {
+    padding-right: 0;
+    margin-right: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
   .primary-headline {
     font-size: 4rem;
     font-weight: 400;

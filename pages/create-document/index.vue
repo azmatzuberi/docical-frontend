@@ -3,14 +3,11 @@
     <NavBar page="start-screen" />
     <section class="open-docs-main">
       <div class="container">
-        <div
-          class="columns is-multiline is-4 is-variable"
-          :class="{ 'is-gapless': isMobile }"
-        >
-          <div class="column is-2-desktop">
+        <div class="columns column">
+          <div class="column is-3-desktop is-4-tablet">
             <SideBar />
           </div>
-          <div class="column is-half">
+          <div class="column is-half-desktop">
             <Steps />
           </div>
         </div>
@@ -29,11 +26,6 @@ export default {
     NavBar,
     SideBar,
     Steps,
-  },
-  data() {
-    return {
-      isMobile: null,
-    };
   },
 };
 </script>

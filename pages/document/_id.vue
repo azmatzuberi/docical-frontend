@@ -3,10 +3,7 @@
     <NavBar page="profile-page" />
     <section class="profile-main">
       <div class="container">
-        <div
-          class="columns profile-page is-multiline"
-          :class="{ 'is-gapless': isMobile }"
-        >
+        <div class="columns profile-page column">
           <div class="column is-2-desktop">
             <SideBar />
           </div>
@@ -44,8 +41,10 @@
               <Upload :document="document" @reload="getVersions" />
             </b-field>
           </div>
+        </div>
+        <section class="versions-section columns is-multiline">
           <div
-            class="version-column column is-one-quarter"
+            class="version-column column is-one-quarter-desktop is-half-tablet"
             v-for="(version, index) in versions"
             :key="index"
           >
@@ -54,7 +53,7 @@
               :index="(index - versions.length) * -1"
             />
           </div>
-        </div>
+        </section>
       </div>
     </section>
   </section>
@@ -89,11 +88,9 @@ export default {
       selected: null,
       document: {},
       versions: [],
-      isMobile: null,
     };
   },
   mounted() {
-    this.onResize();
     this.getDocument();
     this.getVersions();
     window.addEventListener("resize", this.onResize, { passive: true });
@@ -114,17 +111,19 @@ export default {
 
       this.versions.reverse();
     },
-    onResize() {
-      this.isMobile = window.innerWidth < 769;
-    },
   },
 };
 </script>
 <style lang="scss" scoped>
 .profile-main {
+  .columns {
+    padding-right: 0;
+    margin-right: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
   .profile-page {
     margin-top: 13px;
-
     .version-column {
       margin-top: 10px;
     }
