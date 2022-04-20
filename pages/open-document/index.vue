@@ -3,11 +3,11 @@
     <NavBar page="start-screen" />
     <section class="open-docs-main">
       <div class="container">
-        <div class="columns is-multiline is-variable">
+        <div class="columns is-multiline">
           <div class="column is-2-desktop">
             <SideBar />
           </div>
-          <div class="column is-9 filters-and-switches">
+          <div class="column is-9-desktop is-8-tablet filters-and-switches">
             <b-field label="Turn on list view">
               <b-switch
                 :rounded="false"
@@ -17,13 +17,13 @@
                 >List View</b-switch
               >
             </b-field>
-            <b-field label="Search">
+            <b-field label="Search" class="search">
               <b-input placeholder="Search through docs" rounded></b-input>
             </b-field>
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
           <div
-            class="column is-4-desktop"
+            class="column is-4-desktop is-half-tablet is-one-third-mobile"
             v-for="(document, index) in paginatedItems"
             :key="index"
           >
@@ -130,15 +130,19 @@ export default {
   .columns.is-multiline {
     margin-top: 13px;
   }
-  .filters-and-switches {
-    margin: 10px;
-  }
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     .columns {
       padding-right: 0;
       margin-right: 0;
       padding-left: 0;
       margin-left: 0;
+    }
+  }
+  @media (min-width: 821px) {
+    .filters-and-switches {
+      .search {
+        width: 50%;
+      }
     }
   }
 }
