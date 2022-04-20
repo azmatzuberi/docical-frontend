@@ -23,7 +23,11 @@
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
           <div
-            class="column is-4-desktop is-half-tablet is-one-third-mobile"
+            class="
+              document-list
+              column
+              is-4-desktop is-half-tablet is-one-third-mobile
+            "
             v-for="(document, index) in paginatedItems"
             :key="index"
           >
@@ -136,6 +140,16 @@ export default {
       margin-right: 0;
       padding-left: 0;
       margin-left: 0;
+    }
+  }
+  @media (max-width: 820px) and (min-width: 745px) {
+    .document-list {
+      display: inline-block;
+    }
+  }
+  @media (max-width: 744px) {
+    .document-list {
+      display: contents;
     }
   }
   @media (min-width: 821px) {
