@@ -100,9 +100,6 @@
           ><span> View </span></a
         >
       </p>
-      <p class="card-footer-item">
-        <span> Share</span>
-      </p>
     </footer>
   </section>
 </template>

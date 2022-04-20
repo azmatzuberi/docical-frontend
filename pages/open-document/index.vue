@@ -3,11 +3,11 @@
     <NavBar page="start-screen" />
     <section class="open-docs-main">
       <div class="container">
-        <div class="columns is-multiline is-4 is-variable">
+        <div class="columns is-multiline is-variable">
           <div class="column is-2-desktop">
             <SideBar />
           </div>
-          <div class="column is-3-desktop filters-and-switches">
+          <div class="column is-9 filters-and-switches">
             <b-field label="Turn on list view">
               <b-switch
                 :rounded="false"
@@ -23,13 +23,16 @@
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
           <div
-            class="column is-one-quarter"
+            class="column is-4-desktop"
             v-for="(document, index) in paginatedItems"
             :key="index"
           >
             <Document :document="document" />
           </div>
+        </div>
+        <section class="columns">
           <b-pagination
+            class="column"
             v-if="documents.length > 10"
             :total="documents.length"
             v-model="current"
@@ -51,7 +54,7 @@
             :debounce-page-input="inputDebounce"
           >
           </b-pagination>
-        </div>
+        </section>
       </div>
     </section>
   </section>
@@ -81,7 +84,6 @@ export default {
       hasMobileCards: true,
       selected: null,
       documents: [],
-      isMobile: null,
       current: 1,
       perPage: 10,
       rangeBefore: 3,
@@ -111,7 +113,6 @@ export default {
   },
   mounted() {
     this.getDocuments();
-    this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });
   },
   methods: {
@@ -120,9 +121,6 @@ export default {
         `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
       );
       this.documents.reverse();
-    },
-    onResize() {
-      this.isMobile = window.innerWidth < 769;
     },
   },
 };
@@ -134,6 +132,14 @@ export default {
   }
   .filters-and-switches {
     margin: 10px;
+  }
+  @media (max-width: 768px) {
+    .columns {
+      padding-right: 0;
+      margin-right: 0;
+      padding-left: 0;
+      margin-left: 0;
+    }
   }
 }
 </style>

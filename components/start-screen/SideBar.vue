@@ -26,6 +26,18 @@
                   tag="router-link"
                   to="/open-document"
                 ></b-menu-item>
+                <b-menu-item
+                  icon="folder-account-outline"
+                  label="Share with me"
+                  tag="router-link"
+                  to="/shared-me"
+                ></b-menu-item>
+                <b-menu-item
+                  icon="folder-account"
+                  label="Shared"
+                  tag="router-link"
+                  to="/shared"
+                ></b-menu-item>
               </b-menu-item>
             </b-menu-list>
           </b-menu>
