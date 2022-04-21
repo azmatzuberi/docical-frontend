@@ -23,18 +23,19 @@
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
         </div>
-        <div
-          class="
-            document-list
-            columns
-            column
-            is-multiline is-4-desktop is-half-tablet is-one-third-mobile
-          "
-          v-for="(document, index) in paginatedItems"
-          :key="index"
-        >
-          <Document class="column" :document="document" />
-        </div>
+        <section class="columns is-multiline">
+          <div
+            class="
+              document-list
+              column
+              is-4-desktop is-half-tablet is-half-mobile
+            "
+            v-for="(document, index) in paginatedItems"
+            :key="index"
+          >
+            <Document class="column" :document="document" />
+          </div>
+        </section>
       </div>
       <section class="pagination-list columns">
         <div class="column">
