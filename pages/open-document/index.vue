@@ -3,7 +3,7 @@
     <NavBar page="start-screen" />
     <section class="open-docs-main">
       <div class="container">
-        <div class="columns is-multiline">
+        <div class="columns column is-multiline">
           <div class="column is-3-desktop">
             <SideBar />
           </div>
@@ -22,45 +22,46 @@
             </b-field>
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
-          <div
-            class="
-              document-list
-              column
-              is-4-desktop is-half-tablet is-one-third-mobile
-            "
-            v-for="(document, index) in paginatedItems"
-            :key="index"
-          >
-            <Document :document="document" />
-          </div>
         </div>
-        <section class="pagination-list columns">
-          <div class="column">
-            <b-pagination
-              v-if="documents.length > 10"
-              :total="documents.length"
-              v-model="current"
-              :range-before="rangeBefore"
-              :range-after="rangeAfter"
-              :order="order"
-              :size="size"
-              :simple="isSimple"
-              :rounded="isRounded"
-              :per-page="perPage"
-              :icon-prev="prevIcon"
-              :icon-next="nextIcon"
-              aria-next-label="Next page"
-              aria-previous-label="Previous page"
-              aria-page-label="Page"
-              aria-current-label="Current page"
-              :page-input="hasInput"
-              :page-input-position="inputPosition"
-              :debounce-page-input="inputDebounce"
-            >
-            </b-pagination>
-          </div>
-        </section>
+        <div
+          class="
+            document-list
+            columns
+            column
+            is-multiline is-4-desktop is-half-tablet is-one-third-mobile
+          "
+          v-for="(document, index) in paginatedItems"
+          :key="index"
+        >
+          <Document class="column" :document="document" />
+        </div>
       </div>
+      <section class="pagination-list columns">
+        <div class="column">
+          <b-pagination
+            v-if="documents.length > 10"
+            :total="documents.length"
+            v-model="current"
+            :range-before="rangeBefore"
+            :range-after="rangeAfter"
+            :order="order"
+            :size="size"
+            :simple="isSimple"
+            :rounded="isRounded"
+            :per-page="perPage"
+            :icon-prev="prevIcon"
+            :icon-next="nextIcon"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+            :page-input="hasInput"
+            :page-input-position="inputPosition"
+            :debounce-page-input="inputDebounce"
+          >
+          </b-pagination>
+        </div>
+      </section>
     </section>
   </section>
 </template>
