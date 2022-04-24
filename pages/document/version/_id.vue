@@ -3,32 +3,45 @@
     <NavBar page="profile-page" />
     <section class="profile-main">
       <div class="container">
-        <div
-          class="columns profile-page is-multiline"
-          :class="{ 'is-gapless': isMobile }"
-        >
+        <div class="columns profile-page is-multiline">
           <div class="column is-2-desktop">
             <SideBar />
           </div>
-          <div v-if="document.data" class="document-column column is-one-third">
+          <div v-if="version.data" class="document-column column is-one-third">
             <div class="document-name">
-              {{ document.data.name }}
+              {{ version.data.name }}
             </div>
-            {{ document.data.created }}
-            <div class="document-size">Size: {{ document.data.size }}</div>
+            {{ version.data.created }}
+            <div class="document-size">Size: {{ version.data.size }}</div>
             <div class="document-category">
-              Category: {{ document.data.category }}
+              Category: {{ version.data.category }}
             </div>
-            <div class="document-owner">Owners: {{ document.data.owner }}</div>
+            <div class="document-owner">Owners: {{ version.data.owner }}</div>
             <div class="document-tags">
               Tags:
               <b-tag
-                v-for="(tag, index) in document.data.tags"
+                v-for="(tag, index) in version.data.tags"
                 :key="index"
                 type="is-info"
                 >{{ tag }}</b-tag
               >
             </div>
+          </div>
+          <div class="column is-one-third">
+            <img class="seal" src="/images/symbol.png" alt="Docical seal" />
+          </div>
+          <div v-if="version.data" class="column is-half view-file-column">
+            <b-button
+              class="view-file-button"
+              type="is-primary"
+              @click="downloadVersion(version.data._id)"
+              >View file</b-button
+            >
+          </div>
+          <div class="column is-half view-file-column">
+            <b-button class="view-file-button" type="is-primary-light"
+              >Compare file</b-button
+            >
           </div>
         </div>
       </div>
@@ -63,14 +76,13 @@ export default {
       isLoading: false,
       hasMobileCards: true,
       selected: null,
-      document: {},
-      versions: [],
+      version: [],
     };
   },
   mounted() {
     this.getCollaborators()
       .then(() => {
-        this.getDocument();
+        this.getVersion();
       })
       .catch((error) => {
         this.$nuxt.router.push("/start-screen");
@@ -87,16 +99,42 @@ export default {
         }
       );
     },
-    async getDocument() {
-      this.document = await this.$axios.$post(
+    async getVersion() {
+      this.version = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`
       );
+    },
+    async downloadVersion(id) {
+      const vm = this;
+      const request_config = {
+        responseType: "arraybuffer",
+        responseEncoding: "binary",
+      };
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
+          {
+            user_id: this.$auth.user._id,
+          },
+          request_config
+        )
+        .then((response) => {
+          const file = new Blob([response], { type: "application/pdf" });
+          vm.src = URL.createObjectURL(file);
+          window.open(vm.src);
+        });
     },
   },
 };
 </script>
 <style lang="scss" scoped>
 .profile-main {
+  .columns {
+    padding-right: 0;
+    margin-right: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
   .profile-page {
     margin-top: 13px;
 
@@ -115,10 +153,16 @@ export default {
     }
   }
   .document-column {
-    margin: 10px;
-
     div {
       margin: 10px 0;
+    }
+  }
+  .seal {
+    @media (max-width: 768px) {
+      width: 40%;
+    }
+    @media (min-width: 769px) {
+      width: 40%;
     }
   }
 }

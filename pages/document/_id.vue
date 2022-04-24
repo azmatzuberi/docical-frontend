@@ -4,10 +4,13 @@
     <section class="profile-main">
       <div class="container">
         <div class="columns profile-page column">
-          <div class="column is-2-desktop">
+          <div class="column is-3-desktop">
             <SideBar />
           </div>
-          <div v-if="document.data" class="document-column column is-one-third">
+          <div
+            v-if="document.data && show"
+            class="document-column column is-one-third"
+          >
             <div class="document-name">
               {{ document.data.name }}
             </div>
@@ -32,7 +35,7 @@
             <div class="document-original">
               Original:
               <a target="blank" :href="encodeURI(document.data.originalFileUrl)"
-                >File</a
+                >View</a
               >
             </div>
             <b-field v-if="!collaboratorFlag" label="Emails of Collaborators">
@@ -48,13 +51,18 @@
               </b-taginput>
             </b-field>
           </div>
-          <div class="upload-column column is-one-third">
+          <div v-if="show" class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
               <Upload :document="document" @reload="getVersions" />
             </b-field>
           </div>
+          <section v-else>
+            <div class="column">
+              <h1>You don't have access to this document</h1>
+            </div>
+          </section>
         </div>
-        <section class="versions-section columns is-multiline">
+        <section v-if="show" class="versions-section columns is-multiline">
           <div
             class="version-column column is-one-quarter-desktop is-half-tablet"
             v-for="(version, index) in versions"
@@ -102,6 +110,7 @@ export default {
       versions: [],
       collaboratorsInput: [],
       collaboratorFlag: true,
+      show: false,
     };
   },
   computed: {
@@ -114,7 +123,7 @@ export default {
       },
     },
   },
-  mounted() {
+  beforeMount() {
     this.getCollaborators();
   },
   methods: {
@@ -131,15 +140,17 @@ export default {
         .then((result) => {
           if (result.status === 200 && result.flag) {
             this.collaboratorFlag = true;
+            this.show = true;
           }
           if (result.status === 201 && result.flag) {
             this.collaboratorFlag = false;
+            this.show = true;
           }
           this.getDocument();
           this.getVersions();
         })
         .catch(() => {
-          this.$nuxt.$router.push("/start-screen");
+          this.show = false;
         });
     },
     async getDocument() {

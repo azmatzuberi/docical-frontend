@@ -28,7 +28,7 @@
                 ></b-menu-item>
                 <b-menu-item
                   icon="folder-account-outline"
-                  label="Share with me"
+                  label="Shared with me"
                   tag="router-link"
                   to="/shared-me"
                 ></b-menu-item>

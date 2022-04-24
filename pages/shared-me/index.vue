@@ -7,7 +7,10 @@
           <div class="column is-3-desktop">
             <SideBar />
           </div>
-          <div class="column is-9-desktop is-8-tablet filters-and-switches">
+          <div
+            v-if="this.documents.data"
+            class="column is-9-desktop is-8-tablet filters-and-switches"
+          >
             <b-field label="Turn on list view">
               <b-switch
                 :rounded="false"
@@ -20,7 +23,7 @@
             <b-field label="Search" class="search">
               <b-input placeholder="Search through docs" rounded></b-input>
             </b-field>
-            <div>Total documents: {{ this.documents.length }}</div>
+            <div>Total documents: {{ this.documents.data.length }}</div>
           </div>
         </div>
         <section class="columns is-multiline">
@@ -38,10 +41,10 @@
         </section>
       </div>
       <section class="pagination-list columns">
-        <div class="column">
+        <div v-if="documents.data" class="column">
           <b-pagination
-            v-if="documents.length > 10"
-            :total="documents.length"
+            v-if="documents.data.length > 10"
+            :total="documents.data.length"
             v-model="current"
             :range-before="rangeBefore"
             :range-after="rangeAfter"
@@ -73,7 +76,7 @@ import SideBar from "@/components/start-screen/SideBar.vue";
 import Document from "@/components/open-document/Document.vue";
 export default {
   middleware: "auth",
-  name: "OpenSignedDocumentsPage",
+  name: "SharedWithMeDocumentsPage",
   components: {
     NavBar,
     SideBar,
@@ -109,11 +112,13 @@ export default {
   computed: {
     paginatedItems() {
       const pageNumber = this.current - 1;
-      if (this.documents.length > 0) {
-        return this.documents.slice(
-          pageNumber * this.perPage,
-          (pageNumber + 1) * this.perPage
-        );
+      if (this.documents.data) {
+        if (this.documents.data.length > 0) {
+          return this.documents.data.slice(
+            pageNumber * this.perPage,
+            (pageNumber + 1) * this.perPage
+          );
+        }
       }
       return null;
     },
@@ -123,8 +128,8 @@ export default {
   },
   methods: {
     async getDocuments() {
-      this.documents = await this.$axios.$get(
-        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
+      this.documents = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/documents/getSharedWithMe/${this.$auth.user._id}`
       );
       this.documents.reverse();
     },

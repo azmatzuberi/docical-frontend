@@ -40,19 +40,6 @@
             <td class="row-heading">Size:</td>
             <td class="document-field">{{ version.size }}</td>
           </tr>
-          <tr>
-            <td class="row-heading">Signees:</td>
-            <td v-if="document" class="document-field">
-              <span v-for="(signer, index) in document.signees" :key="index"
-                >{{ signer }},&nbsp;</span
-              >
-            </td>
-            <td v-if="version" class="document-field">
-              <span v-for="(signer, index) in version.signees" :key="index"
-                >{{ signer }},&nbsp;</span
-              >
-            </td>
-          </tr>
           <tr v-if="document">
             <td class="row-heading">Tags:</td>
             <td class="document-field">
@@ -96,9 +83,7 @@
         >
       </p>
       <p v-if="version" class="card-footer-item">
-        <a href="#" @click="downloadVersion(version._id)"
-          ><span> View </span></a
-        >
+        <a :href="'/document/version/' + version._id"><span> View </span></a>
       </p>
     </footer>
   </section>
@@ -114,7 +99,7 @@ export default {
     };
   },
   methods: {
-    downloadDocument(id) {
+    async downloadDocument(id) {
       const request_config = {
         responseType: "arraybuffer",
         responseEncoding: "binary",
@@ -133,7 +118,7 @@ export default {
           window.open(this.src);
         });
     },
-    downloadVersion(id) {
+    async downloadVersion(id) {
       const request_config = {
         responseType: "arraybuffer",
         responseEncoding: "binary",
