@@ -43,20 +43,26 @@ export default {
   },
   methods: {
     signUp() {
-      const vm = this;
-      this.userInfo = {
+      const userInfo = {
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
         company_name: this.company_name,
         password: this.password,
       };
-      this.$auth
-        .loginWith("local", {
-          data: this.userInfo,
-        })
+      this.$axios
+        .$post(`${this.$config.app.backend_URL}/api/users`, userInfo)
         .then(() => {
-          this.$nuxt.$router.push("/start-screen");
+          this.$auth
+            .loginWith("local", {
+              data: userInfo,
+            })
+            .then(() => {
+              this.$nuxt.$router.push("/start-screen");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
     },
   },

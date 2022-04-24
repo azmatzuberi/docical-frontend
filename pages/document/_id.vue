@@ -35,6 +35,18 @@
                 >File</a
               >
             </div>
+            <b-field v-if="!collaboratorFlag" label="Emails of Collaborators">
+              <b-taginput
+                v-model="collaborators"
+                @input="addDocStuff({ collaborators })"
+                ellipsis
+                icon="label"
+                placeholder="Add email"
+                aria-close-label="Delete this email"
+                maxtags="10"
+              >
+              </b-taginput>
+            </b-field>
           </div>
           <div class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
@@ -88,14 +100,48 @@ export default {
       selected: null,
       document: {},
       versions: [],
+      collaboratorsInput: [],
+      collaboratorFlag: true,
     };
   },
+  computed: {
+    collaborators: {
+      get() {
+        return this.document.data.collaborators;
+      },
+      set(values) {
+        this.collaboratorsInput = values;
+      },
+    },
+  },
   mounted() {
-    this.getDocument();
-    this.getVersions();
-    window.addEventListener("resize", this.onResize, { passive: true });
+    this.getCollaborators();
   },
   methods: {
+    async getCollaborators() {
+      await this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
+          {
+            user_id: this.$auth.user._id,
+            doc_type: "Document",
+            email: this.$auth.user.email,
+          }
+        )
+        .then((result) => {
+          if (result.status === 200 && result.flag) {
+            this.collaboratorFlag = true;
+          }
+          if (result.status === 201 && result.flag) {
+            this.collaboratorFlag = false;
+          }
+          this.getDocument();
+          this.getVersions();
+        })
+        .catch(() => {
+          this.$nuxt.$router.push("/start-screen");
+        });
+    },
     async getDocument() {
       this.document = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/documents/document/${this.$nuxt.$route.params.id}`
@@ -139,10 +185,8 @@ export default {
     }
   }
   .document-column {
-    margin: 10px;
-
     div {
-      margin: 10px 0;
+      // margin: 10px 0;
     }
   }
 }

@@ -65,22 +65,32 @@ export default {
       selected: null,
       document: {},
       versions: [],
-      isMobile: null,
     };
   },
   mounted() {
-    this.onResize();
-    this.getDocument();
-    window.addEventListener("resize", this.onResize, { passive: true });
+    this.getCollaborators()
+      .then(() => {
+        this.getDocument();
+      })
+      .catch((error) => {
+        this.$nuxt.router.push("/start-screen");
+      });
   },
   methods: {
+    async getCollaborators() {
+      const collaboratorResult = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
+        {
+          user_id: this.$auth.user._id,
+          doc_tpe: "Version",
+          email: this.$auth.user.email,
+        }
+      );
+    },
     async getDocument() {
       this.document = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`
       );
-    },
-    onResize() {
-      this.isMobile = window.innerWidth < 769;
     },
   },
 };
