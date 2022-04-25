@@ -56,7 +56,7 @@
               <Upload :document="document" @reload="getVersions" />
             </b-field>
           </div>
-          <section v-else>
+          <section v-if="show === false">
             <div class="column">
               <h1>You don't have access to this document</h1>
             </div>
@@ -110,7 +110,7 @@ export default {
       versions: [],
       collaboratorsInput: [],
       collaboratorFlag: true,
-      show: false,
+      show: null,
     };
   },
   computed: {

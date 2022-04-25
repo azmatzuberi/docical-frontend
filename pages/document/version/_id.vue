@@ -7,7 +7,10 @@
           <div class="column is-3-desktop">
             <SideBar />
           </div>
-          <div v-if="version.data" class="document-column column is-one-third">
+          <div
+            v-if="version.data && show"
+            class="document-column column is-one-third"
+          >
             <div class="document-name">
               {{ version.data.name }}
             </div>
@@ -27,10 +30,13 @@
               >
             </div>
           </div>
-          <div class="column is-one-third">
+          <div v-if="show === false" class="column is-one-third">
             <img class="seal" src="/images/symbol.png" alt="Docical seal" />
           </div>
-          <div v-if="version.data" class="column is-half view-file-column">
+          <div
+            v-if="version.data && show"
+            class="column is-half view-file-column"
+          >
             <b-button
               class="view-file-button"
               type="is-primary"
@@ -38,10 +44,13 @@
               >View file</b-button
             >
           </div>
-          <div class="column is-half view-file-column">
+          <div v-if="show" class="column is-half view-file-column">
             <b-button class="view-file-button" type="is-primary-light"
               >Compare file</b-button
             >
+          </div>
+          <div v-if="show === false" class="column">
+            <h1>You don't have access to this document</h1>
           </div>
         </div>
       </div>
@@ -77,14 +86,18 @@ export default {
       hasMobileCards: true,
       selected: null,
       version: [],
+      show: null,
     };
   },
   mounted() {
+    const vm = this;
     this.getCollaborators()
       .then(() => {
         this.getVersion();
       })
-      .catch((error) => {});
+      .catch((error) => {
+        vm.show = false;
+      });
   },
   methods: {
     async getCollaborators() {
@@ -92,7 +105,7 @@ export default {
         `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
         {
           user_id: this.$auth.user._id,
-          doc_tpe: "Version",
+          doc_type: "Version",
           email: this.$auth.user.email,
         }
       );
@@ -104,6 +117,7 @@ export default {
           user_id: this.$auth.user._id,
         }
       );
+      this.show = true;
     },
     async downloadVersion(id) {
       const vm = this;
