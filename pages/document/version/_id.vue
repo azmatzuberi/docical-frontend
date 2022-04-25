@@ -57,7 +57,7 @@ import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
 export default {
   middleware: "auth",
-  name: "DocumentProfile",
+  name: "VersionProfile",
   components: {
     NavBar,
     SideBar,
@@ -84,9 +84,7 @@ export default {
       .then(() => {
         this.getVersion();
       })
-      .catch((error) => {
-        this.$nuxt.router.push("/start-screen");
-      });
+      .catch((error) => {});
   },
   methods: {
     async getCollaborators() {
@@ -101,7 +99,10 @@ export default {
     },
     async getVersion() {
       this.version = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`
+        `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`,
+        {
+          user_id: this.$auth.user._id,
+        }
       );
     },
     async downloadVersion(id) {
