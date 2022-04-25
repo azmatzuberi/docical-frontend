@@ -4,7 +4,7 @@
     <section class="profile-main">
       <div class="container">
         <div class="columns profile-page is-multiline">
-          <div class="column is-2-desktop">
+          <div class="column is-3-desktop">
             <SideBar />
           </div>
           <div v-if="version.data" class="document-column column is-one-third">
