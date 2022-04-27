@@ -81,6 +81,9 @@ export default {
       formData.append("name", this.doc.name);
       formData.append("category", this.doc.category);
       formData.append("user_id", this.$auth.user._id);
+      formData.append("first_name", this.$auth.user.first_name);
+      formData.append("last_name", this.$auth.user.last_name);
+      formData.append("company", this.$auth.user.company);
       formData.append("docType", "Document");
       for (let i = 0; i < this.doc.tags.length; i++) {
         formData.append("tags[]", this.doc.tags[i]);

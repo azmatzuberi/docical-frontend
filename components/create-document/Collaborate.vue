@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="column" :class="{ 'is-one-third-desktop': page }">
     <b-field label="Emails of Collaborators">
       <b-taginput
         v-model="collaborators"
@@ -18,6 +18,7 @@
 <script>
 export default {
   name: "Details",
+  props: ["page", "version"],
   data() {
     return {
       collaborators: [],

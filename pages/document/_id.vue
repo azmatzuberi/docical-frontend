@@ -38,18 +38,6 @@
                 >View</a
               >
             </div>
-            <b-field v-if="!collaboratorFlag" label="Emails of Collaborators">
-              <b-taginput
-                v-model="collaborators"
-                @input="addDocStuff({ collaborators })"
-                ellipsis
-                icon="label"
-                placeholder="Add email"
-                aria-close-label="Delete this email"
-                maxtags="10"
-              >
-              </b-taginput>
-            </b-field>
           </div>
           <div v-if="show" class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
@@ -62,6 +50,9 @@
             </div>
           </section>
         </div>
+        <section class="columns" v-if="!collaboratorFlag && show && versions">
+          <Collaborate :version="versions.data" :page="true" />
+        </section>
         <section v-if="show" class="versions-section columns is-multiline">
           <div
             class="version-column column is-one-quarter-desktop is-half-tablet"
@@ -85,6 +76,7 @@ import SideBar from "@/components/start-screen/SideBar.vue";
 import Document from "@/components/open-document/Document.vue";
 import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
+import Collaborate from "~/components/create-document/Collaborate.vue";
 export default {
   middleware: "auth",
   name: "DocumentProfile",
@@ -94,6 +86,7 @@ export default {
     FilesTable,
     Document,
     Upload,
+    Collaborate,
   },
   data() {
     return {
@@ -116,7 +109,7 @@ export default {
   computed: {
     collaborators: {
       get() {
-        return this.document.data.collaborators;
+        if (this.document.data) return this.document.data.collaborators;
       },
       set(values) {
         this.collaboratorsInput = values;
@@ -127,6 +120,14 @@ export default {
     this.getCollaborators();
   },
   methods: {
+    addDocStuff(data) {
+      if (data) {
+        const doc = {
+          collaborators: this.collaborators,
+        };
+        this.$store.commit("doc/add", doc);
+      }
+    },
     async getCollaborators() {
       await this.$axios
         .$post(

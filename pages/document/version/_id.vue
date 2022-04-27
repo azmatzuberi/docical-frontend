@@ -4,11 +4,11 @@
     <section class="profile-main">
       <div class="container">
         <div class="columns profile-page is-multiline">
-          <div class="column is-3-desktop">
+          <div class="column is-3-desktop is-3-tablet">
             <SideBar />
           </div>
           <div
-            v-if="version.data && show"
+            v-if="version && show"
             class="document-column column is-one-third"
           >
             <div class="document-name">
@@ -19,7 +19,7 @@
             <div class="document-category">
               Category: {{ version.data.category }}
             </div>
-            <div class="document-owner">Owners: {{ version.data.owner }}</div>
+            <div class="document-owner">Owner: {{ version.data.owner }}</div>
             <div class="document-tags">
               Tags:
               <b-tag
@@ -30,12 +30,18 @@
               >
             </div>
           </div>
-          <div v-if="show === false" class="column is-one-third">
+          <div class="column is-one-third-desktop is-two-fifths-mobile">
             <img class="seal" src="/images/symbol.png" alt="Docical seal" />
           </div>
+          <section
+            class="column is-one-third-desktop"
+            v-if="!collaboratorFlag && show"
+          >
+            <Collaborate :version="version" :page="false" />
+          </section>
           <div
-            v-if="version.data && show"
-            class="column is-half view-file-column"
+            v-if="version && show"
+            class="column is-one-third-desktop view-file-column"
           >
             <b-button
               class="view-file-button"
@@ -44,7 +50,7 @@
               >View file</b-button
             >
           </div>
-          <div v-if="show" class="column is-half view-file-column">
+          <div v-if="show" class="column is-one-third view-file-column">
             <b-button class="view-file-button" type="is-primary-light"
               >Compare file</b-button
             >
@@ -64,6 +70,7 @@ import SideBar from "@/components/start-screen/SideBar.vue";
 import Document from "@/components/open-document/Document.vue";
 import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
+import Collaborate from "~/components/create-document/Collaborate.vue";
 export default {
   middleware: "auth",
   name: "VersionProfile",
@@ -73,6 +80,7 @@ export default {
     FilesTable,
     Document,
     Upload,
+    Collaborate,
   },
   data() {
     return {
@@ -86,6 +94,8 @@ export default {
       hasMobileCards: true,
       selected: null,
       version: [],
+      collaborators: [],
+      collaboratorFlag: null,
       show: null,
     };
   },
@@ -100,24 +110,48 @@ export default {
       });
   },
   methods: {
+    addDocStuff(data) {
+      if (data) {
+        const doc = {
+          collaborators: this.collaborators,
+        };
+        this.$store.commit("doc/add", doc);
+      }
+    },
     async getCollaborators() {
-      const collaboratorResult = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
-        {
-          user_id: this.$auth.user._id,
-          doc_type: "Version",
-          email: this.$auth.user.email,
-        }
-      );
+      const vm = this;
+      const collaboratorResult = await this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
+          {
+            user_id: this.$auth.user._id,
+            doc_type: "Version",
+            email: this.$auth.user.email,
+          }
+        )
+        .then(() => {
+          vm.collaboratorsFlag = true;
+        })
+        .catch(() => {
+          vm.collaboratorsFlag = false;
+        });
     },
     async getVersion() {
-      this.version = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`,
-        {
-          user_id: this.$auth.user._id,
-        }
-      );
-      this.show = true;
+      const vm = this;
+      await this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`,
+          {
+            user_id: this.$auth.user._id,
+          }
+        )
+        .then((result) => {
+          vm.version = result;
+          vm.show = true;
+        })
+        .catch(() => {
+          vm.show = false;
+        });
     },
     async downloadVersion(id) {
       const vm = this;

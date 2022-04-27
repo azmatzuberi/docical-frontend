@@ -5,7 +5,7 @@
         {{ document.name }}
       </p>
       <div v-if="version" class="card-header-title">
-        <div>{{ index }}:</div>
+        <div class="index-number">{{ index }}:</div>
         <div id="date">
           {{ new Date(version.created).toLocaleDateString("en-US") }}
         </div>
@@ -175,6 +175,9 @@ export default {
         margin: 3px;
       }
     }
+  }
+  .index-number {
+    color: lightgrey;
   }
 }
 </style>

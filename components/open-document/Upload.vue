@@ -68,6 +68,9 @@ export default {
       formData.append("name", this.document.data.name);
       formData.append("source_doc", this.document.data._id);
       formData.append("user_id", this.$auth.user._id);
+      formData.append("first_name", this.$auth.user.first_name);
+      formData.append("last_name", this.$auth.user.last_name);
+      formData.append("company", this.$auth.user.company);
       formData.append("docType", "Version");
       formData.append("description", this.doc.description);
       for (let i = 0; i < this.doc.collaborators.length; i++) {
