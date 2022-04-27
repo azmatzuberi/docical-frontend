@@ -4,7 +4,7 @@
     <section class="profile-main">
       <div class="container">
         <div class="columns profile-page is-multiline">
-          <div class="column is-3-desktop is-3-tablet">
+          <div class="column is-3-desktop is-4-tablet">
             <SideBar />
           </div>
           <div
@@ -36,14 +36,12 @@
               is-one-third-desktop is-two-fifths-mobile is-one-third-tablet
             "
           >
-            <img class="seal" src="/images/symbol.png" alt="Docical seal" />
+            <img
+              class="seal"
+              src="https://storage.googleapis.com/docical-images/Symbol.png"
+              alt="Docical seal"
+            />
           </div>
-          <section
-            class="column is-one-third-desktop is-one-third-tablet"
-            v-if="!collaboratorFlag && show"
-          >
-            <Collaborate :version="version" :page="false" />
-          </section>
           <div
             v-if="version && show"
             class="column is-one-third-desktop view-file-column"
@@ -56,10 +54,13 @@
             >
           </div>
           <div v-if="show" class="column is-one-third view-file-column">
-            <b-button class="view-file-button" type="is-primary-light"
+            <b-button class="view-file-button" type="is-primary is-light"
               >Compare file</b-button
             >
           </div>
+          <section class="column is-full" v-if="!collaboratorFlag && show">
+            <Collaborate :version="version" :page="false" />
+          </section>
           <div v-if="show === false" class="column">
             <h1>You don't have access to this document</h1>
           </div>
