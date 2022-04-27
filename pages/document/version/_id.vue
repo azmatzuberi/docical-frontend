@@ -30,11 +30,16 @@
               >
             </div>
           </div>
-          <div class="column is-one-third-desktop is-two-fifths-mobile">
+          <div
+            class="
+              column
+              is-one-third-desktop is-two-fifths-mobile is-one-third-tablet
+            "
+          >
             <img class="seal" src="/images/symbol.png" alt="Docical seal" />
           </div>
           <section
-            class="column is-one-third-desktop"
+            class="column is-one-third-desktop is-one-third-tablet"
             v-if="!collaboratorFlag && show"
           >
             <Collaborate :version="version" :page="false" />
