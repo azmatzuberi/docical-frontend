@@ -16,7 +16,6 @@
             :key="i"
             :id="i"
             :page="i"
-            style="border: 1px solid grey"
             :scale.sync="scale"
             :annotation="true"
             :resize="false"
@@ -119,7 +118,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.endOfContent.active {
+canvas {
   border: 1px solid grey;
 }
 </style>
