@@ -58,6 +58,11 @@
               >Compare file</b-button
             >
           </div>
+          <div v-if="show" class="column is-one-third view-file-column">
+            <b-button class="view-file-button" focused @click="openModal"
+              >Sign document</b-button
+            >
+          </div>
           <section class="column is-full" v-if="!collaboratorFlag && show">
             <Collaborate :version="version" :page="false" />
           </section>
@@ -67,6 +72,14 @@
         </div>
       </div>
     </section>
+    <b-modal
+      v-model="isComponentModalActive"
+      has-modal-card
+      full-screen
+      :can-cancel="true"
+    >
+      <Signature :version="version" />
+    </b-modal>
   </section>
 </template>
 
@@ -76,7 +89,8 @@ import SideBar from "@/components/start-screen/SideBar.vue";
 import Document from "@/components/open-document/Document.vue";
 import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
-import Collaborate from "~/components/create-document/Collaborate.vue";
+import Collaborate from "@/components/create-document/Collaborate.vue";
+import Signature from "@/components/signing/Signature.vue";
 export default {
   middleware: "auth",
   name: "VersionProfile",
@@ -87,6 +101,7 @@ export default {
     Document,
     Upload,
     Collaborate,
+    Signature,
   },
   data() {
     return {
@@ -103,7 +118,26 @@ export default {
       collaborators: [],
       collaboratorFlag: null,
       show: null,
+      src: "",
+      isComponentModalActive: false,
     };
+  },
+  computed: {
+    formattedZoom() {
+      return Number.parseInt(this.scale * 100);
+    },
+  },
+  watch: {
+    page: function (p) {
+      if (
+        window.pageYOffset <= this.findPos(document.getElementById(p)) ||
+        (document.getElementById(p + 1) &&
+          window.pageYOffset >= this.findPos(document.getElementById(p + 1)))
+      ) {
+        // window.scrollTo(0,this.findPos(document.getElementById(p)));
+        document.getElementById(p).scrollIntoView();
+      }
+    },
   },
   mounted() {
     const vm = this;
@@ -159,25 +193,8 @@ export default {
           vm.show = false;
         });
     },
-    async downloadVersion(id) {
-      const vm = this;
-      const request_config = {
-        responseType: "arraybuffer",
-        responseEncoding: "binary",
-      };
-      this.$axios
-        .$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
-          {
-            user_id: this.$auth.user._id,
-          },
-          request_config
-        )
-        .then((response) => {
-          const file = new Blob([response], { type: "application/pdf" });
-          vm.src = URL.createObjectURL(file);
-          window.open(vm.src);
-        });
+    openModal() {
+      this.isComponentModalActive = true;
     },
   },
 };

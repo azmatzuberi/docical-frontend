@@ -7605,6 +7605,20 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pdfjs-dist@2.5.207:
+  version "2.5.207"
+  resolved "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-2.5.207.tgz"
+  integrity sha512-xGDUhnCYPfHy+unMXCLCJtlpZaaZ17Ew3WIL0tnSgKFUZXHAPD49GO9xScyszSsQMoutNDgRb+rfBXIaX/lJbw==
+
+pdfvuer@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/pdfvuer/-/pdfvuer-1.9.2.tgz#050275facd6e8343f08a7e5650c900c50a1f1f1d"
+  integrity sha512-SI2fnjVzlFEoJZ5uBgW3KsLyQ60Rguxj30l13VH5462cMn9tDwbs35dTM9KeBOuNuK7jZ5nHRzLWkU/xYfxsuQ==
+  dependencies:
+    pdfjs-dist "2.5.207"
+    raw-loader "^0.5.1"
+    vue-resize-sensor "^2.0.0"
+
 picocolors@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-0.2.1.tgz"
@@ -8564,6 +8578,11 @@ raw-body@2.4.3:
     http-errors "1.8.1"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+raw-loader@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz"
+  integrity sha1-DD0L6u2KAclm2Xh793goElKpeao=
 
 rc9@^1.2.0:
   version "1.2.0"
@@ -10218,6 +10237,11 @@ vue-no-ssr@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
+
+vue-resize-sensor@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/vue-resize-sensor/-/vue-resize-sensor-2.0.0.tgz"
+  integrity sha512-W+y2EAI/BxS4Vlcca9scQv8ifeBFck56DRtSwWJ2H4Cw1GLNUYxiZxUHHkuzuI5JPW/cYtL1bPO5xPyEXx4LmQ==
 
 vue-router@^3.5.1:
   version "3.5.3"
