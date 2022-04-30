@@ -4,9 +4,12 @@
       <header class="modal-card-head">
         <p class="modal-card-title">Add your signature to the document</p>
       </header>
-      <section class="modal-card-body columns">
+      <section class="modal-card-body columns is-multiline">
         <SignatureSideBar />
-        <div class="viewer column is-three-quarters-desktop" v-if="src">
+        <div
+          class="viewer column is-three-quarters-desktop is-full-tablet"
+          v-if="src"
+        >
           <pdf-viewer
             :src="src"
             v-for="i in numPages"

@@ -1,6 +1,6 @@
 <template>
   <b-sidebar
-    class="signature-side-bar column is-one-quarter-desktop"
+    class="signature-side-bar column is-one-quarter-desktop is-full-tablet"
     position="static"
     :expand-on-hover="expandOnHover"
     :delay="expandWithDelay ? 500 : null"
