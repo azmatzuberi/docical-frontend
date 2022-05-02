@@ -7,7 +7,7 @@
       <section class="modal-card-body columns is-multiline">
         <SignatureSideBar />
         <div
-          class="viewer column is-three-quarters-desktop is-tablet is-mobile"
+          class="viewer column is-full-desktop is-tablet is-mobile"
           v-if="src"
         >
           <pdf-viewer
@@ -44,7 +44,7 @@ export default {
       numPages: null,
       heights: [],
       errors: [],
-      scale: "page-width",
+      scale: 1.38,
       src: "",
       pages: null,
       response: "",

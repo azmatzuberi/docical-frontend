@@ -63,7 +63,10 @@
               >Sign document</b-button
             >
           </div>
-          <section class="column is-full" v-if="!collaboratorFlag && show">
+          <section
+            class="column is-one-third-desktop is-half-tablet"
+            v-if="!collaboratorFlag && show"
+          >
             <Collaborate :version="version" :page="false" />
           </section>
           <div v-if="show === false" class="column">
