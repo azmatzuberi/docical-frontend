@@ -196,6 +196,26 @@ export default {
     openModal() {
       this.isComponentModalActive = true;
     },
+    async downloadVersion(id) {
+      const vm = this;
+      const request_config = {
+        responseType: "arraybuffer",
+        responseEncoding: "binary",
+      };
+      this.$axios
+        .$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
+          {
+            user_id: this.$auth.user._id,
+          },
+          request_config
+        )
+        .then(async (response) => {
+          const file = new Blob([response], { type: "application/pdf" });
+          vm.src = URL.createObjectURL(file);
+          window.open(vm.src);
+        });
+    },
   },
 };
 </script>

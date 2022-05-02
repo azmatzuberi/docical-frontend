@@ -7,7 +7,7 @@
       <section class="modal-card-body columns is-multiline">
         <SignatureSideBar />
         <div
-          class="viewer column is-three-quarters-desktop is-full-tablet"
+          class="viewer column is-three-quarters-desktop is-tablet is-mobile"
           v-if="src"
         >
           <pdf-viewer
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import SignatureSideBar from "~/components/signing/SignatureSideBar.vue";
 export default {
   name: "SignatureModal",
@@ -40,10 +41,13 @@ export default {
   data() {
     return {
       page: 1,
-      numPages: 2,
+      numPages: null,
+      heights: [],
       errors: [],
       scale: "page-width",
       src: "",
+      pages: null,
+      response: "",
     };
   },
   watch: {
@@ -52,10 +56,8 @@ export default {
         setTimeout(() => {
           //set up the canvas and context
           var canvas = document.getElementsByClassName("page");
-          console.log(canvas);
 
           //report the mouse position on click
-
           for (let i = 0; i < canvas.length; i++) {
             canvas[i].addEventListener(
               "click",
@@ -74,7 +76,7 @@ export default {
               y: evt.clientY - rect.top,
             };
           }
-        }, 3000);
+        }, 2000);
       }
     },
   },
@@ -83,7 +85,6 @@ export default {
   },
   methods: {
     getCoordinates() {
-      console.log("Asd");
       var mousePos = this.getMousePos(canvas[0], evt);
       alert(mousePos.x + "," + mousePos.y);
     },
@@ -98,7 +99,6 @@ export default {
       const vm = this;
       const request_config = {
         responseType: "arraybuffer",
-        responseEncoding: "binary",
       };
       this.$axios
         .$post(
@@ -108,11 +108,45 @@ export default {
           },
           request_config
         )
-        .then((response) => {
+        .then(async (response) => {
+          this.response = response;
           const file = new Blob([response], { type: "application/pdf" });
           vm.src = URL.createObjectURL(file);
-          // window.open(vm.src);
+
+          const pdfDoc = await PDFDocument.load(response);
+
+          this.pages = pdfDoc.getPages();
+          this.numPages = this.pages.length;
+          for (let i = 0; i < this.numPages; i++) {
+            const { height } = this.pages[i].getSize();
+            this.heights[i] = height;
+          }
         });
+    },
+    async modifyPdf() {
+      //   const existingPdfBytes = await fetch(url).then((res) =>
+      //     res.arrayBuffer()
+      //   );
+      //   const pdfDoc = await PDFDocument.load(existingPdfBytes);
+      // const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      //   console.log("Respone", this.response);
+      //   const pdfDoc = await PDFDocument.load(this.response);
+      //   this.pages = pdfDoc.getPages();
+      //   this.numPages = this.pages.length;
+      //   for (let i = 0; i < this.numPages; i++) {
+      //     const { height } = this.pages[i].getSize();
+      //     this.heights[i] = height;
+      //     console.log("asdad");
+      //   }
+      //   this.numPages[0].drawText("This text was added with JavaScript!", {
+      //     x: 5,
+      //     y: height / 2 + 300,
+      //     size: 50,
+      //     font: helveticaFont,
+      //     color: rgb(0.95, 0.1, 0.1),
+      //     rotate: degrees(-45),
+      //   });
+      //   const pdfBytes = await pdfDoc.save();
     },
   },
 };
