@@ -1,6 +1,6 @@
 <template>
   <b-sidebar
-    class="signature-side-bar column is-one-quarter-desktop is-full-tablet"
+    class="signature-side-bar column is-two-thirds-desktop is-full-tablet"
     position="static"
     :expand-on-hover="expandOnHover"
     :delay="expandWithDelay ? 500 : null"
@@ -13,6 +13,7 @@
             <b-menu-item
               icon="folder-open-outline"
               label="Open signature file"
+              @click="showSignaturePad"
             ></b-menu-item>
             <b-menu-item icon="clock" label="Create time/date"></b-menu-item>
             <b-menu-item icon="text" label="Add text"></b-menu-item>
@@ -32,6 +33,11 @@ export default {
       expandWithDelay: false,
       reduce: false,
     };
+  },
+  methods: {
+    showSignaturePad() {
+      this.$emit("showSignaturePadTrigger", true);
+    },
   },
 };
 </script>

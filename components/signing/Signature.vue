@@ -2,10 +2,11 @@
   <section class="container">
     <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
-        <p class="modal-card-title">Add your signature to the document</p>
+        <p class="modal-card-title">Add your signature</p>
       </header>
       <section class="modal-card-body columns is-multiline">
-        <SignatureSideBar />
+        <SignatureSideBar @showSignaturePadTrigger="showSignaturePadNow" />
+        <SignaturePad v-if="showSignaturePad" />
         <div
           class="viewer column is-full-desktop is-tablet is-mobile"
           v-if="src"
@@ -19,7 +20,6 @@
             :scale.sync="scale"
             :annotation="true"
             :resize="false"
-            @click="getCoordinates"
           >
             <template slot="loading"> loading content here... </template>
           </pdf-viewer>
@@ -31,11 +31,13 @@
 
 <script>
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
-import SignatureSideBar from "~/components/signing/SignatureSideBar.vue";
+import SignatureSideBar from "@/components/signing/SignatureSideBar.vue";
+import SignaturePad from "@/components/signing/SignaturePad.vue";
 export default {
   name: "SignatureModal",
   components: {
     SignatureSideBar,
+    SignaturePad,
   },
   props: ["version"],
   data() {
@@ -48,6 +50,7 @@ export default {
       src: "",
       pages: null,
       response: "",
+      showSignaturePad: false,
     };
   },
   watch: {
@@ -61,9 +64,12 @@ export default {
           for (let i = 0; i < canvas.length; i++) {
             canvas[i].addEventListener(
               "click",
-              function (evt) {
+              async function (evt) {
                 var mousePos = getMousePos(canvas[i], evt);
                 alert(mousePos.x + "," + mousePos.y);
+                const pngImageBytes = await fetch(pngUrl).then((res) =>
+                  res.arrayBuffer()
+                );
               },
               false
             );
@@ -84,16 +90,8 @@ export default {
     this.downloadVersion(this.version.data._id);
   },
   methods: {
-    getCoordinates() {
-      var mousePos = this.getMousePos(canvas[0], evt);
-      alert(mousePos.x + "," + mousePos.y);
-    },
-    getMousePos(canvas, evt) {
-      var rect = canvas.getBoundingClientRect();
-      return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top,
-      };
+    showSignaturePadNow() {
+      this.showSignaturePad = true;
     },
     async downloadVersion(id) {
       const vm = this;
@@ -124,29 +122,9 @@ export default {
         });
     },
     async modifyPdf() {
-      //   const existingPdfBytes = await fetch(url).then((res) =>
+      //   const pngImageBytes = await fetch().then((res) =>
       //     res.arrayBuffer()
       //   );
-      //   const pdfDoc = await PDFDocument.load(existingPdfBytes);
-      // const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      //   console.log("Respone", this.response);
-      //   const pdfDoc = await PDFDocument.load(this.response);
-      //   this.pages = pdfDoc.getPages();
-      //   this.numPages = this.pages.length;
-      //   for (let i = 0; i < this.numPages; i++) {
-      //     const { height } = this.pages[i].getSize();
-      //     this.heights[i] = height;
-      //     console.log("asdad");
-      //   }
-      //   this.numPages[0].drawText("This text was added with JavaScript!", {
-      //     x: 5,
-      //     y: height / 2 + 300,
-      //     size: 50,
-      //     font: helveticaFont,
-      //     color: rgb(0.95, 0.1, 0.1),
-      //     rotate: degrees(-45),
-      //   });
-      //   const pdfBytes = await pdfDoc.save();
     },
   },
 };
@@ -154,6 +132,9 @@ export default {
 <style lang="scss">
 canvas {
   border: 1px solid grey;
+}
+.modal-close.is-large {
+  background-color: black;
 }
 </style>
 <style lang="scss" scoped>

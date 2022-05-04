@@ -6766,6 +6766,11 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
+merge-images@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/merge-images/-/merge-images-1.2.0.tgz#740117bd655b310fe2046f7c980798ded8d6d4f2"
+  integrity sha512-hEGvgnTdXr08uzGvEArxRsKpy7WmozM73YaSi4s5IYF4LxrhANpqfHaz9CgBZ5+0+s2NsjPnPdStz3aCc0Yulw==
+
 merge-source-map@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/merge-source-map/-/merge-source-map-1.1.0.tgz"
@@ -9188,6 +9193,11 @@ signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
+signature_pad@^3.0.0-beta.3:
+  version "3.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/signature_pad/-/signature_pad-3.0.0-beta.4.tgz#2a8441559e9f439e7f2f525da3ee630ef973ecf6"
+  integrity sha512-cOf2NhVuTiuNqe2X/ycEmizvCDXk0DoemhsEpnkcGnA4kS5iJYTCqZ9As7tFBbsch45Q1EdX61833+6sjJ8rrw==
+
 simple-swizzle@^0.2.2:
   version "0.2.2"
   resolved "https://registry.npmjs.org/simple-swizzle/-/simple-swizzle-0.2.2.tgz"
@@ -10285,6 +10295,15 @@ vue-server-renderer@^2.6.12, vue-server-renderer@^2.6.14:
     resolve "^1.2.0"
     serialize-javascript "^3.1.0"
     source-map "0.5.6"
+
+vue-signature-pad@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/vue-signature-pad/-/vue-signature-pad-2.0.5.tgz#f43447d476a4791b04ec1f81b96eee6d0fbe7fc0"
+  integrity sha512-FLvJRmhSP/DVkg0W/tGcPZ4D0ZQlFxHgN1mjph6jt/59yLeTSv0zGGU133lfq9CkYMQ5DqN6rWujjL7Gnx7UPA==
+  dependencies:
+    merge-images "^1.1.0"
+    signature_pad "^3.0.0-beta.3"
+    vue "^2.6.14"
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.3:
   version "4.1.3"
