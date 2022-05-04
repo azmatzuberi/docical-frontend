@@ -33,7 +33,8 @@ export default {
     save() {
       const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
       console.log(isEmpty);
-      console.log(data);
+      // console.log(data);
+      this.$store.commit("signature/add", data);
     },
     undo() {
       this.$refs.signaturePad.undoSignature();
