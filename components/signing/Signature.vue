@@ -1,37 +1,74 @@
 <template>
   <section class="container">
-    <div class="modal-card" style="width: auto">
+    <div class="modal-card columns is-centered" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">Add your signature</p>
       </header>
-      <section class="modal-card-body columns is-multiline">
-        <SignatureSideBar @showSignaturePadTrigger="showSignaturePadNow" />
-        <SignaturePad v-if="showSignaturePad" />
-        <div
-          class="viewer column is-full-desktop is-tablet is-mobile"
-          v-if="src"
-        >
-          <pdf-viewer
-            :src="src"
-            v-for="i in numPages"
-            :key="i"
-            :id="i"
-            :page="i"
-            :scale.sync="scale"
-            :annotation="true"
-            :resize="false"
+      <b-steps
+        v-model="activeStep"
+        :animated="isAnimated"
+        :rounded="isRounded"
+        :has-navigation="hasNavigation"
+        :icon-prev="prevIcon"
+        :icon-next="nextIcon"
+        :label-position="labelPosition"
+        :mobile-mode="mobileMode"
+      >
+        <b-step-item step="1" label="Signature" :clickable="true">
+          <SignaturePad />
+        </b-step-item>
+
+        <b-step-item step="2" label="Add to Document">
+          <section class="modal-card-body columns is-multiline">
+            <div
+              class="viewer column is-full-desktop is-tablet is-mobile"
+              v-if="src"
+            >
+              <pdf-viewer
+                :src="src"
+                v-for="i in numPages"
+                :key="i"
+                :id="i"
+                :page="i"
+                :scale.sync="scale"
+                :annotation="true"
+                :resize="false"
+              >
+                <template slot="loading"> loading content here... </template>
+              </pdf-viewer>
+            </div>
+          </section>
+        </b-step-item>
+
+        <template v-if="customNavigation" #navigation="{ previous, next }">
+          <b-button
+            outlined
+            type="is-danger"
+            icon-pack="fas"
+            icon-left="backward"
+            :disabled="previous.disabled"
+            @click.prevent="previous.action"
           >
-            <template slot="loading"> loading content here... </template>
-          </pdf-viewer>
-        </div>
-      </section>
+            Previous
+          </b-button>
+          <b-button
+            outlined
+            type="is-success"
+            icon-pack="fas"
+            icon-right="forward"
+            :disabled="next.disabled"
+            @click.prevent="next.action"
+          >
+            Next
+          </b-button>
+        </template>
+      </b-steps>
     </div>
   </section>
 </template>
 
 <script>
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
-import SignatureSideBar from "@/components/signing/SignatureSideBar.vue";
 import SignaturePad from "@/components/signing/SignaturePad.vue";
 export default {
   name: "SignatureModal",
@@ -136,12 +173,21 @@ canvas {
 .modal-close.is-large {
   background-color: black;
 }
+.modal-card {
+  overflow-y: scroll;
+
+  .b-steps {
+    overflow-y: scroll;
+    margin-top: 30px;
+  }
+}
+.page {
+  margin: 0 auto;
+}
 </style>
 <style lang="scss" scoped>
 .modal-card {
-  .panel {
-    width: 10rem;
-    height: 100%;
-  }
+  background-color: #fff;
+  height: 100%;
 }
 </style>
