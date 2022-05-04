@@ -73,7 +73,6 @@ import SignaturePad from "@/components/signing/SignaturePad.vue";
 export default {
   name: "SignatureModal",
   components: {
-    SignatureSideBar,
     SignaturePad,
   },
   props: ["version"],

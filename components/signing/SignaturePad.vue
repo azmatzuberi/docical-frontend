@@ -3,7 +3,12 @@
     class="signature-pad column is-half-desktop is-half-tablet is-full-mobile"
   >
     <div id="app">
-      <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
+      <VueSignaturePad
+        width="500px"
+        height="500px"
+        style="margin: 0 auto"
+        ref="signaturePad"
+      />
       <div class="signature-pad-buttons">
         <b-button @click="save">Save</b-button>
         <b-button @click="undo">Undo</b-button>
@@ -36,7 +41,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .signature-pad {
   margin: 0 auto;
   .app {
