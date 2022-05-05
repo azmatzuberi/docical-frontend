@@ -4,7 +4,7 @@
   >
     <div id="app">
       <VueSignaturePad
-        width="500px"
+        width="100%"
         height="500px"
         style="margin: 0 auto"
         ref="signaturePad"
@@ -46,6 +46,9 @@ export default {
 .signature-pad {
   margin: 0 auto;
   .app {
+    @media (min-width: 769px) and (max-width: 1205px) {
+      width: 114%;
+    }
     div {
       margin: 0 auto;
     }

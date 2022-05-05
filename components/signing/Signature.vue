@@ -163,7 +163,6 @@ export default {
               "click",
               async function (evt) {
                 mousePos = getMousePos(canvas[i], evt);
-                // alert(mousePos.x + "," + mousePos.y);
                 vm.x = mousePos.x;
                 let sumHeight = 0;
                 if (i > 0) {
@@ -190,7 +189,6 @@ export default {
                 const touch = evt.touches[0] || evt.changedTouches[0];
                 const x = touch.pageX;
                 const y = touch.pageY;
-                // alert(x + "," + y);
                 vm.x = x - 100;
                 let sumHeight = 0;
                 if (i > 0) {
