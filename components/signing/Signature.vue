@@ -163,7 +163,7 @@ export default {
               "click",
               async function (evt) {
                 mousePos = getMousePos(canvas[i], evt);
-                alert(mousePos.x + "," + mousePos.y);
+                // alert(mousePos.x + "," + mousePos.y);
                 vm.x = mousePos.x;
                 let sumHeight = 0;
                 if (i > 0) {
@@ -172,6 +172,33 @@ export default {
                   }
                 }
                 vm.y = mousePos.y - 100 + sumHeight;
+                vm.showSignatureImage = true;
+                const pngImageBytes = await fetch(pngUrl).then((res) =>
+                  res.arrayBuffer()
+                );
+              },
+              false
+            );
+          }
+
+          for (let i = 0; i < canvas.length; i++) {
+            canvas[i].addEventListener(
+              "touchstart",
+              async function (e) {
+                const evt =
+                  typeof e.originalEvent === "undefined" ? e : e.originalEvent;
+                const touch = evt.touches[0] || evt.changedTouches[0];
+                const x = touch.pageX;
+                const y = touch.pageY;
+                // alert(x + "," + y);
+                vm.x = x - 100;
+                let sumHeight = 0;
+                if (i > 0) {
+                  for (let j = 0; j < i; j++) {
+                    sumHeight += canvas[j].offsetHeight;
+                  }
+                }
+                vm.y = y + sumHeight;
                 vm.showSignatureImage = true;
                 const pngImageBytes = await fetch(pngUrl).then((res) =>
                   res.arrayBuffer()
