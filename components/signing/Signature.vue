@@ -41,32 +41,23 @@
         </b-step-item>
 
         <b-step-item step="2" label="Add to Document">
-          <h3 class="has-text-centered" v-if="numPages > 0">
-            <a :href="'#' + (numPages - 1)" v-smooth-scroll
-              >Scroll down<b-icon icon="arrow-down"></b-icon
-            ></a>
-          </h3>
-          <interact
-            v-if="signature && showSignatureImage"
-            draggable
-            :dragOption="dragOption"
-            resizable
-            :resizeOption="resizeOption"
-            class="resize-drag"
-            :style="style"
-            @dragmove="dragmove"
-            @resizemove="resizemove"
-          >
-            <img id="signature" :src="signature" />
-          </interact>
-          <section class="modal-card-body columns is-multiline">
+          <InteractSignature
+            v-if="showSignatureImage === true"
+            :id="'interact-' + index"
+            v-for="(interact, index) in interacts"
+            :key="index"
+            :x="x[index]"
+            :y="y[index]"
+          />
+          <section class="modal-card-body columns is-multiline" v-if="src">
             <div
               class="viewer column is-full-desktop is-tablet is-mobile"
-              v-if="src"
+              v-for="i in numPages"
+              :key="i"
+              @click="insertSignature($event, i)"
             >
               <pdf-viewer
                 :src="src"
-                v-for="i in numPages"
                 :key="i"
                 :id="i"
                 :page="i"
@@ -87,12 +78,12 @@
 <script>
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import SignaturePad from "@/components/signing/SignaturePad.vue";
-import interact from "interactjs";
-import { mapGetters } from "vuex";
+import InteractSignature from "@/components/signing/InteractSignature.vue";
 export default {
   name: "SignatureModal",
   components: {
     SignaturePad,
+    InteractSignature,
   },
   props: ["version"],
   data() {
@@ -107,22 +98,7 @@ export default {
       response: "",
       showSignaturePad: false,
       showSignatureImage: false,
-      resizeOption: {
-        edges: { left: true, right: true, bottom: true, top: true },
-      },
-      dragOption: {
-        modifiers: [
-          interact.modifiers.restrictRect({
-            restriction: "parent",
-            endOnly: true,
-          }),
-        ],
-      },
-      // values for interact.js transformation
-      x: 0,
-      y: 0,
-      w: 200,
-      h: 200,
+      interacts: 1,
       activeStep: 0,
       showSocial: false,
       isAnimated: true,
@@ -135,106 +111,50 @@ export default {
       nextIcon: "chevron-right",
       labelPosition: "bottom",
       mobileMode: "minimalist",
+      x: [],
+      y: [],
+      sumHeight: 0,
     };
-  },
-  computed: {
-    ...mapGetters({
-      signature: "signature/get",
-    }),
-    style() {
-      return {
-        height: `${this.h}px`,
-        width: `${this.w}px`,
-        transform: `translate(${this.x}px, ${this.y}px)`,
-      };
-    },
-  },
-  watch: {
-    src() {
-      const vm = this;
-      let mousePos = null;
-      if (this.src) {
-        setTimeout(() => {
-          //set up the canvas and context
-          const canvas = document.getElementsByClassName("page");
-          //report the mouse position on click
-          for (let i = 0; i < canvas.length; i++) {
-            canvas[i].addEventListener(
-              "click",
-              async function (evt) {
-                mousePos = getMousePos(canvas[i], evt);
-                vm.x = mousePos.x;
-                let sumHeight = 0;
-                if (i > 0) {
-                  for (let j = 0; j < i; j++) {
-                    sumHeight += canvas[j].offsetHeight;
-                  }
-                }
-                vm.y = mousePos.y - 100 + sumHeight;
-                vm.showSignatureImage = true;
-                const pngImageBytes = await fetch(pngUrl).then((res) =>
-                  res.arrayBuffer()
-                );
-              },
-              false
-            );
-          }
-
-          for (let i = 0; i < canvas.length; i++) {
-            canvas[i].addEventListener(
-              "touchstart",
-              async function (e) {
-                const evt =
-                  typeof e.originalEvent === "undefined" ? e : e.originalEvent;
-                const touch = evt.touches[0] || evt.changedTouches[0];
-                const x = touch.pageX;
-                const y = touch.pageY;
-                vm.x = x - 100;
-                let sumHeight = 0;
-                if (i > 0) {
-                  for (let j = 0; j < i; j++) {
-                    sumHeight += canvas[j].offsetHeight;
-                  }
-                }
-                vm.y = y + sumHeight;
-                vm.showSignatureImage = true;
-                const pngImageBytes = await fetch(pngUrl).then((res) =>
-                  res.arrayBuffer()
-                );
-              },
-              false
-            );
-          }
-          //Get Mouse Position
-          function getMousePos(canvas, evt) {
-            var rect = canvas.getBoundingClientRect();
-            return {
-              x: evt.clientX - rect.left,
-              y: evt.clientY - rect.top,
-            };
-          }
-        }, 2000);
-      }
-    },
   },
   mounted() {
     this.downloadVersion(this.version.data._id);
   },
   methods: {
-    dragmove(event) {
-      this.x += event.dx;
-      this.y += event.dy;
-      const elementStyle = document.getElementsByClassName("interact");
-      console.log(elementStyle);
-
-      elementStyle[0].style.position = "absolute";
+    getMousePos(canvas, evt) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top,
+      };
     },
-    resizemove(event) {
-      this.w = event.rect.width;
-      this.h = event.rect.height;
-
-      this.x += event.deltaRect.left;
-      this.y += event.deltaRect.top;
+    insertSignature(evt, i) {
+      const vm = this;
+      const canvas = document.getElementsByClassName("page");
+      const mousePos = this.getMousePos(canvas[i], evt);
+      for (let k = 0; k < this.interacts; k++) {
+        if (i > 0) {
+          for (let j = 0; j < i; j++) {
+            vm.sumHeight += canvas[j].offsetHeight;
+          }
+        }
+        this.x[k] = mousePos.x;
+        this.y[k] = mousePos.y + vm.sumHeight;
+        vm.showSignatureImage = true;
+      }
+      vm.sumHeight = 0;
+      this.addSignatureComponent();
+    },
+    addSignatureComponent() {
+      const vm = this;
+      this.$buefy.snackbar.open({
+        indefinite: true,
+        onAction: () => {
+          this.interacts++;
+        },
+        position: "is-top",
+        message: "Would you like to add another signature?",
+        cancelText: "No",
+      });
     },
     showSignaturePadNow() {
       this.showSignaturePad = true;
@@ -267,11 +187,6 @@ export default {
           }
         });
     },
-    async modifyPdf() {
-      //   const pngImageBytes = await fetch().then((res) =>
-      //     res.arrayBuffer()
-      //   );
-    },
   },
 };
 </script>
@@ -289,6 +204,10 @@ canvas {
     overflow-y: scroll;
     margin-top: 30px;
   }
+
+  .step-navigation {
+    margin-bottom: 35px;
+  }
 }
 .page {
   margin: 0 auto;
@@ -303,9 +222,9 @@ canvas {
   background-color: #fff;
   height: 100%;
 
-  resize-drag {
+  .resize-drag {
     box-sizing: border-box;
-    background: #41b883;
+    border: 1px dotted grey;
 
     /* To prevent interact.js warnings */
     user-select: none;
