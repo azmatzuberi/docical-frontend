@@ -36,13 +36,13 @@
             Next
           </b-button>
         </template>
-        <b-step-item step="1" label="Signature" :clickable="true">
+        <b-step-item id="sigPad" step="1" label="Signature" :clickable="true">
           <SignaturePad />
         </b-step-item>
 
         <b-step-item step="2" label="Add to Document">
           <InteractSignature
-            v-if="showSignatureImage === true"
+            v-if="showSignatureImage[index] === true || run === 0"
             :id="'interact-' + index"
             v-for="(interact, index) in interacts"
             :key="index"
@@ -97,7 +97,7 @@ export default {
       pages: null,
       response: "",
       showSignaturePad: false,
-      showSignatureImage: false,
+      showSignatureImage: [false],
       interacts: 1,
       activeStep: 0,
       showSocial: false,
@@ -114,6 +114,7 @@ export default {
       x: [],
       y: [],
       sumHeight: 0,
+      run: 1,
     };
   },
   mounted() {
@@ -129,27 +130,33 @@ export default {
     },
     insertSignature(evt, i) {
       const vm = this;
-      const canvas = document.getElementsByClassName("page");
-      const mousePos = this.getMousePos(canvas[i], evt);
-      for (let k = 0; k < this.interacts; k++) {
-        if (i > 0) {
-          for (let j = 0; j < i; j++) {
-            vm.sumHeight += canvas[j].offsetHeight;
+      if (this.run === 1) {
+        const canvas = document.getElementsByClassName("page");
+        let mousePos = this.getMousePos(canvas[i], evt);
+        for (let k = 0; k < this.interacts; k++) {
+          if (i > 0) {
+            for (let j = 0; j < i; j++) {
+              vm.sumHeight += canvas[j].offsetHeight;
+            }
           }
+          this.x[k] = mousePos.x;
+          this.y[k] = mousePos.y + vm.sumHeight;
+          vm.showSignatureImage[k] = true;
+          vm.sumHeight = 0;
         }
-        this.x[k] = mousePos.x;
-        this.y[k] = mousePos.y + vm.sumHeight;
-        vm.showSignatureImage = true;
+        console.log("asda");
+        this.run = 0;
+      } else {
+        this.run = 1;
+        this.addSignatureComponent();
       }
-      vm.sumHeight = 0;
-      this.addSignatureComponent();
     },
     addSignatureComponent() {
       const vm = this;
       this.$buefy.snackbar.open({
         indefinite: true,
         onAction: () => {
-          this.interacts++;
+          vm.interacts++;
         },
         position: "is-top",
         message: "Would you like to add another signature?",
@@ -193,6 +200,10 @@ export default {
 <style lang="scss">
 canvas {
   border: 1px solid grey;
+}
+.viewer canvas {
+  -webkit-box-shadow: -14px -15px 15px -11px #000000;
+  box-shadow: -14px -15px 15px -11px #000000;
 }
 .modal-close.is-large {
   background-color: black;
