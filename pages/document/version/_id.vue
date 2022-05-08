@@ -60,7 +60,8 @@
           </div>
           <div v-if="show" class="column is-one-third view-file-column">
             <b-button class="view-file-button" focused @click="openModal"
-              >Sign document</b-button
+              ><b-icon icon="signature-freehand"></b-icon>&nbsp;&nbsp;&nbsp;
+              Sign document</b-button
             >
           </div>
           <section
@@ -128,18 +129,6 @@ export default {
   computed: {
     formattedZoom() {
       return Number.parseInt(this.scale * 100);
-    },
-  },
-  watch: {
-    page: function (p) {
-      if (
-        window.pageYOffset <= this.findPos(document.getElementById(p)) ||
-        (document.getElementById(p + 1) &&
-          window.pageYOffset >= this.findPos(document.getElementById(p + 1)))
-      ) {
-        // window.scrollTo(0,this.findPos(document.getElementById(p)));
-        document.getElementById(p).scrollIntoView();
-      }
     },
   },
   mounted() {

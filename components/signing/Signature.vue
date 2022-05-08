@@ -63,7 +63,7 @@
                 :page="i"
                 :scale.sync="scale"
                 :annotation="true"
-                :resize="false"
+                :resize="true"
               >
                 <template slot="loading"> loading content here... </template>
               </pdf-viewer>
@@ -79,6 +79,7 @@
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import SignaturePad from "@/components/signing/SignaturePad.vue";
 import InteractSignature from "@/components/signing/InteractSignature.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "SignatureModal",
   components: {
@@ -88,7 +89,7 @@ export default {
   props: ["version"],
   data() {
     return {
-      page: this.numPages - 1,
+      page: 1,
       numPages: null,
       heights: [],
       errors: [],
@@ -115,7 +116,13 @@ export default {
       y: [],
       sumHeight: 0,
       run: 1,
+      factor: 1,
     };
+  },
+  computed: {
+    ...mapGetters({
+      signature: "signature/get",
+    }),
   },
   mounted() {
     this.downloadVersion(this.version.data._id);
@@ -139,12 +146,17 @@ export default {
               vm.sumHeight += canvas[j].offsetHeight;
             }
           }
-          this.x[k] = mousePos.x;
-          this.y[k] = mousePos.y + vm.sumHeight;
+          if (screen.width < 1271) {
+            const factor = 1271 / screen.width;
+            this.x[k] = mousePos.x / factor;
+            this.y[k] = (mousePos.y + vm.sumHeight) / factor;
+          } else {
+            this.x[k] = mousePos.x;
+            this.y[k] = mousePos.y + vm.sumHeight;
+          }
           vm.showSignatureImage[k] = true;
           vm.sumHeight = 0;
         }
-        console.log("asda");
         this.run = 0;
       } else {
         this.run = 1;
@@ -193,6 +205,27 @@ export default {
             this.heights[i] = height;
           }
         });
+    },
+    async writePdf() {
+      const url = this.src;
+      const existingPdfBytes = await fetch(url).then((res) =>
+        res.arrayBuffer()
+      );
+      const pngUrl = this.signature;
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+      const pages = pdfDoc.getPages();
+      const firstPage = pages[0];
+      const { width, height } = firstPage.getSize();
+      page.drawImage(jpgImage, {
+        x: page.getWidth() / 2 - jpgDims.width / 2,
+        y: page.getHeight() / 2 - jpgDims.height / 2 + 250,
+        width: jpgDims.width,
+        height: jpgDims.height,
+      });
+
+      const pdfBytes = await pdfDoc.save();
     },
   },
 };
