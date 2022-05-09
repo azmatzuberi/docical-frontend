@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <NavBar @writePdf="writePdf()" />
     <div class="modal-card columns is-centered" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">Add your signature</p>
@@ -48,6 +49,7 @@
             :key="index"
             :x="x[index]"
             :y="y[index]"
+            :factor="factor"
           />
           <section class="modal-card-body columns is-multiline" v-if="src">
             <div
@@ -79,12 +81,14 @@
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import SignaturePad from "@/components/signing/SignaturePad.vue";
 import InteractSignature from "@/components/signing/InteractSignature.vue";
+import NavBar from "@/components/signing/NavBar.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "SignatureModal",
   components: {
     SignaturePad,
     InteractSignature,
+    NavBar,
   },
   props: ["version"],
   data() {
@@ -116,13 +120,18 @@ export default {
       y: [],
       sumHeight: 0,
       run: 1,
-      factor: 1,
     };
   },
   computed: {
     ...mapGetters({
       signature: "signature/get",
+      locations: "signature/getLocations",
     }),
+    factor() {
+      let result;
+      if (window.innerWidth < 1271) result = 1271 / window.innerWidth;
+      return result;
+    },
   },
   mounted() {
     this.downloadVersion(this.version.data._id);
@@ -146,14 +155,8 @@ export default {
               vm.sumHeight += canvas[j].offsetHeight;
             }
           }
-          if (screen.width < 1271) {
-            const factor = 1271 / screen.width;
-            this.x[k] = mousePos.x / factor;
-            this.y[k] = (mousePos.y + vm.sumHeight) / factor;
-          } else {
-            this.x[k] = mousePos.x;
-            this.y[k] = mousePos.y + vm.sumHeight;
-          }
+          this.x[k] = mousePos.x;
+          this.y[k] = mousePos.y + vm.sumHeight;
           vm.showSignatureImage[k] = true;
           vm.sumHeight = 0;
         }
@@ -211,21 +214,30 @@ export default {
       const existingPdfBytes = await fetch(url).then((res) =>
         res.arrayBuffer()
       );
+
       const pngUrl = this.signature;
       const pdfDoc = await PDFDocument.load(existingPdfBytes);
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
-
+      const pngImageBytes = await fetch(pngUrl).then((res) =>
+        res.arrayBuffer()
+      );
+      const pngImage = await pdfDoc.embedPng(pngImageBytes);
+      const pngDims = pngImage.scale(0.5);
       const pages = pdfDoc.getPages();
       const firstPage = pages[0];
       const { width, height } = firstPage.getSize();
-      page.drawImage(jpgImage, {
-        x: page.getWidth() / 2 - jpgDims.width / 2,
-        y: page.getHeight() / 2 - jpgDims.height / 2 + 250,
-        width: jpgDims.width,
-        height: jpgDims.height,
+      firstPage.drawImage(pngImage, {
+        x: firstPage.getWidth() / 2 - pngDims.width / 2,
+        y:
+          firstPage.getHeight() / 2 -
+          pngDims.height / 2 +
+          this.locations[0].y * 0.75,
+        width: pngDims.width,
+        height: pngDims.height,
       });
 
       const pdfBytes = await pdfDoc.save();
+      const file = new Blob([pdfBytes], { type: "application/pdf" });
+      this.src = URL.createObjectURL(file);
     },
   },
 };

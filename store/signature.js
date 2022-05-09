@@ -8,7 +8,6 @@ export const mutations = {
 		state.signatureImage = payload;
 	},
 	addLocations(state, payload) {
-		console.log(payload)
 		state.locations[payload.id] = payload;
 	}
 };

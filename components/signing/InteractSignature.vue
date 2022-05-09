@@ -18,7 +18,7 @@ import interact from "interactjs";
 import { mapGetters } from "vuex";
 export default {
   name: "InteractSignature",
-  props: ["x", "y", "id"],
+  props: ["x", "y", "id", "factor"],
   data() {
     return {
       resizeOption: {
@@ -33,8 +33,8 @@ export default {
         ],
       },
       // values for interact.js transformation
-      w: 200,
-      h: 200,
+      w: this.factor > 1 ? 200 / this.factor : 200,
+      h: this.factor > 1 ? 200 / this.factor : 200,
       xComp: this.x ? this.x : 0,
       yComp: this.y ? this.y : 0,
     };
@@ -48,6 +48,8 @@ export default {
         x: this.xComp,
         y: this.yComp,
         id: this.id.match(/\d+/)[0],
+        h: this.h,
+        w: this.w,
       };
       this.$store.commit("signature/addLocations", locations);
       return {
@@ -59,16 +61,6 @@ export default {
       };
     },
   },
-  //   watch: {
-  //     style() {
-  //       const locations = {
-  //         x: this.xComp,
-  //         y: this.yComp,
-  //         id: this.id.match(/\d+/)[0],
-  //       };
-  //       this.$store.commit("signature/addLocations", locations);
-  //     },
-  //   },
   methods: {
     dragmove(event) {
       this.xComp += event.dx;
