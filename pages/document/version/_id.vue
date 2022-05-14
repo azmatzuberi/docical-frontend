@@ -74,6 +74,7 @@
             <h1>You don't have access to this document</h1>
           </div>
         </div>
+        <Comments />
       </div>
     </section>
     <b-modal
@@ -95,6 +96,7 @@ import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-document/FilesTable.vue";
 import Collaborate from "@/components/create-document/Collaborate.vue";
 import Signature from "@/components/signing/Signature.vue";
+import Comments from "@/components/version/Comments.vue";
 export default {
   middleware: "auth",
   name: "VersionProfile",
@@ -106,6 +108,7 @@ export default {
     Upload,
     Collaborate,
     Signature,
+    Comments,
   },
   data() {
     return {
@@ -211,7 +214,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss"	>
 .profile-main {
   .columns {
     padding-right: 0;
@@ -239,6 +242,12 @@ export default {
   .document-column {
     div {
       margin: 10px 0;
+    }
+  }
+  .comments-section {
+    background-color: #1c71e8;
+    label.label {
+      color: #fff;
     }
   }
   .seal {

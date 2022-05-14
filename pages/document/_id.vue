@@ -219,8 +219,8 @@ export default {
 .timeline::after {
   content: "";
   position: absolute;
-  width: 6px;
-  background-color: white;
+  width: 2px;
+  background-color: lightgrey;
   top: 0;
   bottom: 0;
   left: 50%;
@@ -241,7 +241,7 @@ export default {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: -17px;
+  right: -11px;
   background-color: #1c71e8;
   top: 15px;
   border-radius: 50%;
@@ -288,7 +288,7 @@ export default {
 
 /* Fix the circle for version-column.version-columns on the right side */
 .right::after {
-  left: -16px;
+  left: -14px;
 }
 
 /* The actual content */
@@ -324,7 +324,7 @@ export default {
   /* Make sure all circles are at the same spot */
   .left::after,
   .right::after {
-    left: 15px;
+    left: 21px;
   }
 
   /* Make all right version-column.version-columns behave like the left ones */

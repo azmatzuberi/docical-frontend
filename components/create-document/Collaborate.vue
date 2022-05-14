@@ -1,5 +1,5 @@
 <template>
-  <section class="column" :class="{ 'is-one-third-desktop': page }">
+  <section :class="{ 'is-one-third-desktop': page }">
     <b-field label="Emails of Collaborators">
       <b-taginput
         v-model="collaborators"
