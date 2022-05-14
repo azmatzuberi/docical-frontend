@@ -1,5 +1,15 @@
 <template>
   <section class="card">
+    <div class="card-image">
+      <pdf-viewer
+        :src="'data:image/png;base64,' + version.thumbnail"
+        :page="1"
+        :annotation="true"
+        :resize="true"
+      >
+        <template slot="loading"> loading content here... </template>
+      </pdf-viewer>
+    </div>
     <header class="card-header">
       <div class="document-index" v-if="document">{{ index }}.</div>
       <div class="card-header-title" v-if="document">{{ document.name }}</div>
@@ -152,6 +162,10 @@ export default {
 
 <style lang="scss">
 .card {
+  .image {
+    width: 100px;
+    margin: 0 auto;
+  }
   .card-header {
     height: 2.5rem;
 
@@ -191,6 +205,10 @@ export default {
   .document-index {
     padding: 0.5rem 1rem;
     color: grey;
+  }
+  .card-image {
+    width: 250px;
+    margin: 0 auto;
   }
 }
 </style>
