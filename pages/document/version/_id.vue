@@ -244,12 +244,6 @@ export default {
       margin: 10px 0;
     }
   }
-  .comments-section {
-    background-color: #1c71e8;
-    label.label {
-      color: #fff;
-    }
-  }
   .seal {
     @media (max-width: 768px) {
       width: 40%;

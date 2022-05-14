@@ -33,7 +33,11 @@
             v-for="(document, index) in paginatedItems"
             :key="index"
           >
-            <Document class="column" :document="document" />
+            <Document
+              class="column"
+              :document="document"
+              :index="(index - documents.length) * -1"
+            />
           </div>
         </section>
       </div>

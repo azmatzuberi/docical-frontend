@@ -243,7 +243,7 @@ export default {
   height: 25px;
   right: -11px;
   background-color: #1c71e8;
-  top: 15px;
+  top: 20px;
   border-radius: 50%;
   z-index: 1;
 }
@@ -335,6 +335,7 @@ export default {
   .version-column::after {
     width: 15px;
     height: 15px;
+    top: 25px;
   }
 }
 </style>

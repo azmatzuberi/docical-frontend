@@ -16,13 +16,13 @@
               <b-menu-item expanded icon="network" label="Menu">
                 <b-menu-item
                   icon="folder-plus-outline"
-                  label="Create"
+                  label="Create doc"
                   tag="router-link"
                   to="/create-document"
                 ></b-menu-item>
                 <b-menu-item
                   icon="folder-open-outline"
-                  label="Open"
+                  label="Open doc"
                   tag="router-link"
                   to="/open-document"
                 ></b-menu-item>
@@ -34,7 +34,7 @@
                 ></b-menu-item>
                 <b-menu-item
                   icon="folder-account"
-                  label="Shared"
+                  label="Shared with others"
                   tag="router-link"
                   to="/shared"
                 ></b-menu-item>

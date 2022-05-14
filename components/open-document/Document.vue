@@ -1,9 +1,8 @@
 <template>
   <section class="card">
     <header class="card-header">
-      <p v-if="document" class="card-header-title">
-        {{ document.name }}
-      </p>
+      <div class="document-index" v-if="document">{{ index }}.</div>
+      <div class="card-header-title" v-if="document">{{ document.name }}</div>
       <div v-if="version && index % 2 === 0" class="card-header-title">
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
@@ -188,6 +187,10 @@ export default {
   }
   .index-number {
     color: lightgrey;
+  }
+  .document-index {
+    padding: 0.5rem 1rem;
+    color: grey;
   }
 }
 </style>
