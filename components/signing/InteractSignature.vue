@@ -77,10 +77,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .resize-drag {
-  box-sizing: border-box;
-  border: 1px dotted grey;
+  .signature {
+    box-sizing: border-box;
+    border: 1px dotted grey;
+  }
 
   /* To prevent interact.js warnings */
   user-select: none;

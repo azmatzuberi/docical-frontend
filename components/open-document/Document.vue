@@ -4,11 +4,19 @@
       <p v-if="document" class="card-header-title">
         {{ document.name }}
       </p>
-      <div v-if="version" class="card-header-title">
-        <div class="index-number">{{ index }}. Version</div>
-        <div id="date">
+      <div v-if="version && index % 2 === 0" class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
           {{ new Date(version.created).toLocaleDateString("en-US") }}
         </div>
+        <div class="index-number">{{ index }}. Version</div>
+      </div>
+      <div v-else-if="version" class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
+        {{ new Date(version.created).toLocaleTimeString("en-US") }}
+        -
+        {{ new Date(version.created).toLocaleDateString("en-US") }}
       </div>
     </header>
     <div class="card-content">

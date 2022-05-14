@@ -26,6 +26,7 @@
     "sass": "^1.49.7",
     "sass-loader": "^10",
     "vue": "^2.6.14",
+    "vue-html2pdf": "^1.8.0",
     "vue-interactjs": "^0.1.10",
     "vue-server-renderer": "^2.6.14",
     "vue-signature-pad": "2.0.5",

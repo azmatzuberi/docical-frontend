@@ -63,7 +63,7 @@
                 :key="i"
                 :id="i"
                 :page="i"
-                :scale.sync="scale"
+                :scale="scale"
                 :annotation="true"
                 :resize="true"
               >
@@ -97,7 +97,7 @@ export default {
       numPages: null,
       heights: [],
       errors: [],
-      scale: 1.38,
+      scale: 1,
       src: "",
       pages: null,
       response: "",
@@ -120,6 +120,29 @@ export default {
       y: [],
       sumHeight: 0,
       run: 1,
+      htmlToPdfOptions: {
+        margin: 0,
+
+        filename: `hehehe.pdf`,
+
+        image: {
+          type: "jpeg",
+          quality: 0.98,
+        },
+
+        enableLinks: false,
+
+        html2canvas: {
+          scale: 1,
+          useCORS: true,
+        },
+
+        jsPDF: {
+          unit: "in",
+          format: "a4",
+          orientation: "portrait",
+        },
+      },
     };
   },
   computed: {
@@ -137,6 +160,9 @@ export default {
     this.downloadVersion(this.version.data._id);
   },
   methods: {
+    write2Pdf() {
+      this.$refs.html2Pdf.generatePdf();
+    },
     getMousePos(canvas, evt) {
       const rect = canvas.getBoundingClientRect();
       return {
@@ -220,24 +246,178 @@ export default {
       const pngImageBytes = await fetch(pngUrl).then((res) =>
         res.arrayBuffer()
       );
+      const canvas = document.getElementsByClassName("page");
+      const firstCanvasY = canvas[0].offsetHeight;
+      const firstCanvasX = canvas[0].offsetWidth;
+      console.log("X", this.locations[0].x);
+      console.log("Y", this.locations[0].y);
+      console.log("Height", firstCanvasY);
+      console.log("Width", firstCanvasX);
+      const halfHeight = firstCanvasY / 2;
+      const yPercent10 = 0.09 * firstCanvasY;
+      const yPercent20 = 0.19 * firstCanvasY;
+      const yPercent30 = 0.29 * firstCanvasY;
+      const yPercent40 = 0.39 * firstCanvasY;
+      const yPercent50 = 0.49 * firstCanvasY;
+      const yPercent60 = 0.59 * firstCanvasY;
+      const yPercent70 = 0.69 * firstCanvasY;
+      const yPercent80 = 0.79 * firstCanvasY;
+      const yPercent90 = 0.89 * firstCanvasY;
+      let yCalculated = null;
+
+      if (this.locations[0].y < yPercent10) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        console.log("10% - Y");
+      } else if (
+        this.locations[0].y < yPercent20 &&
+        this.locations[0].y > yPercent10
+      ) {
+        console.log("20%  - Y");
+      } else if (
+        this.locations[0].y < yPercent30 &&
+        this.locations[0].y > yPercent20
+      ) {
+        console.log("30%  - Y");
+      } else if (
+        this.locations[0].y < yPercent40 &&
+        this.locations[0].y > yPercent30
+      ) {
+        console.log("40%  - Y");
+      } else if (
+        this.locations[0].y < yPercent50 &&
+        this.locations[0].y > yPercent40
+      ) {
+        console.log("50%  - Y");
+      } else if (
+        this.locations[0].y < yPercent60 &&
+        this.locations[0].y > yPercent50
+      ) {
+        console.log("60%  - Y");
+      } else if (
+        this.locations[0].y < yPercent70 &&
+        this.locations[0].y > yPercent60
+      ) {
+        console.log("70%  - Y");
+      } else if (
+        this.locations[0].y < yPercent80 &&
+        this.locations[0].y > yPercent70
+      ) {
+        console.log("80%  - Y");
+      } else if (
+        this.locations[0].y < yPercent90 &&
+        this.locations[0].y > yPercent80
+      ) {
+        console.log("90%  - Y");
+      } else if (this.locations[0].y > yPercent90) {
+        console.log("100%  - Y");
+      }
+
+      const xPercent10 = 0.09 * firstCanvasX;
+      const xPercent20 = 0.19 * firstCanvasX;
+      const xPercent30 = 0.29 * firstCanvasX;
+      const xPercent40 = 0.39 * firstCanvasX;
+      const xPercent50 = 0.49 * firstCanvasX;
+      const xPercent60 = 0.59 * firstCanvasX;
+      const xPercent70 = 0.69 * firstCanvasX;
+      const xPercent80 = 0.79 * firstCanvasX;
+      const xPercent90 = 0.89 * firstCanvasX;
+      let xCalculated = null;
+
+      if (this.locations[0].x < xPercent10) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        console.log("10% - X");
+      } else if (
+        this.locations[0].x < xPercent20 &&
+        this.locations[0].x > xPercent10
+      ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 2;
+        console.log("20%  - X");
+      } else if (
+        this.locations[0].x < xPercent30 &&
+        this.locations[0].x > xPercent20
+      ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 3;
+        console.log("30%  - X");
+      } else if (
+        this.locations[0].x < xPercent40 &&
+        this.locations[0].x > xPercent30
+      ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 10;
+        console.log("40%  - X");
+      } else if (
+        this.locations[0].x < xPercent50 &&
+        this.locations[0].x > xPercent40
+      ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        console.log("50%  - X");
+      } else if (
+        this.locations[0].x < xPercent60 &&
+        this.locations[0].x > xPercent50
+      ) {
+        console.log("60%  - X");
+      } else if (
+        this.locations[0].x < xPercent70 &&
+        this.locations[0].x > xPercent60
+      ) {
+        console.log("70%  - X");
+      } else if (
+        this.locations[0].x < xPercent80 &&
+        this.locations[0].x > xPercent70
+      ) {
+        console.log("80%  - X");
+      } else if (
+        this.locations[0].x < xPercent90 &&
+        this.locations[0].x > xPercent80
+      ) {
+        console.log("90%  - X");
+      } else if (this.locations[0].x > xPercent90) {
+        console.log("100%  - X");
+      }
+
+      //   if (this.locations[0].y < halfHeight) {
+      //     yCalculated =
+      //       ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 +
+      //       (0.02 * ((firstCanvasY - this.locations[0].y) * 0.9)) / 2.08;
+      //   } else if (this.locations[0].y > halfHeight) {
+      //     yCalculated =
+      //       ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 +
+      //       (0.1 * ((firstCanvasY - this.locations[0].y) * 0.9)) / 2.08;
+      //   }
+      //   if (this.locations[0].y > 400 && this.locations[0].y < 600) {
+      //     yCalculated =
+      //       ((halfHeight + (halfHeight - this.locations[0].y)) * 0.75) / 1.75;
+      //     console.log("> 400 < 600");
+      //   }
+      //   if (this.locations[0].y < 400) {
+      //     yCalculated =
+      //       ((halfHeight + (halfHeight - this.locations[0].y)) * 0.75) / 1.7;
+      //     console.log("< 400");
+      //   } else {
+      // yCalculated = ((firstCanvasY - this.locations[0].y) * 0.75) / 1.85;
+      //   }
+
+      //   const xCalculated = (this.locations[0].x * 0.9) / 2.08;
+      console.log("YCalc", yCalculated);
+      console.log("XCalc", xCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
-      const pngDims = pngImage.scale(0.5);
+      const pngDims = pngImage.scale(0);
       const pages = pdfDoc.getPages();
       const firstPage = pages[0];
       const { width, height } = firstPage.getSize();
       firstPage.drawImage(pngImage, {
-        x: firstPage.getWidth() / 2 - pngDims.width / 2,
-        y:
-          firstPage.getHeight() / 2 -
-          pngDims.height / 2 +
-          this.locations[0].y * 0.75,
-        width: pngDims.width,
-        height: pngDims.height,
+        x: xCalculated,
+        y: yCalculated,
+        width: (this.locations[0].w * 0.9) / 2.08,
+        height: (this.locations[0].h * 0.9) / 2.08,
+        rotate: degrees(-8),
       });
 
       const pdfBytes = await pdfDoc.save();
       const file = new Blob([pdfBytes], { type: "application/pdf" });
-      this.src = URL.createObjectURL(file);
+      this.src = null;
+      setTimeout(() => {
+        this.src = URL.createObjectURL(file);
+      }, 2500);
     },
   },
 };
@@ -277,15 +457,5 @@ canvas {
 .modal-card {
   background-color: #fff;
   height: 100%;
-
-  .resize-drag {
-    box-sizing: border-box;
-    border: 1px dotted grey;
-
-    /* To prevent interact.js warnings */
-    user-select: none;
-    -ms-touch-action: none;
-    touch-action: none;
-  }
 }
 </style>

@@ -33,7 +33,7 @@ export default {
 		{ src: '@/plugins/pdf', mode: 'client' },
 		{ src: '@/plugins/signaturePad', mode: 'client' },
 		{ src: '@/plugins/interact', mode: 'client' },
-		{ src: '@/plugins/smoothScroll', mode: 'client' },
+		{ src: '@/plugins/vue-html2pdf', mode: 'client' }
 	],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
