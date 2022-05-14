@@ -51,7 +51,9 @@
           </section>
         </div>
         <section class="columns" v-if="!collaboratorFlag && show && versions">
-          <Collaborate :version="versions.data" :page="true" />
+          <div class="column">
+            <Collaborate :version="versions.data" :page="true" />
+          </div>
         </section>
         <section v-if="show" class="versions-section timeline">
           <div
