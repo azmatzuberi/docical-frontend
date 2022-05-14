@@ -2,6 +2,16 @@
   <section class="card">
     <div class="card-image">
       <pdf-viewer
+        v-if="document"
+        :src="'data:image/png;base64,' + document.thumbnail"
+        :page="1"
+        :annotation="true"
+        :resize="true"
+      >
+        <template slot="loading"> loading content here... </template>
+      </pdf-viewer>
+      <pdf-viewer
+        v-if="version"
         :src="'data:image/png;base64,' + version.thumbnail"
         :page="1"
         :annotation="true"
