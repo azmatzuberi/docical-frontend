@@ -236,5 +236,8 @@ export default {
     width: 250px;
     margin: 0 auto;
   }
+  .pdfViewer {
+    border: 1px solid grey;
+  }
 }
 </style>
