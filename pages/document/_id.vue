@@ -51,7 +51,7 @@
           </section>
         </div>
         <section class="columns" v-if="!collaboratorFlag && show && versions">
-          <div class="column">
+          <div class="column is-one-third-desktop is-half-tablet">
             <Collaborate :version="versions.data" :page="true" />
           </div>
         </section>
