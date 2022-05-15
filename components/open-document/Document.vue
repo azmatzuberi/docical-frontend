@@ -61,11 +61,31 @@
           </tr>
           <tr v-if="document">
             <td class="row-heading">Size:</td>
-            <td class="document-field">{{ document.size }}</td>
+            <td class="document-field">
+              <span v-if="document.size > 999"
+                >{{ Math.round(document.size).toFixed(2) / 1000 }}KB</span
+              >
+              <span v-else-if="document.size > 999999"
+                >{{ Math.round(document.size).toFixed(2) / 10000 }}MB</span
+              >
+              <span v-else
+                >{{ Math.round(document.size).toFixed(2) / 100000 }}B</span
+              >
+            </td>
           </tr>
           <tr v-if="version">
             <td class="row-heading">Size:</td>
-            <td class="document-field">{{ version.size }}</td>
+            <td class="document-field">
+              <span v-if="document.size > 999"
+                >{{ document.size.toLocaleString("en-US").toFixed(2) }}KB</span
+              >
+              <span v-else-if="document.size > 999999"
+                >{{ document.size.toLocaleString("en-US").toFixed(2) }}MB</span
+              >
+              <span v-else
+                >{{ document.size.toLocaleString("en-US").toFixed(2) }}B</span
+              >
+            </td>
           </tr>
           <tr v-if="document">
             <td class="row-heading">Tags:</td>
