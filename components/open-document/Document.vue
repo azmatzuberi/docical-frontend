@@ -244,7 +244,7 @@ export default {
     width: 250px;
     margin: 0 auto;
     border: 1px solid grey;
-    padding-bottom: 5px;
+    padding-bottom: 1px;
   }
   .card-content {
     margin-top: 5px;
