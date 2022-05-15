@@ -38,6 +38,14 @@
       <table class="card-table">
         <tbody>
           <tr v-if="document">
+            <td class="row-heading">ID:</td>
+            <td class="document-field">
+              <b-button @click="copyId(document._id)"
+                ><b-icon icon="content-copy" size="is-small"></b-icon></b-button
+              >&nbsp;&nbsp;{{ document._id }}
+            </td>
+          </tr>
+          <tr v-if="document">
             <td class="row-heading">Owner:</td>
             <td class="document-field">
               <span v-if="$auth.user._id === document.user_id">You</span>
@@ -144,6 +152,16 @@ export default {
     };
   },
   methods: {
+    copyId(id) {
+      navigator.clipboard.writeText(id);
+      this.success();
+    },
+    success() {
+      this.$buefy.toast.open({
+        message: "ID copied",
+        type: "is-success",
+      });
+    },
     async downloadDocument(id) {
       const request_config = {
         responseType: "arraybuffer",
