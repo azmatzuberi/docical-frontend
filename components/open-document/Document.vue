@@ -1,7 +1,7 @@
 <template>
   <section class="card">
-    <header class="card-header" v-if="version && index % 2 === 0">
-      <div class="card-header-title top">
+    <header class="card-header top" v-if="version && index % 2 === 0">
+      <div class="card-header-title">
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
           -
@@ -30,7 +30,7 @@
         <template slot="loading"> loading content here... </template>
       </pdf-viewer>
     </div>
-    <header class="card-header" v-if="document">
+    <header class="card-header bottom" v-if="document">
       <div class="document-index">{{ index }}.</div>
       <div class="card-header-title">{{ document.name }}</div>
     </header>
@@ -197,11 +197,15 @@ export default {
 
     .card-header-title {
       justify-content: space-between;
-
-      .top {
-        margin-bottom: 5px;
-      }
     }
+  }
+
+  .top {
+    margin-bottom: 5px;
+  }
+
+  .bottom {
+    margin-top: 5px;
   }
   .card-table {
     width: 100%;
@@ -242,6 +246,9 @@ export default {
   }
   .pdfViewer {
     border: 1px solid grey;
+  }
+  .card-content {
+    margin-top: 5px;
   }
 }
 </style>
