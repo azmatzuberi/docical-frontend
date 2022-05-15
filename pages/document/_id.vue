@@ -58,7 +58,7 @@
         <section v-if="show" class="versions-section timeline">
           <div
             class="version-column"
-            :class="index % 2 === 0 ? 'left' : 'right'"
+            :class="index % 2 !== 0 ? 'left' : 'right'"
             v-for="(version, index) in versions"
             :key="index"
           >

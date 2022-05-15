@@ -1,5 +1,15 @@
 <template>
   <section class="card">
+    <header class="card-header">
+      <div v-if="version && index % 2 === 0" class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+        <div class="index-number">{{ index }}. Version</div>
+      </div>
+    </header>
     <div class="card-image">
       <pdf-viewer
         v-if="document"
@@ -20,23 +30,9 @@
         <template slot="loading"> loading content here... </template>
       </pdf-viewer>
     </div>
-    <header class="card-header">
-      <div class="document-index" v-if="document">{{ index }}.</div>
-      <div class="card-header-title" v-if="document">{{ document.name }}</div>
-      <div v-if="version && index % 2 === 0" class="card-header-title">
-        <div class="date">
-          {{ new Date(version.created).toLocaleTimeString("en-US") }}
-          -
-          {{ new Date(version.created).toLocaleDateString("en-US") }}
-        </div>
-        <div class="index-number">{{ index }}. Version</div>
-      </div>
-      <div v-else-if="version" class="card-header-title">
-        <div class="index-number">{{ index }}. Version</div>
-        {{ new Date(version.created).toLocaleTimeString("en-US") }}
-        -
-        {{ new Date(version.created).toLocaleDateString("en-US") }}
-      </div>
+    <header class="card-header" v-if="document">
+      <div class="document-index">{{ index }}.</div>
+      <div class="card-header-title">{{ document.name }}</div>
     </header>
     <div class="card-content">
       <table class="card-table">
