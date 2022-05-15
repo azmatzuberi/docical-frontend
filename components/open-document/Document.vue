@@ -1,7 +1,7 @@
 <template>
   <section class="card">
     <header class="card-header" v-if="version && index % 2 === 0">
-      <div class="card-header-title">
+      <div class="card-header-title top">
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
           -
@@ -197,6 +197,10 @@ export default {
 
     .card-header-title {
       justify-content: space-between;
+
+      .top {
+        margin-bottom: 5px;
+      }
     }
   }
   .card-table {
