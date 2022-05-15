@@ -1,7 +1,7 @@
 <template>
   <section class="card">
-    <header class="card-header">
-      <div v-if="version && index % 2 === 0" class="card-header-title">
+    <header class="card-header" v-if="version && index % 2 === 0">
+      <div class="card-header-title">
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
           -
