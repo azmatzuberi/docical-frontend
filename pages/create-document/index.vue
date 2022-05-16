@@ -1,7 +1,7 @@
 <template>
   <section>
     <NavBar page="start-screen" />
-    <section class="open-docs-main">
+    <section class="create-docs-main">
       <div class="container">
         <div class="columns column">
           <div class="column is-3-desktop is-4-tablet">
@@ -30,10 +30,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.open-docs-main {
+<style lang="scss">
+.create-docs-main {
   .columns.is-multiline {
     margin-top: 13px;
+  }
+
+  @media (max-width: 820px) {
+    .columns {
+      padding-right: 0;
+      margin-right: 0;
+      padding-left: 0;
+      margin-left: 0;
+    }
   }
 }
 </style>

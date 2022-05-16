@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="steps-section">
     <b-steps
       v-if="window.width > 780"
       v-model="position"
@@ -117,5 +117,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.step-content {
+  padding-right: 0;
+  margin-right: 0;
+  padding-left: 0;
+  margin-left: 0;
+}
 </style>
