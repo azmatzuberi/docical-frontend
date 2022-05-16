@@ -1,6 +1,9 @@
 <template>
   <section class="card">
-    <header class="card-header top" v-if="version && index % 2 === 0">
+    <header
+      class="card-header top desktop"
+      v-if="version && index % 2 !== 0 && length > 1"
+    >
       <div class="card-header-title">
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
@@ -10,7 +13,33 @@
         <div class="index-number">{{ index }}. Version</div>
       </div>
     </header>
-    <header class="card-header top" v-else-if="version && index % 2 !== 0">
+    <header class="card-header top mobile-screen" v-if="version">
+      <div class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+        <div class="index-number">{{ index }}. Version</div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-if="version && index % 2 !== 0 && length < 2"
+    >
+      <div class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-if="version && index % 2 === 0 && length > 1"
+    >
       <div class="card-header-title">
         <div class="index-number">{{ index }}. Version</div>
         <div class="date">
@@ -155,7 +184,7 @@
 <script>
 export default {
   name: "DocuMent",
-  props: ["document", "version", "index"],
+  props: ["document", "version", "index", "length"],
   data() {
     return {
       src: "",
@@ -225,6 +254,24 @@ export default {
 
     .card-header-title {
       justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-header.mobile-screen {
+      display: block;
+    }
+    .card-header.top.desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 601px) {
+    .card-header.mobile-screen {
+      display: none;
+    }
+    .card-header.top.desktop {
+      display: block;
     }
   }
 
