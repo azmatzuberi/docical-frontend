@@ -10,6 +10,16 @@
         <div class="index-number">{{ index }}. Version</div>
       </div>
     </header>
+    <header class="card-header top" v-else-if="version && index % 2 !== 0">
+      <div class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+      </div>
+    </header>
     <div class="card-image">
       <pdf-viewer
         v-if="document"
