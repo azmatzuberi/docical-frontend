@@ -5,12 +5,38 @@
       v-if="version && index % 2 !== 0 && length > 1"
     >
       <div class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
         <div class="date">
           {{ new Date(version.created).toLocaleTimeString("en-US") }}
           -
           {{ new Date(version.created).toLocaleDateString("en-US") }}
         </div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-else-if="version && index % 2 === 0 && length > 1"
+    >
+      <div class="card-header-title">
         <div class="index-number">{{ index }}. Version</div>
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-else-if="version && index % 2 !== 0 && length < 2"
+    >
+      <div class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
       </div>
     </header>
     <header class="card-header top mobile-screen" v-if="version">
@@ -21,32 +47,6 @@
           {{ new Date(version.created).toLocaleDateString("en-US") }}
         </div>
         <div class="index-number">{{ index }}. Version</div>
-      </div>
-    </header>
-    <header
-      class="card-header top desktop"
-      v-if="version && index % 2 !== 0 && length < 2"
-    >
-      <div class="card-header-title">
-        <div class="index-number">{{ index }}. Version</div>
-        <div class="date">
-          {{ new Date(version.created).toLocaleTimeString("en-US") }}
-          -
-          {{ new Date(version.created).toLocaleDateString("en-US") }}
-        </div>
-      </div>
-    </header>
-    <header
-      class="card-header top desktop"
-      v-if="version && index % 2 === 0 && length > 1"
-    >
-      <div class="card-header-title">
-        <div class="index-number">{{ index }}. Version</div>
-        <div class="date">
-          {{ new Date(version.created).toLocaleTimeString("en-US") }}
-          -
-          {{ new Date(version.created).toLocaleDateString("en-US") }}
-        </div>
       </div>
     </header>
     <div class="card-image">
@@ -81,7 +81,7 @@
             <td class="document-field">
               <b-button @click="copyId(document._id)"
                 ><b-icon icon="content-copy" size="is-small"></b-icon></b-button
-              >&nbsp;&nbsp;{{ document._id }}
+              >&nbsp;{{ document._id }}
             </td>
           </tr>
           <tr v-if="document">
@@ -323,6 +323,10 @@ export default {
   }
   .card-content {
     margin-top: 5px;
+
+    @media (max-width: 1215px) {
+      font-size: 14px;
+    }
   }
 }
 </style>
