@@ -1,6 +1,9 @@
 <template>
   <section class="card">
-    <header class="card-header top desktop" v-if="version">
+    <header
+      class="card-header top desktop"
+      v-if="version && index % 2 !== 0 && length % 2 !== 0"
+    >
       <div class="card-header-title">
         <div class="index-number">{{ index }}. Version</div>
         <div class="date">
@@ -8,6 +11,45 @@
           -
           {{ new Date(version.created).toLocaleDateString("en-US") }}
         </div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-else-if="version && index % 2 === 0 && length % 2 === 0"
+    >
+      <div class="card-header-title">
+        <div class="index-number">{{ index }}. Version</div>
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-else-if="version && index % 2 !== 0 && length % 2 === 0"
+    >
+      <div class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+        <div class="index-number">{{ index }}. Version</div>
+      </div>
+    </header>
+    <header
+      class="card-header top desktop"
+      v-else-if="version && index % 2 === 0 && length % 2 !== 0"
+    >
+      <div class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+        <div class="index-number">{{ index }}. Version</div>
       </div>
     </header>
     <div class="card-image">

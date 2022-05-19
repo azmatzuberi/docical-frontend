@@ -59,7 +59,7 @@
           <div
             class="version-column"
             :class="index % 2 === 0 ? 'left' : 'right'"
-            v-for="(version, index) in versions"
+            v-for="(version, index) in paginatedItems"
             :key="index"
           >
             <Document
@@ -67,6 +67,32 @@
               :index="(index - versions.length) * -1"
               :length="versions.length"
             />
+          </div>
+        </section>
+        <section class="pagination-list columns">
+          <div class="column">
+            <b-pagination
+              v-if="versions.length > 5"
+              :total="versions.length"
+              v-model="current"
+              :range-before="rangeBefore"
+              :range-after="rangeAfter"
+              :order="order"
+              :size="size"
+              :simple="isSimple"
+              :rounded="isRounded"
+              :per-page="perPage"
+              :icon-prev="prevIcon"
+              :icon-next="nextIcon"
+              aria-next-label="Next page"
+              aria-previous-label="Previous page"
+              aria-page-label="Page"
+              aria-current-label="Current page"
+              :page-input="hasInput"
+              :page-input-position="inputPosition"
+              :debounce-page-input="inputDebounce"
+            >
+            </b-pagination>
           </div>
         </section>
       </div>
@@ -101,13 +127,14 @@ export default {
       isHoverable: false,
       isFocusable: false,
       isLoading: false,
-      hasMobileCards: true,
       selected: null,
       document: {},
       versions: [],
       collaboratorsInput: [],
       collaboratorFlag: true,
       show: null,
+      current: 1,
+      perPage: 5,
     };
   },
   computed: {
@@ -118,6 +145,16 @@ export default {
       set(values) {
         this.collaboratorsInput = values;
       },
+    },
+    paginatedItems() {
+      const pageNumber = this.current - 1;
+      if (this.versions.length > 0) {
+        return this.versions.slice(
+          pageNumber * this.perPage,
+          (pageNumber + 1) * this.perPage
+        );
+      }
+      return null;
     },
   },
   beforeMount() {

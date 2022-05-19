@@ -92,7 +92,6 @@ export default {
       isHoverable: false,
       isFocusable: false,
       isLoading: false,
-      hasMobileCards: true,
       selected: null,
       documents: [],
       current: 1,
