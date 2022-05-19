@@ -40,7 +40,7 @@
           <tr v-if="document">
             <td class="row-heading">ID:</td>
             <td class="document-field">
-              <b-button @click="copyId(document._id)"
+              <b-button class="copy-button" @click="copyId(document._id)"
                 ><b-icon icon="content-copy" size="is-small"></b-icon></b-button
               >&nbsp;{{ document._id }}
             </td>
@@ -49,12 +49,18 @@
             <td class="row-heading">Owner:</td>
             <td class="document-field">
               <span v-if="$auth.user._id === document.user_id">You</span>
+              <span v-else>{{
+                document.first_name + " " + document.last_name
+              }}</span>
             </td>
           </tr>
           <tr v-else>
             <td class="row-heading">Owner:</td>
             <td class="document-field">
               <span v-if="$auth.user._id === version.user_id">You</span>
+              <span v-else>{{
+                version.first_name + " " + version.last_name
+              }}</span>
             </td>
           </tr>
           <tr v-if="document">
@@ -249,6 +255,7 @@ export default {
       border-bottom: 0.5px solid grey;
       td {
         padding: 5px 0;
+        vertical-align: middle;
       }
     }
     .row-heading {
@@ -267,6 +274,9 @@ export default {
       .tag {
         margin: 3px;
       }
+    }
+    .copy-button {
+      vertical-align: middle;
     }
   }
   .index-number {
