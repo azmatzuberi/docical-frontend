@@ -72,7 +72,7 @@
         <section class="pagination-list columns">
           <div class="column">
             <b-pagination
-              v-if="versions.length > 5"
+              v-if="versions.length > 10"
               :total="versions.length"
               v-model="current"
               :range-before="rangeBefore"
@@ -134,7 +134,7 @@ export default {
       collaboratorFlag: true,
       show: null,
       current: 1,
-      perPage: 5,
+      perPage: 10,
     };
   },
   computed: {

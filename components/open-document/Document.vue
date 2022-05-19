@@ -52,6 +52,16 @@
         <div class="index-number">{{ index }}. Version</div>
       </div>
     </header>
+    <header class="card-header top mobile-screen" v-if="version">
+      <div class="card-header-title">
+        <div class="date">
+          {{ new Date(version.created).toLocaleTimeString("en-US") }}
+          -
+          {{ new Date(version.created).toLocaleDateString("en-US") }}
+        </div>
+        <div class="index-number">{{ index }}. Version</div>
+      </div>
+    </header>
     <div class="card-image">
       <pdf-viewer
         v-if="document"
