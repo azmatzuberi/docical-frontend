@@ -8,7 +8,8 @@
       </template>
       <template #start>
         <b-navbar-item href="/"> Home </b-navbar-item>
-        <b-navbar-item href="#"> Documentation </b-navbar-item>
+        <b-navbar-item href="/pricing"> Pricing </b-navbar-item>
+        <b-navbar-item href="#"> How it works </b-navbar-item>
         <b-navbar-dropdown label="Info">
           <b-navbar-item href="#"> About </b-navbar-item>
           <b-navbar-item href="#"> Contact </b-navbar-item>
@@ -54,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;500;700&display=swap");
 h1,
 h2,
 h3,
