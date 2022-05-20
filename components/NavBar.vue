@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap");
 h1,
 h2,
 h3,

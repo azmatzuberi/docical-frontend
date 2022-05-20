@@ -26,7 +26,6 @@
                   icon="signature-freehand"
                   class="has-text-centered"
                   size="is-large"
-                  s
                 ></b-icon>
                 <p class="has-text-centered">Unlimited E-signing of docs</p>
               </div>
@@ -52,9 +51,10 @@
             "
           >
             <h3>Pay-per-use</h3>
-            <h2>$0.85/doc</h2>
+            <h2>Free</h2>
             <b-button>Get started</b-button>
             <p>3 free docs per month</p>
+            <p>$0.85/doc</p>
             <p>Unlimited E-signing</p>
             <p>File docs</p>
             <p>Emails</p>
@@ -68,6 +68,7 @@
             <div class="business">
               <h3>Business</h3>
               <h2>$15/month</h2>
+              <span class="usd">USD</span>
               <b-button type="is-primary">Get started</b-button>
               <p>3 free docs per month</p>
               <p>100 docs/month</p>
@@ -88,8 +89,8 @@
           >
             <h3>Enterprise</h3>
             <h2>$45/month</h2>
+            <span class="usd">USD</span>
             <b-button>Get started</b-button>
-            <p>3 free docs per month</p>
             <p>Unlimited docs</p>
             <p>Unlimited E-signing</p>
             <p>File docs</p>
@@ -160,10 +161,19 @@ export default {
   h2 {
     font-size: 2rem;
     color: #176cde;
+    display: inline-block;
+  }
+
+  span.usd {
+    font-size: 0.7rem;
+    font-weight: 700;
   }
 
   .button {
-    margin: 10px 0 20px 0;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 }
 </style>

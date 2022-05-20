@@ -201,14 +201,15 @@ export default {
       );
     },
     async getVersions() {
+      this.show = false;
       this.versions = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.$nuxt.$route.params.id}`,
         {
           user_id: this.$auth.user._id,
         }
       );
-
       this.versions.reverse();
+      this.show = true;
     },
   },
 };
