@@ -7,18 +7,32 @@
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
-          <div class="column">
+          <div class="column is-one-third">
             <ButtonCard
               title="Total Number of Docs"
               icon="document-outline"
               :number-data="documents.length"
             />
           </div>
-          <div class="column">
+          <div class="column is-one-third">
             <ButtonCard
               title="Total Number of Versions"
               icon="documents"
               :number-data="versions"
+            />
+          </div>
+          <div class="column is-one-third">
+            <ButtonCard
+              title="Total Number of Emails"
+              icon="documents"
+              :number-data="0"
+            />
+          </div>
+          <div class="column is-one-third">
+            <ButtonCard
+              title="Total Number od Twxts"
+              icon="documents"
+              :number-data="0"
             />
           </div>
         </div>
