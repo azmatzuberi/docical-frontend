@@ -64,7 +64,9 @@
             class="column is-one-third-desktop plan highlight has-text-centered"
             style="margin-top: -60px"
           >
-            <div class="most-popular has-text-centered">MOST POPULAR</div>
+            <div class="most-popular has-text-centered column">
+              MOST POPULAR
+            </div>
             <div class="business">
               <h3>Business</h3>
               <h2>$15/month</h2>
@@ -85,6 +87,7 @@
               enterprise
               plan
               has-text-centered
+              is-medium
             "
           >
             <h3>Enterprise</h3>
@@ -98,6 +101,92 @@
             <p>SMS</p>
           </div>
         </section>
+        <b-carousel
+          class="carousel-block column"
+          :autoplay="false"
+          :arrow="arrow"
+          :repeat="arrowBoth"
+          :arrow-hover="arrowHover"
+        >
+          <b-carousel-item>
+            <section class="hero">
+              <div
+                class="
+                  column
+                  is-one-third-desktop
+                  pay-per-use
+                  plan
+                  has-text-centered
+                  hero-body
+                  is-medium
+                "
+              >
+                <h3>Pay-per-use</h3>
+                <h2>Free</h2>
+                <b-button>Get started</b-button>
+                <p>3 free docs per month</p>
+                <p>$0.85/doc</p>
+                <p>Unlimited E-signing</p>
+                <p>Document files</p>
+                <p>Emails</p>
+                <p>SMS</p>
+              </div>
+            </section>
+          </b-carousel-item>
+          <b-carousel-item>
+            <section class="hero">
+              <div
+                class="
+                  column
+                  is-one-third-desktop
+                  plan
+                  highlight
+                  has-text-centered
+                  hero--body
+                  is-medium
+                "
+              >
+                <div class="most-popular has-text-centered">MOST POPULAR</div>
+                <div class="business">
+                  <h3>Business</h3>
+                  <h2>$15/month</h2>
+                  <span class="usd">USD</span>
+                  <b-button type="is-primary">Get started</b-button>
+                  <p>3 free docs per month</p>
+                  <p>100 docs/month</p>
+                  <p>Unlimited E-signing</p>
+                  <p>Document files</p>
+                  <p>Emails</p>
+                  <p>SMS</p>
+                </div>
+              </div>
+            </section>
+          </b-carousel-item>
+          <b-carousel-item>
+            <section class="hero">
+              <div
+                class="
+                  column
+                  is-one-third-desktop
+                  enterprise
+                  plan
+                  has-text-centered
+                  hero-body
+                "
+              >
+                <h3>Enterprise</h3>
+                <h2>$45/month</h2>
+                <span class="usd">USD</span>
+                <b-button>Get started</b-button>
+                <p>Unlimited docs</p>
+                <p>Unlimited E-signing</p>
+                <p>Document files</p>
+                <p>Emails</p>
+                <p>SMS</p>
+              </div>
+            </section>
+          </b-carousel-item>
+        </b-carousel>
       </div>
       <section class="middle-image"></section>
     </section>
@@ -111,12 +200,25 @@ export default {
   components: {
     NavBar,
   },
+  data() {
+    return {
+      arrow: true,
+      arrowBoth: true,
+      arrowHover: false,
+    };
+  },
 };
 </script>
+<style lang="scss">
+.carousel-indicator {
+  width: 94% !important;
+}
+</style>
 <style lang="scss" scoped>
 .main {
   .columns.homepage {
     margin-top: 4rem;
+    margin-right: 0;
   }
   .primary-headline {
     font-size: 2rem;
@@ -174,6 +276,37 @@ export default {
     margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .highlight,
+    .plan,
+    .plans,
+    .feature-set {
+      padding: 0;
+      width: 100%;
+      margin: 0;
+    }
+
+    .column.is-full {
+      padding-right: 0;
+    }
+
+    .plans {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .carousel {
+      display: none;
+    }
+
+    .plans {
+      width: 100%;
+      padding: 0;
+      margin: 65px 0;
+    }
   }
 }
 </style>
