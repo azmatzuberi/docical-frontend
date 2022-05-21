@@ -7,14 +7,18 @@
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
-          <div>
-            <Steps />
+          <div class="column">
+            <ButtonCard
+              title="Total Number of Docs"
+              icon="document-outline"
+              :number-data="documents.length"
+            />
           </div>
           <div class="column">
             <ButtonCard
-              title="View Secured Documents"
-              icon="folder-open-outline"
-              link="/open-document"
+              title="Total Number of Versions"
+              icon="documents"
+              :number-data="versions"
             />
           </div>
         </div>
@@ -36,6 +40,34 @@ export default {
     SideBar,
     ButtonCard,
     Steps,
+  },
+  data() {
+    return {
+      documents: [],
+      versions: 0,
+    };
+  },
+  mounted() {
+    this.getDocuments().then(() => this.getVersions());
+  },
+  methods: {
+    async getDocuments() {
+      this.documents = await this.$axios.$get(
+        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
+      );
+    },
+    async getVersions() {
+      let versionsDoc = {};
+      for (versionsDoc in this.documents) {
+        const versionsList = await this.$axios.$post(
+          `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.documents[versionsDoc]._id}`,
+          {
+            user_id: this.$auth.user._id,
+          }
+        );
+        this.versions += versionsList.length;
+      }
+    },
   },
 };
 </script>

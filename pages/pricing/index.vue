@@ -56,7 +56,7 @@
             <p>3 free docs per month</p>
             <p>$0.85/doc</p>
             <p>Unlimited E-signing</p>
-            <p>File docs</p>
+            <p>Document files</p>
             <p>Emails</p>
             <p>SMS</p>
           </div>
@@ -73,7 +73,7 @@
               <p>3 free docs per month</p>
               <p>100 docs/month</p>
               <p>Unlimited E-signing</p>
-              <p>File docs</p>
+              <p>Document files</p>
               <p>Emails</p>
               <p>SMS</p>
             </div>
@@ -93,7 +93,7 @@
             <b-button>Get started</b-button>
             <p>Unlimited docs</p>
             <p>Unlimited E-signing</p>
-            <p>File docs</p>
+            <p>Document files</p>
             <p>Emails</p>
             <p>SMS</p>
           </div>
