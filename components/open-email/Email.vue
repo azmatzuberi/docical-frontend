@@ -13,7 +13,9 @@
     <header class="card-header bottom">
       <div class="email-index">{{ index }}.</div>
       <div class="card-header-title">{{ email.name }}</div>
-      <div class="date">
+    </header>
+    <header class="card-header date bottom">
+      <div>
         {{ new Date(email.created).toLocaleTimeString("en-US") }}
         -
         {{ new Date(email.created).toLocaleDateString("en-US") }}
@@ -58,7 +60,7 @@
 <script>
 export default {
   name: "Email",
-  props: ["email", "version", "index", "length"],
+  props: ["email", "index", "length"],
   data() {
     return {
       src: "",
@@ -174,14 +176,6 @@ export default {
     tr:last-child {
       border: none;
     }
-
-    .tags {
-      flex-direction: row-reverse;
-      margin-bottom: 1px;
-      .tag {
-        margin: 3px;
-      }
-    }
     .copy-button {
       vertical-align: middle;
     }
@@ -198,6 +192,10 @@ export default {
     margin: 0 auto;
     border: 1px solid grey;
     padding-bottom: 1px;
+  }
+  .card-header.date {
+    align-items: center;
+    padding-left: 15px;
   }
   .card-content {
     margin-top: 5px;
