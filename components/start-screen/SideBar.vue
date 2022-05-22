@@ -27,6 +27,12 @@
                   to="/open-document"
                 ></b-menu-item>
                 <b-menu-item
+                  icon="mail"
+                  label="Open email"
+                  tag="router-link"
+                  to="/open-email"
+                ></b-menu-item>
+                <b-menu-item
                   icon="folder-account-outline"
                   label="Shared with me"
                   tag="router-link"
