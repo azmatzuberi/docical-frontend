@@ -48,11 +48,6 @@
           ><span> View Doc </span></a
         >
       </p>
-      <p v-if="version" class="card-footer-item">
-        <a :href="'/email/version/' + version._id"
-          ><span> Version page </span></a
-        >
-      </p>
     </footer>
   </section>
 </template>
@@ -64,6 +59,7 @@ export default {
   data() {
     return {
       src: "",
+      version: "",
     };
   },
   methods: {
@@ -203,6 +199,9 @@ export default {
     @media (max-width: 1215px) {
       font-size: 14px;
     }
+  }
+  canvas {
+    border-right: 1px solid black;
   }
 }
 </style>

@@ -1,54 +1,72 @@
 <template>
   <section>
-    <NavBar page="profile-page" />
-    <section class="profile-main">
+    <NavBar page="start-screen" />
+    <section class="open-docs-main">
       <div class="container">
-        <div class="columns profile-page column">
+        <div class="columns column is-multiline">
           <div class="column is-3-desktop">
             <SideBar />
           </div>
+          <div class="column is-9-desktop is-8-tablet filters-and-switches">
+            <b-field label="Turn on list view">
+              <b-switch
+                :rounded="false"
+                :outlined="true"
+                type="is-primary"
+                :left-label="true"
+                >List View</b-switch
+              >
+            </b-field>
+            <b-field label="Search" class="search">
+              <b-input placeholder="Search through docs" rounded></b-input>
+            </b-field>
+            <div>Total documents: {{ this.emails.length }}</div>
+          </div>
         </div>
-        <section class="emails-section timeline">
+        <section class="columns is-multiline">
           <div
-            class="version-column"
-            :class="index % 2 === 0 ? 'left' : 'right'"
+            class="
+              document-list
+              column
+              is-4-desktop is-half-tablet is-half-mobile
+            "
             v-for="(email, index) in paginatedItems"
             :key="index"
           >
             <Email
+              class="column"
               :email="email"
               :index="(index - emails.length) * -1"
-              :length="emails.length"
             />
           </div>
         </section>
-        <section class="pagination-list columns">
-          <div class="column" v-if="emails">
-            <b-pagination
-              v-if="emails.length > 10"
-              :total="emails.length"
-              v-model="current"
-              :range-before="rangeBefore"
-              :range-after="rangeAfter"
-              :order="order"
-              :size="size"
-              :simple="isSimple"
-              :rounded="isRounded"
-              :per-page="perPage"
-              :icon-prev="prevIcon"
-              :icon-next="nextIcon"
-              aria-next-label="Next page"
-              aria-previous-label="Previous page"
-              aria-page-label="Page"
-              aria-current-label="Current page"
-              :page-input="hasInput"
-              :page-input-position="inputPosition"
-              :debounce-page-input="inputDebounce"
-            >
-            </b-pagination>
-          </div>
-        </section>
       </div>
+      <section class="pagination-list columns">
+        <div class="column">
+          <b-pagination
+            v-if="emails.length > 10"
+            :total="emails.length"
+            v-model="current"
+            :range-before="rangeBefore"
+            :range-after="rangeAfter"
+            :order="order"
+            :size="size"
+            :simple="isSimple"
+            :rounded="isRounded"
+            :per-page="perPage"
+            :icon-prev="prevIcon"
+            :icon-next="nextIcon"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+            :page-input="hasInput"
+            :page-input-position="inputPosition"
+            :debounce-page-input="inputDebounce"
+          >
+          </b-pagination>
+        </div>
+      </section>
     </section>
   </section>
 </template>
