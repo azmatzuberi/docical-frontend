@@ -25,11 +25,7 @@
         </div>
         <section class="columns is-multiline">
           <div
-            class="
-              document-list
-              column
-              is-4-desktop is-half-tablet is-half-mobile
-            "
+            class="document-list column is-4-desktop is-half-tablet"
             v-for="(email, index) in paginatedItems"
             :key="index"
           >
