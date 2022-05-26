@@ -34,7 +34,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "VersionUpLoad",
-  props: ["document"],
+  props: ["document", "email"],
   data() {
     return {
       dropFiles: [],
@@ -66,12 +66,15 @@ export default {
       const formData = new FormData();
       formData.append("documents", this.dropFiles);
       formData.append("name", this.document.data.name);
-      formData.append("source_doc", this.document.data._id);
+      formData.append(
+        `${this.email ? "source_email" : "source_doc"}`,
+        this.document.data._id
+      );
       formData.append("user_id", this.$auth.user._id);
       formData.append("first_name", this.$auth.user.first_name);
       formData.append("last_name", this.$auth.user.last_name);
       formData.append("company", this.$auth.user.company);
-      formData.append("docType", "Version");
+      formData.append("docType", this.email ? "Email_Version" : "Version");
       formData.append("description", this.doc.description);
       for (let i = 0; i < this.doc.collaborators.length; i++) {
         formData.append("collaborators[]", this.doc.collaborators[i]);

@@ -14,13 +14,6 @@
       <div class="email-index">{{ index }}.</div>
       <div class="card-header-title">{{ email.name }}</div>
     </header>
-    <header class="card-header date bottom">
-      <div>
-        {{ new Date(email.created).toLocaleTimeString("en-US") }}
-        -
-        {{ new Date(email.created).toLocaleDateString("en-US") }}
-      </div>
-    </header>
     <div class="card-content">
       <table class="card-table">
         <tbody>
@@ -30,6 +23,14 @@
               <b-button class="copy-button" @click="copyId(email._id)"
                 ><b-icon icon="content-copy" size="is-small"></b-icon></b-button
               >&nbsp;{{ email._id }}
+            </td>
+          </tr>
+          <tr>
+            <td class="row-heading">Date</td>
+            <td class="email-field">
+              {{ new Date(email.created).toLocaleTimeString("en-US") }}
+              -
+              {{ new Date(email.created).toLocaleDateString("en-US") }}
             </td>
           </tr>
           <tr>
@@ -45,7 +46,7 @@
       </p>
       <p class="card-footer-item">
         <a href="#" @click="downloadEmail(email._id)"
-          ><span> View Doc </span></a
+          ><span> View Email </span></a
         >
       </p>
     </footer>

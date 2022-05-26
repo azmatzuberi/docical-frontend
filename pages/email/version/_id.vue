@@ -160,7 +160,7 @@ export default {
           `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
           {
             user_id: this.$auth.user._id,
-            doc_type: "Version",
+            doc_type: "Email",
             email: this.$auth.user.email,
           }
         )
@@ -175,7 +175,7 @@ export default {
       const vm = this;
       await this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/version/${this.$nuxt.$route.params.id}`,
+          `${this.$config.app.backend_URL}/api/emails/version/${this.$nuxt.$route.params.id}`,
           {
             user_id: this.$auth.user._id,
           }
@@ -199,7 +199,7 @@ export default {
       };
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
+          `${this.$config.app.backend_URL}/api/emails/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
           },

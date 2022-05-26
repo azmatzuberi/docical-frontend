@@ -10,28 +10,28 @@
           <div class="column is-one-third">
             <ButtonCard
               title="Total Number of Docs"
-              icon="document-outline"
+              icon="file"
               :number-data="documents.length"
             />
           </div>
           <div class="column is-one-third">
             <ButtonCard
               title="Total Number of Versions"
-              icon="documents"
+              icon="folder"
               :number-data="versions"
             />
           </div>
           <div class="column is-one-third">
             <ButtonCard
               title="Total Number of Emails"
-              icon="documents"
-              :number-data="0"
+              icon="mail"
+              :number-data="emails"
             />
           </div>
           <div class="column is-one-third">
             <ButtonCard
-              title="Total Number od Twxts"
-              icon="documents"
+              title="Total Number of SMS"
+              icon="text"
               :number-data="0"
             />
           </div>
@@ -59,10 +59,12 @@ export default {
     return {
       documents: [],
       versions: 0,
+      emails: 0,
     };
   },
   mounted() {
     this.getDocuments().then(() => this.getVersions());
+    this.getEmails();
   },
   methods: {
     async getDocuments() {
@@ -81,6 +83,12 @@ export default {
         );
         this.versions += versionsList.length;
       }
+    },
+    async getEmails() {
+      const emailsList = await this.$axios.$get(
+        `${this.$config.app.backend_URL}/api/emails/${this.$auth.user._id}`
+      );
+      this.emails += emailsList.length;
     },
   },
 };

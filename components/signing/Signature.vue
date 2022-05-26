@@ -272,41 +272,49 @@ export default {
         this.locations[0].y < yPercent20 &&
         this.locations[0].y > yPercent10
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08;
         console.log("20%  - Y");
       } else if (
         this.locations[0].y < yPercent30 &&
         this.locations[0].y > yPercent20
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08;
         console.log("30%  - Y");
       } else if (
         this.locations[0].y < yPercent40 &&
         this.locations[0].y > yPercent30
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 - 3;
         console.log("40%  - Y");
       } else if (
         this.locations[0].y < yPercent50 &&
         this.locations[0].y > yPercent40
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 - 20;
         console.log("50%  - Y");
       } else if (
         this.locations[0].y < yPercent60 &&
         this.locations[0].y > yPercent50
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
         console.log("60%  - Y");
       } else if (
         this.locations[0].y < yPercent70 &&
         this.locations[0].y > yPercent60
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
         console.log("70%  - Y");
       } else if (
         this.locations[0].y < yPercent80 &&
         this.locations[0].y > yPercent70
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
         console.log("80%  - Y");
       } else if (
         this.locations[0].y < yPercent90 &&
         this.locations[0].y > yPercent80
       ) {
+        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
         console.log("90%  - Y");
       } else if (this.locations[0].y > yPercent90) {
         console.log("100%  - Y");
@@ -406,10 +414,9 @@ export default {
       const { width, height } = firstPage.getSize();
       firstPage.drawImage(pngImage, {
         x: xCalculated,
-        y: yCalculated,
-        width: (this.locations[0].w * 0.9) / 2.08,
-        height: (this.locations[0].h * 0.9) / 2.08,
-        rotate: degrees(-8),
+        y: 792 / 2 - 300,
+        width: this.locations[0].w / 2.08,
+        height: this.locations[0].h / 2.08,
       });
 
       const pdfBytes = await pdfDoc.save();

@@ -19,7 +19,9 @@
             <div class="email-category">
               Category: {{ email.data.category }}
             </div>
-            <div class="email-owner">Owners: {{ email.data.owner }}</div>
+            <div class="email-owner">
+              Owner: {{ email.data.first_name + " " + email.data.last_name }}
+            </div>
             <div class="email-tags">
               Tags:
               <b-tag
@@ -41,7 +43,7 @@
           </div>
           <div v-if="show" class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
-              <Upload :email="email" @reload="getVersions" />
+              <Upload :document="email" :email="true" @reload="getVersions" />
             </b-field>
           </div>
           <section v-if="show === false">
@@ -62,7 +64,7 @@
             v-for="(version, index) in paginatedItems"
             :key="index"
           >
-            <email
+            <Email
               :version="version"
               :index="(index - versions.length) * -1"
               :length="versions.length"
@@ -103,8 +105,8 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import SideBar from "@/components/start-screen/SideBar.vue";
-import email from "@/components/open-email/Email.vue";
-import Upload from "@/components/open-email/Upload.vue";
+import Email from "@/components/open-email/Email.vue";
+import Upload from "@/components/open-document/Upload.vue";
 import FilesTable from "@/components/open-email/FilesTable.vue";
 import Collaborate from "~/components/create-document/Collaborate.vue";
 export default {
@@ -114,7 +116,7 @@ export default {
     NavBar,
     SideBar,
     FilesTable,
-    email,
+    Email,
     Upload,
     Collaborate,
   },
@@ -157,7 +159,7 @@ export default {
       return null;
     },
   },
-  beforeMount() {
+  mounted() {
     this.getCollaborators();
   },
   methods: {
@@ -183,33 +185,33 @@ export default {
           if (result.status === 200 && result.flag) {
             this.collaboratorFlag = true;
             this.show = true;
+            this.getEmail();
+            this.getVersions();
           }
           if (result.status === 201 && result.flag) {
             this.collaboratorFlag = false;
             this.show = true;
+            this.getEmail();
+            this.getVersions();
           }
-          this.getemail();
-          this.getVersions();
         })
         .catch(() => {
           this.show = false;
         });
     },
-    async getemail() {
+    async getEmail() {
       this.email = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/emails/email/${this.$nuxt.$route.params.id}`
       );
     },
     async getVersions() {
-      this.show = false;
       this.versions = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.$nuxt.$route.params.id}`,
+        `${this.$config.app.backend_URL}/api/email_versions/versions/${this.$nuxt.$route.params.id}`,
         {
           user_id: this.$auth.user._id,
         }
       );
       this.versions.reverse();
-      this.show = true;
     },
   },
 };

@@ -19,7 +19,10 @@
             <div class="document-category">
               Category: {{ document.data.category }}
             </div>
-            <div class="document-owner">Owners: {{ document.data.owner }}</div>
+            <div class="document-owner">
+              Owners:
+              {{ document.data.first_name + " " + document.data.last_name }}
+            </div>
             <div class="document-tags">
               Tags:
               <b-tag

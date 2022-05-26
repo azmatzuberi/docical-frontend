@@ -1,7 +1,7 @@
 <template>
   <section>
     <NavBar page="start-screen" />
-    <section class="open-docs-main">
+    <section class="open-email-main">
       <div class="container">
         <div class="columns column is-multiline">
           <div class="column is-3-desktop">

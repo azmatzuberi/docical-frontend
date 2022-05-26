@@ -98,6 +98,14 @@
             </td>
           </tr>
           <tr v-if="document">
+            <td class="row-heading">Date:</td>
+            <td class="document-field">
+              {{ new Date(document.created).toLocaleTimeString("en-US") }}
+              -
+              {{ new Date(document.created).toLocaleDateString("en-US") }}
+            </td>
+          </tr>
+          <tr v-if="document">
             <td class="row-heading">Owner:</td>
             <td class="document-field">
               <span v-if="$auth.user._id === document.user_id">You</span>

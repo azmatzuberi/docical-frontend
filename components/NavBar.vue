@@ -8,8 +8,8 @@
       </template>
       <template #start>
         <b-navbar-item href="/"> Home </b-navbar-item>
+        <b-navbar-item href="/start-screen"> Dashboard </b-navbar-item>
         <b-navbar-item href="/pricing"> Pricing </b-navbar-item>
-        <b-navbar-item href="#"> How it works </b-navbar-item>
         <b-navbar-dropdown label="Info">
           <b-navbar-item href="#"> About </b-navbar-item>
           <b-navbar-item href="#"> Contact </b-navbar-item>
