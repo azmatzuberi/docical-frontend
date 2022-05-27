@@ -41,7 +41,10 @@
       </table>
     </div>
     <footer class="card-footer">
-      <p class="card-footer-item">
+      <p v-if="emailVersion" class="card-footer-item">
+        <a :href="'/email/version/' + email._id"><span> Version Page </span></a>
+      </p>
+      <p v-else class="card-footer-item">
         <a :href="'/email/' + email._id"><span> Versions </span></a>
       </p>
       <p class="card-footer-item">
@@ -56,7 +59,7 @@
 <script>
 export default {
   name: "Email",
-  props: ["email", "index", "length"],
+  props: ["email", "index", "length", "emailVersion"],
   data() {
     return {
       src: "",
@@ -81,7 +84,9 @@ export default {
       };
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/emails/remoteFile/${id}`,
+          `${this.$config.app.backend_URL}/api/${
+            this.emailVersion ? "email_versions" : "email"
+          }/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
           },
@@ -100,7 +105,9 @@ export default {
       };
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/emails/remoteFile/${id}`,
+          `${this.$config.app.backend_URL}/api/${
+            this.emailVersion ? "email_versions" : "email"
+          }/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
           },

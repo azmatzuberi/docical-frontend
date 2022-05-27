@@ -90,7 +90,7 @@ export default {
     InteractSignature,
     NavBar,
   },
-  props: ["version"],
+  props: ["version", "email"],
   data() {
     return {
       page: 1,
@@ -214,7 +214,9 @@ export default {
       };
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/remoteFile/${id}`,
+          `${this.$config.app.backend_URL}/api/${
+            this.email ? "email_versions" : "doc_versions"
+          }/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
           },

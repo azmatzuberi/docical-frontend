@@ -65,7 +65,8 @@
             :key="index"
           >
             <Email
-              :version="version"
+              :email="version"
+              :emailVersion="true"
               :index="(index - versions.length) * -1"
               :length="versions.length"
             />
@@ -177,7 +178,7 @@ export default {
           `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
           {
             user_id: this.$auth.user._id,
-            doc_type: "email",
+            doc_type: "Email",
             email: this.$auth.user.email,
           }
         )

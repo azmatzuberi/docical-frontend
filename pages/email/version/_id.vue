@@ -83,7 +83,7 @@
       full-screen
       :can-cancel="true"
     >
-      <Signature :version="version" />
+      <Signature :version="version" :email="true" />
     </b-modal>
   </section>
 </template>
@@ -160,7 +160,7 @@ export default {
           `${this.$config.app.backend_URL}/api/collaborators/${this.$nuxt.$route.params.id}`,
           {
             user_id: this.$auth.user._id,
-            doc_type: "Email",
+            doc_type: "Email_Version",
             email: this.$auth.user.email,
           }
         )
@@ -175,7 +175,7 @@ export default {
       const vm = this;
       await this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/emails/version/${this.$nuxt.$route.params.id}`,
+          `${this.$config.app.backend_URL}/api/email_versions/version/${this.$nuxt.$route.params.id}`,
           {
             user_id: this.$auth.user._id,
           }
@@ -199,7 +199,7 @@ export default {
       };
       this.$axios
         .$post(
-          `${this.$config.app.backend_URL}/api/emails/remoteFile/${id}`,
+          `${this.$config.app.backend_URL}/api/email_versions/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
           },
