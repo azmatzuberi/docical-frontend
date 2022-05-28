@@ -1,6 +1,6 @@
 export const state = () => ({
 	signatureImage: '',
-	locations: []
+	locations: {}
 });
 
 export const mutations = {
@@ -8,7 +8,7 @@ export const mutations = {
 		state.signatureImage = payload;
 	},
 	addLocations(state, payload) {
-		state.locations[payload.id] = payload;
+		state.locations = payload;
 	}
 };
 

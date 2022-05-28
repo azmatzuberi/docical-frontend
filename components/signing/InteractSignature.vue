@@ -18,7 +18,7 @@ import interact from "interactjs";
 import { mapGetters } from "vuex";
 export default {
   name: "InteractSignature",
-  props: ["x", "y", "id", "factor"],
+  props: ["x", "y", "factor"],
   data() {
     return {
       resizeOption: {
@@ -47,7 +47,6 @@ export default {
       const locations = {
         x: this.xComp,
         y: this.yComp,
-        id: this.id.match(/\d+/)[0],
         h: this.h,
         w: this.w,
       };

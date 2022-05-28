@@ -43,12 +43,9 @@
 
         <b-step-item step="2" label="Add to Document">
           <InteractSignature
-            v-if="showSignatureImage[index] === true || run === 0"
-            :id="'interact-' + index"
-            v-for="(interact, index) in interacts"
-            :key="index"
-            :x="x[index]"
-            :y="y[index]"
+            v-if="showSignatureImage === true"
+            :x="x"
+            :y="y"
             :factor="factor"
           />
           <section class="modal-card-body columns is-multiline" v-if="src">
@@ -78,7 +75,7 @@
 </template>
 
 <script>
-import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import SignaturePad from "@/components/signing/SignaturePad.vue";
 import InteractSignature from "@/components/signing/InteractSignature.vue";
 import NavBar from "@/components/signing/NavBar.vue";
@@ -102,7 +99,7 @@ export default {
       pages: null,
       response: "",
       showSignaturePad: false,
-      showSignatureImage: [false],
+      showSignatureImage: false,
       interacts: 1,
       activeStep: 0,
       showSocial: false,
@@ -116,33 +113,9 @@ export default {
       nextIcon: "chevron-right",
       labelPosition: "bottom",
       mobileMode: "minimalist",
-      x: [],
-      y: [],
+      x: 200,
+      y: 200,
       sumHeight: 0,
-      run: 1,
-      htmlToPdfOptions: {
-        margin: 0,
-
-        filename: `hehehe.pdf`,
-
-        image: {
-          type: "jpeg",
-          quality: 0.98,
-        },
-
-        enableLinks: false,
-
-        html2canvas: {
-          scale: 1,
-          useCORS: true,
-        },
-
-        jsPDF: {
-          unit: "in",
-          format: "a4",
-          orientation: "portrait",
-        },
-      },
     };
   },
   computed: {
@@ -160,9 +133,6 @@ export default {
     this.downloadVersion(this.version.data._id);
   },
   methods: {
-    write2Pdf() {
-      this.$refs.html2Pdf.generatePdf();
-    },
     getMousePos(canvas, evt) {
       const rect = canvas.getBoundingClientRect();
       return {
@@ -172,37 +142,15 @@ export default {
     },
     insertSignature(evt, i) {
       const vm = this;
-      if (this.run === 1) {
-        const canvas = document.getElementsByClassName("page");
-        let mousePos = this.getMousePos(canvas[i], evt);
-        for (let k = 0; k < this.interacts; k++) {
-          if (i > 0) {
-            for (let j = 0; j < i; j++) {
-              vm.sumHeight += canvas[j].offsetHeight;
-            }
-          }
-          this.x[k] = mousePos.x;
-          this.y[k] = mousePos.y + vm.sumHeight;
-          vm.showSignatureImage[k] = true;
-          vm.sumHeight = 0;
-        }
-        this.run = 0;
-      } else {
-        this.run = 1;
-        this.addSignatureComponent();
+      const canvas = document.getElementsByClassName("page");
+      let mousePos = this.getMousePos(canvas[i], evt);
+      for (let j = 0; j < i; j++) {
+        vm.sumHeight += canvas[j].offsetHeight;
       }
-    },
-    addSignatureComponent() {
-      const vm = this;
-      this.$buefy.snackbar.open({
-        indefinite: true,
-        onAction: () => {
-          vm.interacts++;
-        },
-        position: "is-top",
-        message: "Would you like to add another signature?",
-        cancelText: "No",
-      });
+      this.x = mousePos.x;
+      this.y = mousePos.y + vm.sumHeight;
+      vm.showSignatureImage = true;
+      vm.sumHeight = 0;
     },
     showSignaturePadNow() {
       this.showSignaturePad = true;
@@ -251,8 +199,8 @@ export default {
       const canvas = document.getElementsByClassName("page");
       const firstCanvasY = canvas[0].offsetHeight;
       const firstCanvasX = canvas[0].offsetWidth;
-      console.log("X", this.locations[0].x);
-      console.log("Y", this.locations[0].y);
+      console.log("X", this.locations.x);
+      console.log("Y", this.locations.y);
       console.log("Height", firstCanvasY);
       console.log("Width", firstCanvasX);
       const halfHeight = firstCanvasY / 2;
@@ -267,58 +215,59 @@ export default {
       const yPercent90 = 0.89 * firstCanvasY;
       let yCalculated = null;
 
-      if (this.locations[0].y < yPercent10) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
+      if (this.locations.y < yPercent10) {
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 + 72;
         console.log("10% - Y");
       } else if (
-        this.locations[0].y < yPercent20 &&
-        this.locations[0].y > yPercent10
+        this.locations.y < yPercent20 &&
+        this.locations.y > yPercent10
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 + 54;
         console.log("20%  - Y");
       } else if (
-        this.locations[0].y < yPercent30 &&
-        this.locations[0].y > yPercent20
+        this.locations.y < yPercent30 &&
+        this.locations.y > yPercent20
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 + 54;
         console.log("30%  - Y");
       } else if (
-        this.locations[0].y < yPercent40 &&
-        this.locations[0].y > yPercent30
+        this.locations.y < yPercent40 &&
+        this.locations.y > yPercent30
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 26;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 + 26;
         console.log("40%  - Y");
       } else if (
-        this.locations[0].y < yPercent50 &&
-        this.locations[0].y > yPercent40
+        this.locations.y < yPercent50 &&
+        this.locations.y > yPercent40
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 20;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 + 20;
         console.log("50%  - Y");
       } else if (
-        this.locations[0].y < yPercent60 &&
-        this.locations[0].y > yPercent50
+        this.locations.y < yPercent60 &&
+        this.locations.y > yPercent50
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 10;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 - 10;
         console.log("60%  - Y");
       } else if (
-        this.locations[0].y < yPercent70 &&
-        this.locations[0].y > yPercent60
+        this.locations.y < yPercent70 &&
+        this.locations.y > yPercent60
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 20;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 - 20;
         console.log("70%  - Y");
       } else if (
-        this.locations[0].y < yPercent80 &&
-        this.locations[0].y > yPercent70
+        this.locations.y < yPercent80 &&
+        this.locations.y > yPercent70
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 30;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 - 30;
         console.log("80%  - Y");
       } else if (
-        this.locations[0].y < yPercent90 &&
-        this.locations[0].y > yPercent80
+        this.locations.y < yPercent90 &&
+        this.locations.y > yPercent80
       ) {
-        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 54;
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 - 54;
         console.log("90%  - Y");
-      } else if (this.locations[0].y > yPercent90) {
+      } else if (this.locations.y > yPercent90) {
+        yCalculated = (firstCanvasY - this.locations.y) / 2.54 - 54;
         console.log("100%  - Y");
       }
 
@@ -333,59 +282,59 @@ export default {
       const xPercent90 = 0.89 * firstCanvasX;
       let xCalculated = null;
 
-      if (this.locations[0].x < xPercent10) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+      if (this.locations.x < xPercent10) {
+        xCalculated = (this.locations.x * 0.9) / 2.08 - 10;
         console.log("10% - X");
       } else if (
-        this.locations[0].x < xPercent20 &&
-        this.locations[0].x > xPercent10
+        this.locations.x < xPercent20 &&
+        this.locations.x > xPercent10
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 2;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 2;
         console.log("20%  - X");
       } else if (
-        this.locations[0].x < xPercent30 &&
-        this.locations[0].x > xPercent20
+        this.locations.x < xPercent30 &&
+        this.locations.x > xPercent20
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 3;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 3;
         console.log("30%  - X");
       } else if (
-        this.locations[0].x < xPercent40 &&
-        this.locations[0].x > xPercent30
+        this.locations.x < xPercent40 &&
+        this.locations.x > xPercent30
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 + 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 10;
         console.log("40%  - X");
       } else if (
-        this.locations[0].x < xPercent50 &&
-        this.locations[0].x > xPercent40
+        this.locations.x < xPercent50 &&
+        this.locations.x > xPercent40
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 20;
         console.log("50%  - X");
       } else if (
-        this.locations[0].x < xPercent60 &&
-        this.locations[0].x > xPercent50
+        this.locations.x < xPercent60 &&
+        this.locations.x > xPercent50
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
         console.log("60%  - X");
       } else if (
-        this.locations[0].x < xPercent70 &&
-        this.locations[0].x > xPercent60
+        this.locations.x < xPercent70 &&
+        this.locations.x > xPercent60
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
         console.log("70%  - X");
       } else if (
-        this.locations[0].x < xPercent80 &&
-        this.locations[0].x > xPercent70
+        this.locations.x < xPercent80 &&
+        this.locations.x > xPercent70
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
         console.log("80%  - X");
       } else if (
-        this.locations[0].x < xPercent90 &&
-        this.locations[0].x > xPercent80
+        this.locations.x < xPercent90 &&
+        this.locations.x > xPercent80
       ) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+        xCalculated = (this.locations.x * 0.9) / 2.08 + 40;
         console.log("90%  - X");
-      } else if (this.locations[0].x > xPercent90) {
-        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
+      } else if (this.locations.x > xPercent90) {
+        xCalculated = (this.locations.x * 0.9) / 2.08 - 10;
         console.log("100%  - X");
       }
 
@@ -399,8 +348,8 @@ export default {
       firstPage.drawImage(pngImage, {
         x: xCalculated,
         y: yCalculated,
-        width: this.locations[0].w / 2.54,
-        height: this.locations[0].h / 2.54,
+        width: this.locations.w / 2.54,
+        height: this.locations.h / 2.54,
       });
 
       const pdfBytes = await pdfDoc.save();
