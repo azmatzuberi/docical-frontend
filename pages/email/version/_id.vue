@@ -14,12 +14,18 @@
             <div class="document-name">
               {{ version.data.name }}
             </div>
-            {{ version.data.created }}
+            <div class="document-date-time">
+              {{ new Date(version.data.created).toLocaleDateString("en-US") }}
+              -
+              {{ new Date(version.data.created).toLocaleTimeString("en-US") }}
+            </div>
             <div class="document-size">Size: {{ version.data.size }}</div>
             <div class="document-category">
               Category: {{ version.data.category }}
             </div>
-            <div class="document-owner">Owner: {{ version.data.owner }}</div>
+            <div class="document-owner">
+              Owner: {{ version.data.first_name }} {{ version.data.last_name }}
+            </div>
             <div class="document-tags">
               Tags:
               <b-tag

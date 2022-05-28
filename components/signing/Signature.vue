@@ -268,55 +268,55 @@ export default {
       let yCalculated = null;
 
       if (this.locations[0].y < yPercent10) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
         console.log("10% - Y");
       } else if (
         this.locations[0].y < yPercent20 &&
         this.locations[0].y > yPercent10
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
         console.log("20%  - Y");
       } else if (
         this.locations[0].y < yPercent30 &&
         this.locations[0].y > yPercent20
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 54;
         console.log("30%  - Y");
       } else if (
         this.locations[0].y < yPercent40 &&
         this.locations[0].y > yPercent30
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 - 3;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 26;
         console.log("40%  - Y");
       } else if (
         this.locations[0].y < yPercent50 &&
         this.locations[0].y > yPercent40
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 - 20;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 + 20;
         console.log("50%  - Y");
       } else if (
         this.locations[0].y < yPercent60 &&
         this.locations[0].y > yPercent50
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 10;
         console.log("60%  - Y");
       } else if (
         this.locations[0].y < yPercent70 &&
         this.locations[0].y > yPercent60
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 20;
         console.log("70%  - Y");
       } else if (
         this.locations[0].y < yPercent80 &&
         this.locations[0].y > yPercent70
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 30;
         console.log("80%  - Y");
       } else if (
         this.locations[0].y < yPercent90 &&
         this.locations[0].y > yPercent80
       ) {
-        yCalculated = ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 + 14;
+        yCalculated = (firstCanvasY - this.locations[0].y) / 2.54 - 54;
         console.log("90%  - Y");
       } else if (this.locations[0].y > yPercent90) {
         console.log("100%  - Y");
@@ -364,49 +364,31 @@ export default {
         this.locations[0].x < xPercent60 &&
         this.locations[0].x > xPercent50
       ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
         console.log("60%  - X");
       } else if (
         this.locations[0].x < xPercent70 &&
         this.locations[0].x > xPercent60
       ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
         console.log("70%  - X");
       } else if (
         this.locations[0].x < xPercent80 &&
         this.locations[0].x > xPercent70
       ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
         console.log("80%  - X");
       } else if (
         this.locations[0].x < xPercent90 &&
         this.locations[0].x > xPercent80
       ) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
         console.log("90%  - X");
       } else if (this.locations[0].x > xPercent90) {
+        xCalculated = (this.locations[0].x * 0.9) / 2.08 - 10;
         console.log("100%  - X");
       }
 
-      //   if (this.locations[0].y < halfHeight) {
-      //     yCalculated =
-      //       ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 +
-      //       (0.02 * ((firstCanvasY - this.locations[0].y) * 0.9)) / 2.08;
-      //   } else if (this.locations[0].y > halfHeight) {
-      //     yCalculated =
-      //       ((firstCanvasY - this.locations[0].y) * 0.9) / 2.08 +
-      //       (0.1 * ((firstCanvasY - this.locations[0].y) * 0.9)) / 2.08;
-      //   }
-      //   if (this.locations[0].y > 400 && this.locations[0].y < 600) {
-      //     yCalculated =
-      //       ((halfHeight + (halfHeight - this.locations[0].y)) * 0.75) / 1.75;
-      //     console.log("> 400 < 600");
-      //   }
-      //   if (this.locations[0].y < 400) {
-      //     yCalculated =
-      //       ((halfHeight + (halfHeight - this.locations[0].y)) * 0.75) / 1.7;
-      //     console.log("< 400");
-      //   } else {
-      // yCalculated = ((firstCanvasY - this.locations[0].y) * 0.75) / 1.85;
-      //   }
-
-      //   const xCalculated = (this.locations[0].x * 0.9) / 2.08;
       console.log("YCalc", yCalculated);
       console.log("XCalc", xCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
@@ -416,9 +398,9 @@ export default {
       const { width, height } = firstPage.getSize();
       firstPage.drawImage(pngImage, {
         x: xCalculated,
-        y: 792 / 2 - 300,
-        width: this.locations[0].w / 2.08,
-        height: this.locations[0].h / 2.08,
+        y: yCalculated,
+        width: this.locations[0].w / 2.54,
+        height: this.locations[0].h / 2.54,
       });
 
       const pdfBytes = await pdfDoc.save();

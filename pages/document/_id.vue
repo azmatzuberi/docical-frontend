@@ -14,13 +14,17 @@
             <div class="document-name">
               {{ document.data.name }}
             </div>
-            {{ document.data.created }}
+            <div class="document-date-time">
+              {{ new Date(email.data.created).toLocaleDateString("en-US") }}
+              -
+              {{ new Date(email.data.created).toLocaleTimeString("en-US") }}
+            </div>
             <div class="document-size">Size: {{ document.data.size }}</div>
             <div class="document-category">
               Category: {{ document.data.category }}
             </div>
             <div class="document-owner">
-              Owners:
+              Owner:
               {{ document.data.first_name + " " + document.data.last_name }}
             </div>
             <div class="document-tags">

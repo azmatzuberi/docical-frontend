@@ -14,7 +14,11 @@
             <div class="email-name">
               {{ email.data.name }}
             </div>
-            {{ email.data.created }}
+            <div class="document-date-time">
+              {{ new Date(email.data.created).toLocaleDateString("en-US") }}
+              -
+              {{ new Date(email.data.created).toLocaleTimeString("en-US") }}
+            </div>
             <div class="email-size">Size: {{ email.data.size }}</div>
             <div class="email-category">
               Category: {{ email.data.category }}

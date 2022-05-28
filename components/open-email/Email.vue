@@ -47,7 +47,7 @@
       <p v-else class="card-footer-item">
         <a :href="'/email/' + email._id"><span> Versions </span></a>
       </p>
-      <p class="card-footer-item">
+      <p class="card-footer-item" v-if="!emailVersion">
         <a href="#" @click="downloadEmail(email._id)"
           ><span> View Email </span></a
         >
