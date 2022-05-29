@@ -1,5 +1,5 @@
 <template>
-  <b-button>Sign PDF</b-button>
+  <b-button @click="writePdf">Sign PDF</b-button>
 </template>
 
 <script>
