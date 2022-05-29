@@ -1,13 +1,5 @@
 <template>
-  <b-navbar>
-    <template #start>
-      <b-navbar-item @click="writePdf()"> Sign PDF </b-navbar-item>
-    </template>
-
-    <template #end>
-      <b-navbar-item tag="div"> </b-navbar-item>
-    </template>
-  </b-navbar>
+  <b-button>Sign PDF</b-button>
 </template>
 
 <script>

@@ -124,8 +124,7 @@ export default {
       locations: "signature/getLocations",
     }),
     factor() {
-      let result;
-      if (window.innerWidth < 1271) result = 1271 / window.innerWidth;
+      const result = window.innerWidth < 1271 ? window.innerWidth / 1271 : 1;
       return result;
     },
   },
@@ -196,9 +195,16 @@ export default {
       const pngImageBytes = await fetch(pngUrl).then((res) =>
         res.arrayBuffer()
       );
+      let canvasHeights = [];
+      let numberOfCanvases = 0;
       const canvas = document.getElementsByClassName("page");
-      const firstCanvasY = canvas[0].offsetHeight;
-      const firstCanvasX = canvas[0].offsetWidth;
+      for (let i = 0; i < canvas.length; i++) {
+        canvasHeights[i] = canvas[i].offsetHeight;
+      }
+      if (this.locations.y > canvasHeights[0]) {
+      }
+      let firstCanvasY = canvas[0].offsetHeight;
+      let firstCanvasX = canvas[0].offsetWidth;
       console.log("X", this.locations.x);
       console.log("Y", this.locations.y);
       console.log("Height", firstCanvasY);
@@ -338,18 +344,32 @@ export default {
         console.log("100%  - X");
       }
 
-      console.log("YCalc", yCalculated);
-      console.log("XCalc", xCalculated);
+      console.log(
+        "XCalc",
+        this.factor < 1 ? xCalculated / this.factor : xCalculated
+      );
+      console.log(
+        "YCalc",
+        this.factor < 1 ? yCalculated / this.factor : yCalculated
+      );
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
-      const pngDims = pngImage.scale(0);
+      const pngDims =
+        this.factor < 1
+          ? pngImage.scale(0.075 * (1 + this.factor))
+          : pngImage.scale(0.075);
       const pages = pdfDoc.getPages();
       const firstPage = pages[0];
       const { width, height } = firstPage.getSize();
+      console.log("PDF width", width);
+      console.log("PDF height", height);
+      console.log("Sig width", pngDims.width);
+      console.log("Sig height", pngDims.height);
       firstPage.drawImage(pngImage, {
-        x: xCalculated,
-        y: yCalculated,
-        width: this.locations.w / 2.54,
-        height: this.locations.h / 2.54,
+        x: this.factor < 1 ? xCalculated / this.factor : xCalculated,
+        y: this.factor < 1 ? yCalculated / this.factor : yCalculated,
+        width: pngDims.width,
+        height: pngDims.height,
+        scale: pngDims,
       });
 
       const pdfBytes = await pdfDoc.save();
