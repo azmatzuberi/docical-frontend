@@ -15,9 +15,9 @@
               {{ document.data.name }}
             </div>
             <div class="document-date-time">
-              {{ new Date(email.data.created).toLocaleDateString("en-US") }}
+              {{ new Date(document.data.created).toLocaleDateString("en-US") }}
               -
-              {{ new Date(email.data.created).toLocaleTimeString("en-US") }}
+              {{ new Date(document.data.created).toLocaleTimeString("en-US") }}
             </div>
             <div class="document-size">Size: {{ document.data.size }}</div>
             <div class="document-category">
