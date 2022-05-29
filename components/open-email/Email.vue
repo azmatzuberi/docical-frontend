@@ -106,7 +106,7 @@ export default {
       this.$axios
         .$post(
           `${this.$config.app.backend_URL}/api/${
-            this.emailVersion ? "email_versions" : "email"
+            this.emailVersion ? "email_versions" : "emails"
           }/remoteFile/${id}`,
           {
             user_id: this.$auth.user._id,
