@@ -7,32 +7,25 @@
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
-          <div class="column is-one-third">
+          <div class="column is-one-third" v-if="documents">
             <ButtonCard
               title="Total Number of Docs"
               icon="file"
-              :number-data="documents.length"
+              :numberData="documents.count"
             />
           </div>
-          <div class="column is-one-third">
-            <ButtonCard
-              title="Total Number of Versions"
-              icon="folder"
-              :number-data="versions"
-            />
-          </div>
-          <div class="column is-one-third">
+          <div class="column is-one-third" v-if="emails">
             <ButtonCard
               title="Total Number of Emails"
               icon="mail"
-              :number-data="emails"
+              :numberData="emails.count"
             />
           </div>
           <div class="column is-one-third">
             <ButtonCard
               title="Total Number of SMS"
               icon="text"
-              :number-data="0"
+              :numberData="0"
             />
           </div>
         </div>
@@ -58,37 +51,29 @@ export default {
   data() {
     return {
       documents: [],
-      versions: 0,
-      emails: 0,
+      emails: [],
     };
   },
   mounted() {
-    this.getDocuments().then(() => this.getVersions());
+    this.getDocuments();
     this.getEmails();
   },
   methods: {
     async getDocuments() {
-      this.documents = await this.$axios.$get(
-        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
+      this.documents = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`,
+        {
+          count: true,
+        }
       );
-    },
-    async getVersions() {
-      let versionsDoc = {};
-      for (versionsDoc in this.documents) {
-        const versionsList = await this.$axios.$post(
-          `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.documents[versionsDoc]._id}`,
-          {
-            user_id: this.$auth.user._id,
-          }
-        );
-        this.versions += versionsList.length;
-      }
     },
     async getEmails() {
-      const emailsList = await this.$axios.$get(
-        `${this.$config.app.backend_URL}/api/emails/${this.$auth.user._id}`
+      this.emails = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/emails/${this.$auth.user._id}`,
+        {
+          count: true,
+        }
       );
-      this.emails += emailsList.length;
     },
   },
 };

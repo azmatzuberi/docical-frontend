@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     async getDocuments() {
-      this.documents = await this.$axios.$get(
+      this.documents = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
       );
       this.documents.reverse();

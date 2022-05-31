@@ -24,24 +24,7 @@
 <script>
 export default {
   name: "ButtonCard",
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
-    link: {
-      type: String,
-      required: false,
-    },
-    numberData: {
-      type: Number,
-      required: true,
-    },
-  },
+  props: ["title", "link", "numberData", "icon"],
 };
 </script>
 

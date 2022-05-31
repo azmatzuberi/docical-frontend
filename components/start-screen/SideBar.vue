@@ -13,7 +13,12 @@
         <div class="p-1">
           <b-menu class="is-custom-mobile">
             <b-menu-list label="">
-              <b-menu-item expanded icon="network" label="Menu">
+              <b-menu-item
+                @click="toDashboard()"
+                expanded
+                icon="network"
+                label="Dashboard"
+              >
                 <b-menu-item
                   icon="folder-plus-outline"
                   label="Create doc"
@@ -63,6 +68,11 @@ export default {
       expandWithDelay: false,
       reduce: false,
     };
+  },
+  methods: {
+    toDashboard() {
+      this.$nuxt.$router.push("/start-screen");
+    },
   },
 };
 </script>

@@ -128,7 +128,7 @@ export default {
   },
   methods: {
     async getEmails() {
-      this.emails = await this.$axios.$get(
+      this.emails = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/emails/${this.$auth.user._id}`
       );
       this.emails.reverse();
