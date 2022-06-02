@@ -230,149 +230,10 @@ export default {
       console.log("Y", this.locations.y);
       console.log("Height", canvasY);
       console.log("Width", canvasX);
-      const halfHeight = canvasY / 2;
-      const yPercent10 = 0.09 * canvasY;
-      const yPercent20 = 0.19 * canvasY;
-      const yPercent30 = 0.29 * canvasY;
-      const yPercent40 = 0.39 * canvasY;
-      const yPercent50 = 0.49 * canvasY;
-      const yPercent60 = 0.59 * canvasY;
-      const yPercent70 = 0.69 * canvasY;
-      const yPercent80 = 0.79 * canvasY;
-      const yPercent90 = 0.89 * canvasY;
-      let yCalculated = null;
-
-      if (this.locations.y < yPercent10) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 + 72;
-        console.log("10% - Y");
-      } else if (
-        this.locations.y < yPercent20 &&
-        this.locations.y > yPercent10
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 + 54;
-        console.log("20%  - Y");
-      } else if (
-        this.locations.y < yPercent30 &&
-        this.locations.y > yPercent20
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 + 54;
-        console.log("30%  - Y");
-      } else if (
-        this.locations.y < yPercent40 &&
-        this.locations.y > yPercent30
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 + 26;
-        console.log("40%  - Y");
-      } else if (
-        this.locations.y < yPercent50 &&
-        this.locations.y > yPercent40
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 + 20;
-        console.log("50%  - Y");
-      } else if (
-        this.locations.y < yPercent60 &&
-        this.locations.y > yPercent50
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 - 10;
-        console.log("60%  - Y");
-      } else if (
-        this.locations.y < yPercent70 &&
-        this.locations.y > yPercent60
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 - 20;
-        console.log("70%  - Y");
-      } else if (
-        this.locations.y < yPercent80 &&
-        this.locations.y > yPercent70
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 - 30;
-        console.log("80%  - Y");
-      } else if (
-        this.locations.y < yPercent90 &&
-        this.locations.y > yPercent80
-      ) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 - 54;
-        console.log("90%  - Y");
-      } else if (this.locations.y > yPercent90) {
-        yCalculated = (canvasY - this.locations.y) / 2.54 - 54;
-        console.log("100%  - Y");
-      }
-
-      const xPercent10 = 0.09 * canvasX;
-      const xPercent20 = 0.19 * canvasX;
-      const xPercent30 = 0.29 * canvasX;
-      const xPercent40 = 0.39 * canvasX;
-      const xPercent50 = 0.49 * canvasX;
-      const xPercent60 = 0.59 * canvasX;
-      const xPercent70 = 0.69 * canvasX;
-      const xPercent80 = 0.79 * canvasX;
-      const xPercent90 = 0.89 * canvasX;
-      let xCalculated = null;
-
-      if (this.locations.x < xPercent10) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 - 10;
-        console.log("10% - X");
-      } else if (
-        this.locations.x < xPercent20 &&
-        this.locations.x > xPercent10
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 2;
-        console.log("20%  - X");
-      } else if (
-        this.locations.x < xPercent30 &&
-        this.locations.x > xPercent20
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 3;
-        console.log("30%  - X");
-      } else if (
-        this.locations.x < xPercent40 &&
-        this.locations.x > xPercent30
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 10;
-        console.log("40%  - X");
-      } else if (
-        this.locations.x < xPercent50 &&
-        this.locations.x > xPercent40
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 20;
-        console.log("50%  - X");
-      } else if (
-        this.locations.x < xPercent60 &&
-        this.locations.x > xPercent50
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
-        console.log("60%  - X");
-      } else if (
-        this.locations.x < xPercent70 &&
-        this.locations.x > xPercent60
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
-        console.log("70%  - X");
-      } else if (
-        this.locations.x < xPercent80 &&
-        this.locations.x > xPercent70
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 35;
-        console.log("80%  - X");
-      } else if (
-        this.locations.x < xPercent90 &&
-        this.locations.x > xPercent80
-      ) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 + 40;
-        console.log("90%  - X");
-      } else if (this.locations.x > xPercent90) {
-        xCalculated = (this.locations.x * 0.9) / 2.08 - 10;
-        console.log("100%  - X");
-      }
-
-      console.log(
-        "XCalc",
-        this.factor < 1 ? xCalculated / this.factor : xCalculated
-      );
-      console.log(
-        "YCalc",
-        this.factor < 1 ? yCalculated / this.factor : yCalculated
-      );
+      const xCalculated = (this.locations.x - 20) / 2.08;
+      const yCalculated = (canvasY - this.locations.y - 140) / 2.08;
+      console.log("XCalc", xCalculated);
+      console.log("YCalc", yCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
       const pngDims =
         this.factor < 1
@@ -386,20 +247,10 @@ export default {
       console.log("Sig width", pngDims.width);
       console.log("Sig height", pngDims.height);
       let count = 0;
-      for (let i = 1; i < 11; i++) {
-        firstPage.drawImage(pngImage, {
-          x: count,
-          y: count,
-          width: pngDims.width,
-          height: pngDims.height,
-          scale: pngDims,
-        });
-        count = i * 100;
-      }
 
       firstPage.drawImage(pngImage, {
-        x: (this.locations.x - 20) / 2.08,
-        y: (canvasY - this.locations.y - 140) / 2.08,
+        x: xCalculated,
+        y: yCalculated,
         width: pngDims.width,
         height: pngDims.height,
         scale: pngDims,
@@ -410,7 +261,7 @@ export default {
       this.src = null;
       setTimeout(() => {
         this.src = URL.createObjectURL(file);
-      }, 2500);
+      }, 500);
     },
   },
 };
@@ -436,9 +287,6 @@ canvas {
 
   .step-navigation {
     margin-bottom: 35px;
-  }
-
-  .pdf-viewer-component {
   }
 }
 .page {

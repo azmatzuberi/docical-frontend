@@ -24,16 +24,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    // const canvas = document.querySelector("canvas");
-    // const signaturePad = new SignaturePad(canvas);
-    // signaturePad.toDataURL();
-  },
   methods: {
     save() {
       const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
       console.log(isEmpty);
-      // console.log(data);
       this.$store.commit("signature/add", data);
     },
     undo() {
