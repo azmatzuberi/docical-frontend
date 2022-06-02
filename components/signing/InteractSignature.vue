@@ -1,13 +1,13 @@
 <template>
   <interact
-    draggable
+    :draggable="draggable"
     :dragOption="dragOption"
-    resizable
     :resizeOption="resizeOption"
     class="resize-drag"
     :style="style"
     @dragmove="dragmove"
     @resizemove="resizemove"
+    :gesturable="gesturable"
   >
     <img class="signature" :src="signature" />
   </interact>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       resizeOption: {
-        edges: { left: true, right: true, bottom: true, top: true },
+        edges: { left: false, right: false, bottom: false, top: false },
       },
       dragOption: {
         modifiers: [
@@ -37,6 +37,8 @@ export default {
       h: 200 * this.factor,
       xComp: this.x ? this.x : 0,
       yComp: this.y ? this.y : 0,
+      draggable: true,
+      gesturable: true,
     };
   },
   computed: {

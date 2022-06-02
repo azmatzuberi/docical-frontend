@@ -23,7 +23,7 @@
             <div>Total documents: {{ this.documents.length }}</div>
           </div>
         </div>
-        <section class="columns is-multiline">
+        <section class="columns is-multiline" v-if="reloadDocuments">
           <div
             class="
               document-list
@@ -47,12 +47,6 @@
             v-if="documents.length > 10"
             :total="documents.length"
             v-model="current"
-            :range-before="rangeBefore"
-            :range-after="rangeAfter"
-            :order="order"
-            :size="size"
-            :simple="isSimple"
-            :rounded="isRounded"
             :per-page="perPage"
             :icon-prev="prevIcon"
             :icon-next="nextIcon"
@@ -60,9 +54,7 @@
             aria-previous-label="Previous page"
             aria-page-label="Page"
             aria-current-label="Current page"
-            :page-input="hasInput"
-            :page-input-position="inputPosition"
-            :debounce-page-input="inputDebounce"
+            @change="reloadDocumentsFunction"
           >
           </b-pagination>
         </div>
@@ -105,8 +97,7 @@ export default {
       hasInput: false,
       prevIcon: "chevron-left",
       nextIcon: "chevron-right",
-      inputPosition: "",
-      inputDebounce: "",
+      reloadDocuments: true,
     };
   },
   computed: {
@@ -130,6 +121,12 @@ export default {
         `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`
       );
       this.documents.reverse();
+    },
+    reloadDocumentsFunction() {
+      this.reloadDocuments = false;
+      setTimeout(() => {
+        this.reloadDocuments = true;
+      }, 10);
     },
   },
 };

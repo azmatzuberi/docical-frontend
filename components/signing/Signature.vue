@@ -385,9 +385,21 @@ export default {
       console.log("PDF height", height);
       console.log("Sig width", pngDims.width);
       console.log("Sig height", pngDims.height);
+      let count = 0;
+      for (let i = 1; i < 11; i++) {
+        firstPage.drawImage(pngImage, {
+          x: count,
+          y: count,
+          width: pngDims.width,
+          height: pngDims.height,
+          scale: pngDims,
+        });
+        count = i * 100;
+      }
+
       firstPage.drawImage(pngImage, {
-        x: this.locations.x * 0.75,
-        y: (canvasY - this.locations.y) / 2.54,
+        x: (this.locations.x - 20) / 2.08,
+        y: (canvasY - this.locations.y - 140) / 2.08,
         width: pngDims.width,
         height: pngDims.height,
         scale: pngDims,
@@ -427,7 +439,6 @@ canvas {
   }
 
   .pdf-viewer-component {
-    max-width: 816px;
   }
 }
 .page {
