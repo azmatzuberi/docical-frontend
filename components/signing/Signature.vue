@@ -125,7 +125,8 @@ export default {
       locations: "signature/getLocations",
     }),
     factor() {
-      const result = window.innerWidth < 1271 ? window.innerWidth / 1271 : 1;
+      const result =
+        window.innerWidth < 1271 ? window.innerWidth / 1271 + 1 : 1;
       return result;
     },
   },
@@ -228,17 +229,22 @@ export default {
       const canvasX = canvas[targetPage].offsetWidth;
       console.log("X", this.locations.x);
       console.log("Y", this.locations.y);
-      console.log("Height", canvasY);
-      console.log("Width", canvasX);
-      const xCalculated = (this.locations.x - 20) / 2.08;
-      const yCalculated = (canvasY - this.locations.y - 140) / 2.08;
+      console.log("Canvas Height", canvasY);
+      console.log("Canvas Width", canvasX);
+      console.log("Factor", this.factor);
+      const xCalculated =
+        this.factor > 1
+          ? (this.locations.x - 22) / 1.14
+          : (this.locations.x - 20) / 2.08;
+      const yCalculated =
+        this.factor > 1
+          ? (canvasY - this.locations.y - 63) / 1.14
+          : (canvasY - this.locations.y - 140) / 2.08;
       console.log("XCalc", xCalculated);
       console.log("YCalc", yCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
       const pngDims =
-        this.factor < 1
-          ? pngImage.scale(0.075 * (1 + this.factor))
-          : pngImage.scale(0.075);
+        this.factor > 1 ? pngImage.scale(0.075) : pngImage.scale(0.075);
       const pages = pdfDoc.getPages();
       const firstPage = pages[0];
       const { width, height } = firstPage.getSize();
@@ -247,7 +253,16 @@ export default {
       console.log("Sig width", pngDims.width);
       console.log("Sig height", pngDims.height);
       let count = 0;
-
+      // for (let i = 0; i < 11; i++) {
+      //   firstPage.drawImage(pngImage, {
+      //     x: count,
+      //     y: count,
+      //     width: pngDims.width,
+      //     height: pngDims.height,
+      //     scale: pngDims,
+      //   });
+      //   count = i * 100;
+      // }
       firstPage.drawImage(pngImage, {
         x: xCalculated,
         y: yCalculated,

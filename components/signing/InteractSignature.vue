@@ -33,8 +33,8 @@ export default {
         ],
       },
       // values for interact.js transformation
-      w: 200 * this.factor,
-      h: 200 * this.factor,
+      w: 200 * (this.factor - 1),
+      h: 200 * (this.factor - 1),
       xComp: this.x ? this.x : 0,
       yComp: this.y ? this.y : 0,
       draggable: true,

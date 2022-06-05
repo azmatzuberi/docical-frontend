@@ -23,7 +23,7 @@
             <div>Total documents: {{ this.emails.length }}</div>
           </div>
         </div>
-        <section class="columns is-multiline">
+        <section class="columns is-multiline" v-if="reloadDocuments">
           <div
             class="document-list column is-4-desktop is-half-tablet"
             v-for="(email, index) in paginatedItems"
@@ -59,6 +59,7 @@
             :page-input="hasInput"
             :page-input-position="inputPosition"
             :debounce-page-input="inputDebounce"
+            @change="reloadDocumentsFunction"
           >
           </b-pagination>
         </div>
@@ -109,6 +110,7 @@ export default {
       nextIcon: "chevron-right",
       inputPosition: "",
       inputDebounce: "",
+      reloadDocuments: true,
     };
   },
   computed: {
@@ -132,6 +134,12 @@ export default {
         `${this.$config.app.backend_URL}/api/emails/${this.$auth.user._id}`
       );
       this.emails.reverse();
+    },
+    reloadDocumentsFunction() {
+      this.reloadDocuments = false;
+      setTimeout(() => {
+        this.reloadDocuments = true;
+      }, 10);
     },
   },
 };
