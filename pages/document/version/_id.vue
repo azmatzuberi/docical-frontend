@@ -55,14 +55,25 @@
             <b-button
               class="view-file-button"
               type="is-primary"
-              @click="downloadVersion(version.data._id)"
+              @click="downloadVersion(version.data._id, true)"
               >View file</b-button
             >
           </div>
           <div v-if="show" class="column is-one-third view-file-column">
-            <b-button class="view-file-button" type="is-primary is-light"
-              >Compare file</b-button
+            <b-upload
+              class="file-label"
+              @input="verifyFile"
+              type="is-primary is-light"
+              v-model="file"
             >
+              <span class="file-cta">
+                <b-icon class="file-icon" icon="upload"></b-icon>
+                <span class="file-label">Verify file</span>
+              </span>
+              <span class="file-name" v-if="file">
+                {{ file.name }}
+              </span>
+            </b-upload>
           </div>
           <div v-if="show" class="column is-one-third view-file-column">
             <b-button class="view-file-button" focused @click="openModal"
@@ -133,6 +144,8 @@ export default {
       show: null,
       src: "",
       isComponentModalActive: false,
+      file: null,
+      mainFile: null,
     };
   },
   computed: {
@@ -197,7 +210,7 @@ export default {
     openModal() {
       this.isComponentModalActive = true;
     },
-    async downloadVersion(id) {
+    async downloadVersion(id, openFile) {
       const vm = this;
       const request_config = {
         responseType: "arraybuffer",
@@ -212,10 +225,21 @@ export default {
           request_config
         )
         .then(async (response) => {
+          vm.mainFile = response;
           const file = new Blob([response], { type: "application/pdf" });
           vm.src = URL.createObjectURL(file);
-          window.open(vm.src);
+          openFile ? window.open(vm.src) : null;
         });
+    },
+    async verifyFile() {
+      await this.downloadVersion(this.version.data._id, false);
+      setTimeout(() => {
+        console.log(this.mainFile);
+        const buff1 = Buffer.from(this.mainFile);
+        const buff2 = Buffer.from(this.file);
+        const result = buff1.equals(buff2);
+        console.log(result);
+      }, 2000);
     },
   },
 };

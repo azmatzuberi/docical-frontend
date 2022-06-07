@@ -26,7 +26,7 @@
             </td>
           </tr>
           <tr>
-            <td class="row-heading">Date</td>
+            <td class="row-heading">Date Processed:</td>
             <td class="email-field">
               {{ new Date(email.created).toLocaleTimeString("en-US") }}
               -

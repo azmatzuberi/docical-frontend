@@ -53,12 +53,12 @@
             <h3>Pay-per-use</h3>
             <h2>Free</h2>
             <b-button>Get started</b-button>
-            <p>3 free docs per month</p>
-            <p>$0.85/doc</p>
+            <p>1000 free doc uploads</p>
             <p>Unlimited E-signing</p>
             <p>Document files</p>
             <p>Emails</p>
-            <p>SMS</p>
+            <p>SMS (coming soon)</p>
+            <p>API (coming soon)</p>
           </div>
           <div
             class="column is-one-third-desktop plan highlight has-text-centered"
@@ -72,12 +72,11 @@
               <h2>$15/month</h2>
               <span class="usd">USD</span>
               <b-button type="is-primary">Get started</b-button>
-              <p>3 free docs per month</p>
-              <p>100 docs/month</p>
+              <p>50,000 doc uploads</p>
               <p>Unlimited E-signing</p>
               <p>Document files</p>
-              <p>Emails</p>
-              <p>SMS</p>
+              <p>SMS (coming soon)</p>
+              <p>API (coming soon)</p>
             </div>
           </div>
           <div
@@ -94,11 +93,12 @@
             <h2>$45/month</h2>
             <span class="usd">USD</span>
             <b-button>Get started</b-button>
-            <p>Unlimited docs</p>
+            <p>1 million doc uploads</p>
+            <p>$0.85/upload after 1 million uploads</p>
             <p>Unlimited E-signing</p>
             <p>Document files</p>
-            <p>Emails</p>
-            <p>SMS</p>
+            <p>SMS (coming soon)</p>
+            <p>API (coming soon)</p>
           </div>
         </section>
         <b-carousel

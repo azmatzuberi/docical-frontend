@@ -7,21 +7,26 @@
           <div class="column is-one-quarter-desktop">
             <SideBar start-screen="startScreen" />
           </div>
-          <div class="column is-one-third" v-if="documents">
-            <ButtonCard
-              title="Total Number of Docs"
-              icon="file"
-              :numberData="documents.count"
-            />
+          <div class="column is-one-quarter" v-if="documents">
+            <a href="/open-document">
+              <ButtonCard
+                title="Total Number of Docs"
+                icon="file"
+                :numberData="documents.count"
+              />
+            </a>
           </div>
-          <div class="column is-one-third" v-if="emails">
-            <ButtonCard
-              title="Total Number of Emails"
-              icon="mail"
-              :numberData="emails.count"
-            />
+
+          <div class="column is-one-quarter" v-if="emails">
+            <a href="/open-email">
+              <ButtonCard
+                title="Total Number of Emails"
+                icon="mail"
+                :numberData="emails.count"
+              />
+            </a>
           </div>
-          <div class="column is-one-third">
+          <div class="column is-one-quarter">
             <ButtonCard
               title="Total Number of SMS"
               icon="text"
@@ -61,7 +66,7 @@ export default {
   methods: {
     async getDocuments() {
       this.documents = await this.$axios.$post(
-        `${this.$config.app.backend_URL}/api/documents/${this.$auth.user._id}`,
+        `${this.$config.app.backend_URL}/api/getAllDocs/${this.$auth.user._id}`,
         {
           count: true,
         }

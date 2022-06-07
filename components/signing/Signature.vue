@@ -95,7 +95,7 @@ export default {
       numPages: null,
       heights: [],
       errors: [],
-      scale: 1,
+      scale: "page-width",
       src: "",
       pages: null,
       response: "",
@@ -232,14 +232,39 @@ export default {
       console.log("Canvas Height", canvasY);
       console.log("Canvas Width", canvasX);
       console.log("Factor", this.factor);
-      const xCalculated =
-        this.factor > 1
-          ? (this.locations.x - 22) / 1.14
-          : (this.locations.x - 20) / 2.08;
-      const yCalculated =
-        this.factor > 1
-          ? (canvasY - this.locations.y - 63) / 1.14
-          : (canvasY - this.locations.y - 140) / 2.08;
+      let xCalculated;
+      let yCalculated;
+
+      // Xfactor
+      // iPad Mini - X
+      if (this.factor > 1.6 && this.factor <= 1.64) {
+        xCalculated = (this.locations.x - 22) / 1.14;
+
+        //   // iPad Air 4 - X
+      } else if (this.factor > 1.64 && this.factor < 1.65) {
+        xCalculated = (this.locations.x + 10) / 1.33;
+
+        //   // iPhone 12 Pro
+      } else if (this.factor < 1.64 && this.factor > 1.3) {
+        xCalculated = this.locations.x + 63 / 0.53;
+      } else {
+        xCalculated = (this.locations.x - 20) / 2.08;
+      }
+
+      // Yfactor
+      // iPad Mini - Y
+      if (this.factor > 1.6 && this.factor <= 1.64) {
+        yCalculated = (canvasY - this.locations.y - 63) / 1.14;
+
+        //   // iPad Air 4 - Y
+      } else if (this.factor > 1.64 && this.factor < 1.65) {
+        yCalculated = (canvasY - this.locations.y - 125) / 1.33;
+        //   // iPhone 12 Pro
+      } else if (this.factor < 1.64 && this.factor > 1.3) {
+        yCalculated = (canvasY - this.locations.y - 50) / 0.53;
+      } else {
+        yCalculated = (canvasY - this.locations.y - 140) / 2.08;
+      }
       console.log("XCalc", xCalculated);
       console.log("YCalc", yCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
@@ -253,16 +278,16 @@ export default {
       console.log("Sig width", pngDims.width);
       console.log("Sig height", pngDims.height);
       let count = 0;
-      // for (let i = 0; i < 11; i++) {
-      //   firstPage.drawImage(pngImage, {
-      //     x: count,
-      //     y: count,
-      //     width: pngDims.width,
-      //     height: pngDims.height,
-      //     scale: pngDims,
-      //   });
-      //   count = i * 100;
-      // }
+      for (let i = 0; i < 11; i++) {
+        firstPage.drawImage(pngImage, {
+          x: count,
+          y: count,
+          width: pngDims.width,
+          height: pngDims.height,
+          scale: pngDims,
+        });
+        count = i * 100;
+      }
       firstPage.drawImage(pngImage, {
         x: xCalculated,
         y: yCalculated,
