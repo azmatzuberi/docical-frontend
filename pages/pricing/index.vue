@@ -6,11 +6,11 @@
         <div class="columns homepage">
           <div class="column is-full">
             <h1 class="primary-headline has-text-centered">
-              Choose your package. Use free for 3 documents every month
+              It's nice to get free things, isn't it? Our free plan is for you
             </h1>
             <p class="has-text-centered">
-              We like to keep it convenient for you. You can choose a
-              pay-per-use package or subscribe monthly for better rates.
+              We like to keep it convenient for you. You can upload up to 1000
+              documents/emails/versions absolutely free.
             </p>
             <div class="feature-set columns is-centered">
               <div class="column">
@@ -40,7 +40,7 @@
             </div>
           </div>
         </div>
-        <section class="plans columns">
+        <section class="plans columns is-centered">
           <div
             class="
               column
@@ -50,17 +50,14 @@
               has-text-centered
             "
           >
-            <h3>Pay-per-use</h3>
             <h2>Free</h2>
             <b-button>Get started</b-button>
-            <p>1000 free doc uploads</p>
+            <p>1000 doc/email uploads</p>
             <p>Unlimited E-signing</p>
             <p>Document files</p>
             <p>Emails</p>
-            <p>SMS (coming soon)</p>
-            <p>API (coming soon)</p>
           </div>
-          <div
+          <!-- <div
             class="column is-one-third-desktop plan highlight has-text-centered"
             style="margin-top: -60px"
           >
@@ -72,11 +69,10 @@
               <h2>$15/month</h2>
               <span class="usd">USD</span>
               <b-button type="is-primary">Get started</b-button>
-              <p>50,000 doc uploads</p>
+              <p>50,000 doc/email uploads</p>
               <p>Unlimited E-signing</p>
               <p>Document files</p>
-              <p>SMS (coming soon)</p>
-              <p>API (coming soon)</p>
+              <p>Emails</p>
             </div>
           </div>
           <div
@@ -93,13 +89,12 @@
             <h2>$45/month</h2>
             <span class="usd">USD</span>
             <b-button>Get started</b-button>
-            <p>1 million doc uploads</p>
+            <p>1 million doc/email uploads</p>
             <p>$0.85/upload after 1 million uploads</p>
             <p>Unlimited E-signing</p>
             <p>Document files</p>
-            <p>SMS (coming soon)</p>
-            <p>API (coming soon)</p>
-          </div>
+            <p>Emails</p>
+          </div> -->
         </section>
         <b-carousel
           class="carousel-block column"
@@ -121,19 +116,16 @@
                   is-medium
                 "
               >
-                <h3>Pay-per-use</h3>
                 <h2>Free</h2>
                 <b-button>Get started</b-button>
-                <p>3 free docs per month</p>
-                <p>$0.85/doc</p>
+                <p>1000 doc/email uploads</p>
                 <p>Unlimited E-signing</p>
                 <p>Document files</p>
                 <p>Emails</p>
-                <p>SMS</p>
               </div>
             </section>
           </b-carousel-item>
-          <b-carousel-item>
+          <!-- <b-carousel-item>
             <section class="hero">
               <div
                 class="
@@ -178,14 +170,13 @@
                 <h2>$45/month</h2>
                 <span class="usd">USD</span>
                 <b-button>Get started</b-button>
-                <p>Unlimited docs</p>
+                <p>1 million doc/email uploads</p>
                 <p>Unlimited E-signing</p>
                 <p>Document files</p>
                 <p>Emails</p>
-                <p>SMS</p>
               </div>
             </section>
-          </b-carousel-item>
+          </b-carousel-item> -->
         </b-carousel>
       </div>
       <section class="middle-image"></section>

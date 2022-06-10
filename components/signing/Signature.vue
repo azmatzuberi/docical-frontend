@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <NavBar @writePdf="writePdf()" />
+    <NavBar @writePdf="writePdf()" @zoomOut="zoomOut = true" />
     <div class="modal-card columns is-centered" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">Add your signature</p>
@@ -56,6 +56,7 @@
               @click="insertSignature($event, i)"
             >
               <pdf-viewer
+                :class="{ zoomOut: zoomOut }"
                 class="pdf-viewer-component"
                 :src="src"
                 :key="i"
@@ -117,6 +118,7 @@ export default {
       x: 200,
       y: 200,
       sumHeight: 0,
+      zoomOut: true,
     };
   },
   computed: {
@@ -152,6 +154,7 @@ export default {
       this.y = mousePos.y + vm.sumHeight;
       vm.showSignatureImage = true;
       vm.sumHeight = 0;
+      this.zoomOut = false;
     },
     showSignaturePadNow() {
       this.showSignaturePad = true;
@@ -327,6 +330,20 @@ canvas {
 
   .step-navigation {
     margin-bottom: 35px;
+  }
+
+  @media (max-width: 900px) {
+    .pdf-viewer-component {
+      width: 900px;
+    }
+  }
+  @media (min-width: 901px) {
+    .pdf-viewer-component {
+      width: 1271px;
+    }
+  }
+  .zoomOut {
+    width: auto;
   }
 }
 .page {
