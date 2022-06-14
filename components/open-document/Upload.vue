@@ -34,7 +34,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "VersionUpLoad",
-  props: ["document", "email"],
+  props: ["document", "email", "docType"],
   data() {
     return {
       dropFiles: [],

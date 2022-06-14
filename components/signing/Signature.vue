@@ -204,15 +204,17 @@ export default {
       let breakPoints = [];
       let targetPage = 0;
 
+      // Get Page elements to get heights and breakpoints
       const canvas = document.getElementsByClassName("page");
       for (let i = 0; i < canvas.length; i++) {
         canvasHeights[i] = canvas[i].offsetHeight;
         breakPoints[i] = {
           start: canvasHeights[i]++,
-          end: canvasHeights[i] + 23,
+          end: canvasHeights[i] + 24,
         };
       }
 
+      // Find target page through filtering and add 1 to increase the page number
       for (let j = 0; j < canvas.length; j++) {
         if (
           this.locations.y > breakPoints[j].start &&
@@ -222,14 +224,19 @@ export default {
         }
       }
 
+      // Total sum height of all canvases (pages) until the target page
       let sumHeightOfPages = 0;
       for (let k = 0; k < targetPage; k++) {
         sumHeightOfPages += canvasHeights[k];
-        // if (breakPoints[k].start)
+        if (breakPoints[k].start && breakPoints[k].end) sumHeightOfPages - 24;
       }
 
+      // Get target page height and width
+      // X will always be the same and Y will be relative including height of previous pages
       const canvasY = canvas[targetPage].offsetHeight;
       const canvasX = canvas[targetPage].offsetWidth;
+      let yOfMouse;
+      if (targetPage > 1) yOfMouse = this.locations.y - sumHeightOfPages;
       console.log("X", this.locations.x);
       console.log("Y", this.locations.y);
       console.log("Canvas Height", canvasY);
@@ -239,10 +246,14 @@ export default {
       let yCalculated;
       if (window.innerWidth < 901) {
         xCalculated = (this.locations.x + 55) / 1.78;
-        yCalculated = (canvasY - this.locations.y - 60) / 1.78;
+        yCalculated = yOfMouse
+          ? (canvasY - yOfMouse - 60) / 1.78
+          : (canvasY - this.locations.y - 60) / 1.78;
       } else if (window.innerWidth > 900) {
-        xCalculated = (this.locations.x - 22) / 2.08;
-        yCalculated = (canvasY - this.locations.y - 138) / 2.08;
+        xCalculated = (this.locations.x - 20) / 2.08;
+        yCalculated = yOfMouse
+          ? (canvasY - yOfMouse - 138) / 2.08
+          : (canvasY - this.locations.y - 138) / 2.08;
       }
       console.log("XCalc", xCalculated);
       console.log("YCalc", yCalculated);

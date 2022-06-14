@@ -3,7 +3,7 @@
     <NavBar page="profile-page" />
     <section class="profile-main">
       <div class="container">
-        <div class="columns profile-page column">
+        <div class="columns profile-page is-multiline column">
           <div class="column is-3-desktop">
             <SideBar />
           </div>
@@ -55,6 +55,28 @@
               <h1>You don't have access to this email</h1>
             </div>
           </section>
+          <div
+            v-if="email && show"
+            class="column is-one-third view-file-column"
+          >
+            <b-button
+              class="view-file-button"
+              type="is-primary"
+              @click="downloadVersion(version.data._id)"
+              >View file</b-button
+            >
+          </div>
+          <div v-if="show" class="column is-one-third view-file-column">
+            <b-button class="view-file-button" type="is-primary is-light"
+              >Compare file</b-button
+            >
+          </div>
+          <div v-if="show" class="column is-one-third view-file-column">
+            <b-button class="view-file-button" focused @click="openModal"
+              ><b-icon icon="signature-freehand"></b-icon>&nbsp;&nbsp;&nbsp;
+              Sign document</b-button
+            >
+          </div>
         </div>
         <section class="columns" v-if="!collaboratorFlag && show && versions">
           <div class="column is-one-third-desktop is-half-tablet">

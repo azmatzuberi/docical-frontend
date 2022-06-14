@@ -3,7 +3,7 @@
     <NavBar page="profile-page" />
     <section class="profile-main">
       <div class="container">
-        <div class="columns profile-page column">
+        <div class="columns profile-page column is-multiline">
           <div class="column is-3-desktop">
             <SideBar />
           </div>
@@ -39,12 +39,6 @@
             <div v-if="versions" class="document-versions">
               Versions: {{ versions.length }}
             </div>
-            <div class="document-original">
-              Original:
-              <a target="blank" :href="encodeURI(document.data.originalFileUrl)"
-                >View</a
-              >
-            </div>
           </div>
           <div v-if="show" class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
@@ -56,6 +50,28 @@
               <h1>You don't have access to this document</h1>
             </div>
           </section>
+          <div
+            v-if="document && show"
+            class="column is-one-third-desktop view-file-column"
+          >
+            <b-button
+              class="view-file-button"
+              type="is-primary"
+              @click="downloadVersion(version.data._id)"
+              >View file</b-button
+            >
+          </div>
+          <div v-if="show" class="column is-one-third view-file-column">
+            <b-button class="view-file-button" type="is-primary is-light"
+              >Compare file</b-button
+            >
+          </div>
+          <div v-if="show" class="column is-one-third view-file-column">
+            <b-button class="view-file-button" focused @click="openModal"
+              ><b-icon icon="signature-freehand"></b-icon>&nbsp;&nbsp;&nbsp;
+              Sign document</b-button
+            >
+          </div>
         </div>
         <section class="columns" v-if="!collaboratorFlag && show && versions">
           <div class="column is-one-third-desktop is-half-tablet">
@@ -131,6 +147,8 @@ export default {
       show: null,
       current: 1,
       perPage: 10,
+      collaboratorFlag: null,
+      isComponentModalActive: false,
     };
   },
   computed: {
@@ -157,6 +175,9 @@ export default {
     this.getCollaborators();
   },
   methods: {
+    openModal() {
+      this.isComponentModalActive = true;
+    },
     addDocStuff(data) {
       if (data) {
         const doc = {
@@ -179,13 +200,15 @@ export default {
           if (result.status === 200 && result.flag) {
             this.collaboratorFlag = true;
             this.show = true;
+            this.getDocument();
+            this.getVersions();
           }
           if (result.status === 201 && result.flag) {
             this.collaboratorFlag = false;
             this.show = true;
+            this.getDocument();
+            this.getVersions();
           }
-          this.getDocument();
-          this.getVersions();
         })
         .catch(() => {
           this.show = false;
@@ -197,7 +220,6 @@ export default {
       );
     },
     async getVersions() {
-      this.show = false;
       this.versions = await this.$axios.$post(
         `${this.$config.app.backend_URL}/api/doc_versions/versions/${this.$nuxt.$route.params.id}`,
         {
