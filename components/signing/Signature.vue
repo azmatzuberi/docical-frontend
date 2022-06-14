@@ -258,8 +258,7 @@ export default {
       console.log("XCalc", xCalculated);
       console.log("YCalc", yCalculated);
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
-      const pngDims =
-        this.factor > 1 ? pngImage.scale(0.075) : pngImage.scale(0.075);
+      const pngDims = pngImage.scale(0.075);
       const pages = pdfDoc.getPages();
       const firstPage = pages[0];
       const { width, height } = firstPage.getSize();

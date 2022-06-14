@@ -3,7 +3,7 @@
     <NavBar :homepage="true" />
     <section class="main">
       <div class="container">
-        <div class="columns homepage">
+        <div class="columns homepage is-gapless">
           <div class="column is-half-desktop">
             <h1 class="primary-headline">
               Easily prove authenticity of your documents through a verified
@@ -27,7 +27,7 @@
       <section class="middle-image"></section>
       <section class="container">
         <section class="container">
-          <section class="columns signature-section">
+          <section class="columns signature-section is-gapless">
             <div class="column">
               <img
                 src="/images/signature-collage.png"
@@ -40,7 +40,7 @@
             </div>
           </section>
         </section>
-        <section class="columns audit-section">
+        <section class="columns audit-section is-gapless">
           <div class="column">
             <h2>Audit trails like never before...</h2>
             <p>Filler text</p>
@@ -51,7 +51,7 @@
         </section>
       </section>
       <section class="container">
-        <section class="columns collaboration-section">
+        <section class="columns collaboration-section is-gapless">
           <div class="column">
             <img
               src="/images/collaboration.png"
@@ -65,7 +65,7 @@
         </section>
       </section>
       <section class="container">
-        <section class="columns email-section">
+        <section class="columns email-section is-gapless">
           <div class="column">
             <h2>Email your documents to upload on the go</h2>
             <p>Filler text</p>
@@ -78,7 +78,7 @@
           </div>
         </section>
       </section>
-      <section class="container verified-section">
+      <section class="container verified-section is-gapless">
         <h2 class="verfied-title has-text-centered">
           Your documents can easily be proven authentic
         </h2>
@@ -88,12 +88,32 @@
             src="/images/court.png"
             alt="Courtroom document"
           />
-          <p class="courtoom-paragraph">
+          <p class="courtroom-paragraph has-text-centered">
             Using Docical can help you prove the authenticity of your documents
             by allowing your to share a link to a version of your document that
             can be verified based on its audit trail
           </p>
         </div>
+      </section>
+      <section class="screenshots">
+        <section class="container">
+          <div class="columns is-gapless">
+            <div class="iphone column is-one-third">
+              <img
+                class="iphone-image"
+                src="/images/docical-homepage-screen.png"
+                alt="Docical phone screenshot"
+              />
+            </div>
+            <div class="macbook column">
+              <img
+                class="macbook-image"
+                src="/images/macbook-screenshot.png"
+                alt="MacBook screenshot"
+              />
+            </div>
+          </div>
+        </section>
       </section>
     </section>
   </section>
@@ -161,6 +181,33 @@ export default {
   .courtroom-paragraph {
     width: 60%;
     display: block;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1200px) {
+    .column {
+      // padding-right: 0;
+    }
+  }
+
+  .iphone {
+    width: 400px;
+    display: flex;
+
+    img {
+      height: 100%;
+      align-self: center;
+      object-fit: contain;
+    }
+  }
+
+  .macbook {
+    width: 500px;
+  }
+
+  .screenshots {
+    margin-top: 5%;
+    background-color: lightgrey;
   }
 }
 </style>
