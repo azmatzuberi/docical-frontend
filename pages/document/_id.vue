@@ -42,7 +42,11 @@
           </div>
           <div v-if="show" class="upload-column column is-one-third">
             <b-field label="Upload a version of this file">
-              <Upload :document="document" @reload="getVersions" />
+              <Upload
+                :document="document"
+                :docType="'version'"
+                @reload="getVersions"
+              />
             </b-field>
           </div>
           <section v-if="show === false">
@@ -57,7 +61,7 @@
             <b-button
               class="view-file-button"
               type="is-primary"
-              @click="downloadVersion(version.data._id)"
+              @click="downloadVersion(document.data._id)"
               >View file</b-button
             >
           </div>

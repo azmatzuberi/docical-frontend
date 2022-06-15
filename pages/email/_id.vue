@@ -164,6 +164,7 @@ export default {
       show: null,
       current: 1,
       perPage: 10,
+      isComponentModalActive: false,
     };
   },
   computed: {
@@ -190,6 +191,9 @@ export default {
     this.getCollaborators();
   },
   methods: {
+    openModal() {
+      this.isComponentModalActive = true;
+    },
     addDocStuff(data) {
       if (data) {
         const doc = {

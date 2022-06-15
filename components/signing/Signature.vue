@@ -136,6 +136,14 @@ export default {
     this.downloadVersion(this.version.data._id);
   },
   methods: {
+    danger() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message:
+          "Cannot sign document as it is not a standard size - Has to be 8.5 x 11",
+        type: "is-danger",
+      });
+    },
     getMousePos(canvas, evt) {
       const rect = canvas.getBoundingClientRect();
       return {
@@ -260,8 +268,11 @@ export default {
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
       const pngDims = pngImage.scale(0.075);
       const pages = pdfDoc.getPages();
-      const firstPage = pages[0];
-      const { width, height } = firstPage.getSize();
+      for (let i = 0; i < pages.length; i++) {
+        const { width, height } = pages[i].getSize();
+        if (width < 612 || width > 792) return this.danger();
+        if (height < 792 || height > 792) return this.danger();
+      }
       console.log("PDF width", width);
       console.log("PDF height", height);
       console.log("Sig width", pngDims.width);
