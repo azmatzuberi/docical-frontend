@@ -211,6 +211,7 @@ export default {
       let canvasHeights = [];
       let breakPoints = [];
       let targetPage = 0;
+      const yLocation = this.locations.y;
 
       // Get Page elements to get heights and breakpoints
       const canvas = document.getElementsByClassName("page");
@@ -222,6 +223,7 @@ export default {
         };
       }
 
+      let pageNumber = 0;
       // Find target page through filtering and add 1 to increase the page number
       for (let j = 0; j < canvas.length; j++) {
         if (

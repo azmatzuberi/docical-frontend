@@ -78,7 +78,7 @@
           </div>
         </section>
       </section>
-      <section class="container verified-section is-gapless">
+      <section class="container verified-section">
         <h2 class="verfied-title has-text-centered">
           Your documents can easily be proven authentic
         </h2>
@@ -97,6 +97,9 @@
       </section>
       <section class="screenshots">
         <section class="container">
+          <h2 class="creative-title has-text-centered">
+            Creative ways to manage your documents and emails
+          </h2>
           <div class="columns is-gapless">
             <div class="iphone column is-one-third">
               <img
@@ -111,6 +114,58 @@
                 src="/images/macbook-screenshot.png"
                 alt="MacBook screenshot"
               />
+            </div>
+            <div class="upload-description column">
+              <ul>
+                <li>You can use the easy file uploader, or</li>
+                <li>Email your documents in and</li>
+                <li>
+                  Create a record of your email and anyone who emails you with
+                  Docical cc'd
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="multi-display-section">
+        <section class="container">
+          <div class="multi-display-division columns is-centered is-gapless">
+            <div class="column">
+              <img
+                class="stamp-image"
+                src="/images/Symbol.png"
+                alt="Stamp on document"
+              />
+              <p class="stamp-paragraph has-text-centered">
+                Using Docical can help you prove the authenticity of your
+                documents by allowing your to share a link to a version of your
+                document that can be verified based on its audit trail
+              </p>
+            </div>
+            <div class="column">
+              <img
+                class="check-image"
+                src="/images/check.png"
+                alt="Email check"
+              />
+              <p class="check-paragraph has-text-centered">
+                Using Docical can help you prove the authenticity of your
+                documents by allowing your to share a link to a version of your
+                document that can be verified based on its audit trail
+              </p>
+            </div>
+            <div class="column">
+              <img
+                class="courtroom-image"
+                src="/images/Symbol.png"
+                alt="Courtroom document"
+              />
+              <p class="courtroom-paragraph has-text-centered">
+                Using Docical can help you prove the authenticity of your
+                documents by allowing your to share a link to a version of your
+                document that can be verified based on its audit trail
+              </p>
             </div>
           </div>
         </section>
@@ -184,30 +239,62 @@ export default {
     margin: 0 auto;
   }
 
-  @media (max-width: 1200px) {
-    .column {
-      // padding-right: 0;
-    }
-  }
-
   .iphone {
-    width: 400px;
+    height: 400px;
     display: flex;
+    justify-content: center;
 
     img {
       height: 100%;
-      align-self: center;
       object-fit: contain;
     }
   }
 
   .macbook {
-    width: 500px;
+    height: 400px;
+    display: flex;
+
+    img {
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   .screenshots {
     margin-top: 5%;
     background-color: lightgrey;
+  }
+
+  .creative-title {
+    padding-top: 3rem;
+  }
+
+  .upload-description {
+    display: flex;
+    align-items: center;
+
+    li {
+      margin: 20px 0;
+    }
+  }
+
+  .multi-display-section {
+    margin-top: 5rem;
+
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      display: flex;
+      width: 40%;
+      margin: 0 auto;
+    }
+
+    p {
+      width: 100%;
+    }
   }
 }
 </style>
