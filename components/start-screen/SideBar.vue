@@ -47,7 +47,7 @@
                   icon="folder-account"
                   label="Shared with others"
                   tag="router-link"
-                  to="/shared"
+                  to="/shared-others"
                 ></b-menu-item>
               </b-menu-item>
             </b-menu-list>

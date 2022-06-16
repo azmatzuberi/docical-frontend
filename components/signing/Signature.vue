@@ -140,7 +140,7 @@ export default {
       this.$buefy.toast.open({
         duration: 5000,
         message:
-          "Cannot sign document as it is not a standard size - Has to be 8.5 x 11",
+          "Cannot sign document as it is not a standard size - Has to be 	8.5 x 11 or 612 x 792 in PDF size",
         type: "is-danger",
       });
     },
@@ -270,9 +270,10 @@ export default {
       const pages = pdfDoc.getPages();
       for (let i = 0; i < pages.length; i++) {
         const { width, height } = pages[i].getSize();
-        if (width < 612 || width > 792) return this.danger();
-        if (height < 792 || height > 792) return this.danger();
+        if (width !== 612) return this.danger();
+        if (height !== 792) return this.danger();
       }
+      const { width, height } = pages[0].getSize();
       console.log("PDF width", width);
       console.log("PDF height", height);
       console.log("Sig width", pngDims.width);
@@ -288,6 +289,7 @@ export default {
       //   });
       //   count = i * 100;
       // }
+      const firstPage = pages[0];
       firstPage.drawImage(pngImage, {
         x: xCalculated,
         y: yCalculated,
