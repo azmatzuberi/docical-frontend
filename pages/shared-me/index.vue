@@ -107,6 +107,9 @@ export default {
       nextIcon: "chevron-right",
       inputPosition: "",
       inputDebounce: "",
+      documentVersions: [],
+      emails: [],
+      emailVersions: [],
     };
   },
   computed: {
@@ -125,6 +128,9 @@ export default {
   },
   mounted() {
     this.getDocuments();
+    this.getDocumentVersions();
+    this.getEmails();
+    this.getEmailVersions();
   },
   methods: {
     async getDocuments() {
@@ -132,6 +138,24 @@ export default {
         `${this.$config.app.backend_URL}/api/documents/getSharedWithMe/${this.$auth.user._id}`
       );
       this.documents.reverse();
+    },
+    async getDocumentVersions() {
+      this.documents = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/doc_versions/getSharedWithMe/${this.$auth.user._id}`
+      );
+      this.documentVersions.reverse();
+    },
+    async getEmails() {
+      this.documents = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/emails/getSharedWithMe/${this.$auth.user._id}`
+      );
+      this.emails.reverse();
+    },
+    async getEmailVersions() {
+      this.documents = await this.$axios.$post(
+        `${this.$config.app.backend_URL}/api/email_versions/getSharedWithMe/${this.$auth.user._id}`
+      );
+      this.emailVersions.reverse();
     },
   },
 };

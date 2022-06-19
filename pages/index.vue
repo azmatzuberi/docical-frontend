@@ -6,17 +6,19 @@
         <div class="columns homepage is-gapless">
           <div class="column is-half-desktop">
             <h1 class="primary-headline">
-              Easily prove authenticity of your documents through a verified
-              history
+              Sign, collaboarate and prove authenticity of your documents and
+              emails easily
             </h1>
             <p>
               Eliminate document forgery and verify document authenticity with
               smart document stamping to prove time, date and location of the
               uploaded document. Share document details with your organization
-              or verify with third-party/guest entities.
+              or send your documents for verification by others.
             </p>
-            <b-button class="start-now-button" type="is-primary"
-              >Start now</b-button
+            <a href="/start-screen"
+              ><b-button class="start-now-button" type="is-primary"
+                >Start now</b-button
+              ></a
             >
           </div>
           <div class="column is-half-desktop">
@@ -133,11 +135,23 @@
           <div class="multi-display-division columns is-centered is-gapless">
             <div class="column">
               <img
-                class="stamp-image"
-                src="/images/Symbol.png"
-                alt="Stamp on document"
+                class="upload-image"
+                src="/images/upload-button.png"
+                alt="Upload files button"
               />
               <p class="stamp-paragraph has-text-centered">
+                Using Docical can help you prove the authenticity of your
+                documents by allowing your to share a link to a version of your
+                document that can be verified based on its audit trail
+              </p>
+            </div>
+            <div class="column">
+              <img
+                class="stamp-image"
+                src="/images/Symbol.png"
+                alt="Courtroom document"
+              />
+              <p class="courtroom-paragraph has-text-centered">
                 Using Docical can help you prove the authenticity of your
                 documents by allowing your to share a link to a version of your
                 document that can be verified based on its audit trail
@@ -150,18 +164,6 @@
                 alt="Email check"
               />
               <p class="check-paragraph has-text-centered">
-                Using Docical can help you prove the authenticity of your
-                documents by allowing your to share a link to a version of your
-                document that can be verified based on its audit trail
-              </p>
-            </div>
-            <div class="column">
-              <img
-                class="courtroom-image"
-                src="/images/Symbol.png"
-                alt="Courtroom document"
-              />
-              <p class="courtroom-paragraph has-text-centered">
                 Using Docical can help you prove the authenticity of your
                 documents by allowing your to share a link to a version of your
                 document that can be verified based on its audit trail

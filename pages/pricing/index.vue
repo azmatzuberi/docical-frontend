@@ -51,7 +51,7 @@
             "
           >
             <h2>Free</h2>
-            <b-button>Get started</b-button>
+            <a href="/signup"><b-button>Get started</b-button></a>
             <p>1000 doc/email uploads</p>
             <p>Unlimited E-signing</p>
             <p>Document files</p>
@@ -117,7 +117,7 @@
                 "
               >
                 <h2>Free</h2>
-                <b-button>Get started</b-button>
+                <a href="/signup"><b-button>Get started</b-button></a>
                 <p>1000 doc/email uploads</p>
                 <p>Unlimited E-signing</p>
                 <p>Document files</p>
